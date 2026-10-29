@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bella Rancho — банно-гостевой комплекс, Алматы (демо)</title>
+    <meta name="robots" content="noindex" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Manrope:wght@400;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+    <!--
+      Эффекты сделаны по мотивам компонентов 21st.dev (MIT):
+      Background Pixel Stars (uicapsule), Gooey Marquee (Ali Imam),
+      Stacked Card Image Carousel (Kedhareswer Naidu), Glassmorphism Profile Card (Berat Berkay Gökdemir),
+      Shine Border (Dillion Verma).
+    -->
+    <style>
+      :root {
+        --night: #0b1020;
+        --night2: #121a30;
+        --gold: #e9c27b;
+        --gold2: #f7dfae;
+        --ink: #f3efe6;
+        --muted: #9aa3b8;
+        --line: rgba(243,239,230,.12);
+        --glass: rgba(255,255,255,.06);
+      }
+      * { box-sizing: border-box; margin: 0; }
+      html { scroll-behavior: smooth; }
+      body { font-family: "Manrope", system-ui, sans-serif; background: var(--night); color: var(--ink); line-height: 1.6; overflow-x: hidden; }
+      a { color: inherit; }
+      .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+      .serif { font-family: "Cormorant Garamond", Georgia, serif; }
+
+      .demo-bar { font-family: "JetBrains Mono", monospace; font-size: 12px; text-align: center; padding: 6px 12px; background: #000; color: var(--muted); }
+      .demo-bar a { color: var(--gold); }
+
+      /* Шапка */
+      .top { position: absolute; left: 0; right: 0; z-index: 10; }
+      .top .wrap { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; }
+      .logo { font-family: "Cormorant Garamond", serif; font-size: 28px; font-weight: 700; text-decoration: none; letter-spacing: .02em; }
+      .logo i { font-style: italic; color: var(--gold); }
+      .top nav { display: flex; gap: 22px; font-size: 14px; }
+      .top nav a { text-decoration: none; color: var(--muted); transition: color .2s; }
+      .top nav a:hover { color: var(--ink); }
+
+      /* Hero: звёздное небо + юрты */
+      .hero { position: relative; min-height: min(94vh, 880px); display: flex; align-items: center; overflow: hidden;
+        background: radial-gradient(120% 80% at 50% 110%, #2a2440 0%, transparent 60%), linear-gradient(180deg, #060914 0%, var(--night) 100%); }
+      #stars { position: absolute; inset: 0; width: 100%; height: 100%; }
+      .moon { position: absolute; top: 16%; right: 14%; width: 110px; height: 110px; border-radius: 50%;
+        background: radial-gradient(circle at 38% 38%, #fff8e6, var(--gold2) 55%, #c9a35f);
+        box-shadow: 0 0 60px rgba(247,223,174,.45), 0 0 160px rgba(247,223,174,.18); }
+      .skyline { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 34%; }
+      .hero .wrap { position: relative; z-index: 2; width: 100%; padding-top: 120px; padding-bottom: 12vh; }
+      .rating { display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px 8px 10px; border-radius: 999px; background: var(--glass); border: 1px solid var(--line); backdrop-filter: blur(10px); font-size: 14px; }
+      .rating b { background: var(--gold); color: var(--night); border-radius: 999px; padding: 2px 10px; font-weight: 700; }
+      h1 { font-family: "Cormorant Garamond", serif; font-weight: 700; font-size: clamp(48px, 9vw, 112px); line-height: .95; margin-top: 22px; letter-spacing: -.01em; }
+      h1 em { color: var(--gold); }
+      .lead { font-size: 18px; color: #cfd3de; max-width: 520px; margin-top: 20px; }
+      .btns { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+      .btn { font-weight: 700; font-size: 15px; text-decoration: none; padding: 15px 26px; border-radius: 999px; border: 1px solid var(--line); background: var(--glass); backdrop-filter: blur(8px); transition: transform .15s ease, background .2s; }
+      .btn:hover { transform: translateY(-2px); background: rgba(255,255,255,.12); }
+      .btn.gold { background: var(--gold); color: var(--night); border-color: var(--gold); }
+      .badge247 { position: absolute; right: 20px; bottom: 26px; z-index: 2; font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--muted); letter-spacing: .14em; }
+
+      /* Gooey Marquee */
+      .goo { position: relative; padding: 26px 0; overflow: hidden; background: var(--night2); border-block: 1px solid var(--line); }
+      .goo .track { display: flex; gap: 14px; width: max-content; animation: run 36s linear infinite; filter: url(#gooey); }
+      .goo .track span { background: var(--gold); color: var(--night); font-weight: 700; padding: 12px 22px; border-radius: 999px; white-space: nowrap; font-size: 15px; }
+      .goo .track span:nth-child(3n) { background: var(--gold2); }
+      @keyframes run { to { transform: translateX(-50%); } }
+
+      section { padding: 100px 0 30px; }
+      .kicker { font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: .16em; color: var(--gold); text-transform: uppercase; }
+      h2 { font-family: "Cormorant Garamond", serif; font-weight: 700; font-size: clamp(36px, 5.5vw, 64px); line-height: 1; margin-top: 10px; }
+      h2 em { color: var(--gold); }
+      .sub { color: var(--muted); max-width: 520px; margin-top: 14px; }
+
+      /* Bento из стеклянных карточек */
+      .bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 190px; gap: 14px; margin-top: 40px; }
+      .g { position: relative; border-radius: 24px; padding: 24px; background: var(--glass); border: 1px solid var(--line); backdrop-filter: blur(14px); overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; transition: transform .25s ease, border-color .25s; }
+      .g:hover { transform: translateY(-4px); border-color: rgba(233,194,123,.4); }
+      .g::before { content: ""; position: absolute; width: 180px; height: 180px; border-radius: 50%; top: -60px; right: -60px; background: radial-gradient(circle, rgba(233,194,123,.25), transparent 70%); }
+      .g .ic { font-size: 34px; margin-bottom: auto; }
+      .g h3 { font-family: "Cormorant Garamond", serif; font-size: 26px; line-height: 1.1; }
+      .g p { color: var(--muted); font-size: 14px; margin-top: 4px; }
+      .g.wide { grid-column: span 2; }
+      .g.tall { grid-row: span 2; }
+      /* Shine Border на главной карточке */
+      .shine { padding: 1.5px; background: none; border: 0; }
+      .shine::after { content: ""; position: absolute; inset: -50%; background: conic-gradient(from 0deg, transparent 0 65%, var(--gold) 78%, #fff 82%, var(--gold) 86%, transparent 95%); animation: spin 6s linear infinite; z-index: 0; }
+      @keyframes spin { to { transform: rotate(1turn); } }
+      .shine .in { position: relative; z-index: 1; height: 100%; border-radius: 23px; padding: 26px; background: linear-gradient(160deg, #1b2440, #0e1426); display: flex; flex-direction: column; justify-content: flex-end; }
+      .shine .in .ic { font-size: 44px; margin-bottom: auto; }
+      .shine .in h3 { font-size: 34px; }
+
+      /* Stacked Card Carousel */
+      .gallery { display: grid; grid-template-columns: 1fr 1.1fr; gap: 50px; align-items: center; }
+      .stack { position: relative; height: 460px; perspective: 1200px; user-select: none; touch-action: pan-y; }
+      .card { position: absolute; inset: 0; border-radius: 26px; overflow: hidden; cursor: grab; box-shadow: 0 30px 60px rgba(0,0,0,.45); transition: transform .5s cubic-bezier(.2,.8,.2,1), opacity .5s; display: flex; align-items: flex-end; padding: 22px; }
+      .card:active { cursor: grabbing; }
+      .card b { font-family: "Cormorant Garamond", serif; font-size: 30px; position: relative; z-index: 1; }
+      .card small { display: block; font-family: "JetBrains Mono", monospace; font-size: 11px; color: rgba(255,255,255,.7); }
+      .card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,.6)); }
+      .card:nth-child(1) { background: linear-gradient(150deg, #3b4a7a, #141b33); }
+      .card:nth-child(2) { background: linear-gradient(150deg, #9c6b3a, #3a2414); }
+      .card:nth-child(3) { background: linear-gradient(150deg, #2f6b73, #0f2629); }
+      .card:nth-child(4) { background: linear-gradient(150deg, #7a3b4f, #2a1119); }
+      .card:nth-child(5) { background: linear-gradient(150deg, #5d6b3a, #1f2512); }
+      .dots { display: flex; gap: 8px; margin-top: 24px; }
+      .dots button { width: 10px; height: 10px; border-radius: 999px; border: 0; background: var(--line); cursor: pointer; transition: width .3s, background .3s; padding: 0; }
+      .dots button.on { width: 28px; background: var(--gold); }
+      .stack-hint { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--muted); margin-top: 14px; }
+
+      /* Отзывы-темы */
+      .praise { display: grid; grid-template-columns: 280px 1fr; gap: 30px; align-items: center; margin-top: 40px; }
+      .score { text-align: center; padding: 34px; border-radius: 28px; background: var(--glass); border: 1px solid var(--line); }
+      .score b { display: block; font-family: "Cormorant Garamond", serif; font-size: 96px; line-height: 1; color: var(--gold); }
+      .score .st { color: var(--gold); letter-spacing: 4px; font-size: 20px; }
+      .score p { color: var(--muted); font-size: 14px; margin-top: 6px; }
+      .themes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      .themes div { padding: 20px; border-radius: 18px; border: 1px solid var(--line); }
+      .themes h3 { font-size: 17px; }
+      .themes p { color: var(--muted); font-size: 14px; }
+
+      /* Цена и контакты */
+      .cta { position: relative; border-radius: 32px; padding: 60px 48px; overflow: hidden; background: radial-gradient(80% 120% at 100% 0%, rgba(233,194,123,.28), transparent 60%), var(--night2); border: 1px solid var(--line); display: grid; grid-template-columns: 1fr auto; gap: 30px; align-items: center; }
+      .cta .sum { font-family: "Cormorant Garamond", serif; font-size: clamp(44px, 7vw, 80px); font-weight: 700; line-height: 1; }
+      .cta p { color: var(--muted); margin-top: 10px; }
+      .pay { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+      .pay span { font-size: 13px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); color: #cfd3de; }
+
+      .contacts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 40px; }
+      .contacts > div { padding: 24px; border-radius: 22px; background: var(--glass); border: 1px solid var(--line); }
+      .contacts dt { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: .12em; color: var(--muted); }
+      .contacts dd { margin: 6px 0 0; font-size: 18px; }
+
+      footer { padding: 60px 0 100px; color: var(--muted); font-size: 13px; text-align: center; }
+
+      .wa-float { position: fixed; right: 18px; bottom: 18px; z-index: 30; width: 58px; height: 58px; border-radius: 50%; background: #25d366; display: grid; place-items: center; box-shadow: 0 8px 24px rgba(0,0,0,.4); }
+      .wa-float svg { width: 30px; height: 30px; fill: #fff; }
+
+      @media (max-width: 860px) {
+        .top nav { display: none; }
+        .moon { width: 70px; height: 70px; top: 12%; right: 8%; }
+        .bento { grid-template-columns: 1fr 1fr; grid-auto-rows: 170px; }
+        .gallery, .praise, .cta { grid-template-columns: 1fr; }
+        .stack { height: 380px; }
+        .themes, .contacts { grid-template-columns: 1fr; }
+        .cta { padding: 40px 24px; }
+        .badge247 { display: none; }
+      }
+      @media (max-width: 520px) {
+        .bento { grid-template-columns: 1fr; }
+        .g.wide, .g.tall { grid-column: auto; grid-row: auto; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .goo .track, .shine::after { animation: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- SVG-фильтр для Gooey Marquee -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <filter id="gooey"><feGaussianBlur in="SourceGraphic" stdDeviation="7" result="b" /><feColorMatrix in="b" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9" result="g" /><feComposite in="SourceGraphic" in2="g" operator="atop" /></filter>
+    </svg>
+
+    <div class="demo-bar">Демо-версия. Фото — примеры, заменим на ваши. Сделал <a href="https://aknas04.github.io" target="_blank">Бекарыс</a></div>
+
+    <header class="top">
+      <div class="wrap">
+        <a class="logo" href="#">Bella <i>Rancho</i></a>
+        <nav><a href="#rest">Отдых</a><a href="#photos">Фото</a><a href="#reviews">Отзывы</a><a href="#contacts">Контакты</a></nav>
+      </div>
+    </header>
+
+    <div class="hero">
+      <canvas id="stars" aria-hidden="true"></canvas>
+      <div class="moon" aria-hidden="true"></div>
+      <svg class="skyline" viewBox="0 0 1440 300" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 210 L180 120 L300 170 L460 70 L620 160 L760 100 L900 150 L1060 60 L1220 140 L1440 90 V300 H0Z" fill="#141a33" />
+        <path d="M0 250 L220 190 L380 230 L560 170 L760 230 L980 180 L1180 220 L1440 170 V300 H0Z" fill="#0f1428" />
+        <g fill="#080c1a">
+          <path d="M240 300 V262 Q300 210 360 262 V300Z" /><path d="M292 224 L300 212 L308 224Z" />
+          <path d="M400 300 V270 Q450 228 500 270 V300Z" />
+          <path d="M1010 300 V258 Q1080 200 1150 258 V300Z" /><path d="M1072 214 L1080 200 L1088 214Z" />
+        </g>
+        <g fill="#f7dfae"><rect x="292" y="270" width="14" height="18" rx="2" opacity=".85" /><rect x="1072" y="266" width="16" height="20" rx="2" opacity=".85" /><rect x="444" y="278" width="10" height="12" rx="2" opacity=".6" /></g>
+        <path d="M0 290 H1440 V300 H0Z" fill="#080c1a" />
+      </svg>
+      <div class="wrap">
+        <div class="rating"><b>4.9 ★</b> 171 оценка гостей в 2ГИС</div>
+        <h1>Баня, юрты<br />и <em>звёзды</em> — 24/7</h1>
+        <p class="lead">Дома с бассейном, юрты с баней, ресторан, караоке, купели и SPA. Банно-гостевой комплекс в Нурлытау, Алматы.</p>
+        <div class="btns">
+          <a class="btn gold wa" href="#">Забронировать в WhatsApp</a>
+          <a class="btn" href="#photos">Смотреть фото</a>
+        </div>
+      </div>
+      <div class="badge247">ОТКРЫТО КРУГЛОСУТОЧНО</div>
+    </div>
+
+    <div class="goo" aria-hidden="true">
+      <div class="track">
+        <span>🔥 Сакская баня</span><span>🛁 Банный чан</span><span>🏊 Бассейн</span><span>❄️ Купели</span><span>🎤 Караоке</span><span>🍖 Мангал</span><span>🌿 Веники</span><span>💆 SPA</span><span>🍽 Ресторан</span>
+        <span>🔥 Сакская баня</span><span>🛁 Банный чан</span><span>🏊 Бассейн</span><span>❄️ Купели</span><span>🎤 Караоке</span><span>🍖 Мангал</span><span>🌿 Веники</span><span>💆 SPA</span><span>🍽 Ресторан</span>
+      </div>
+    </div>
+
+    <main class="wrap">
+      <section id="rest">
+        <div class="kicker">Отдых</div>
+        <h2>Всё для <em>долгого вечера</em></h2>
+        <p class="sub">Приезжайте париться, плавать и отдыхать компанией — днём или ночью.</p>
+        <div class="bento">
+          <div class="g wide tall shine"><div class="in"><div class="ic">⛺</div><h3>Юрты с баней</h3><p>Тёплые юрты и жаркая баня — атмосферный отдых для вашей компании.</p></div></div>
+          <div class="g wide"><div class="ic">🏊</div><h3>Дома с бассейном</h3><p>Поплавать после парной и отдохнуть всей компанией.</p></div>
+          <div class="g"><div class="ic">🔥</div><h3>Сакская баня</h3><p>Веники, банщики, жар.</p></div>
+          <div class="g"><div class="ic">🛁</div><h3>Чан и купели</h3><p>Горячо и холодно по очереди.</p></div>
+          <div class="g"><div class="ic">🍽</div><h3>Ресторан</h3><p>Готовим на месте.</p></div>
+          <div class="g"><div class="ic">🎤</div><h3>Караоке</h3><p>И кальян в комнате отдыха.</p></div>
+          <div class="g wide"><div class="ic">💆</div><h3>SPA</h3><p>SPA-процедуры, полотенца, простыни, тапочки и чай — всё уже включено в отдых.</p></div>
+        </div>
+      </section>
+
+      <section id="photos">
+        <div class="gallery">
+          <div>
+            <div class="kicker">Фото</div>
+            <h2>Загляните <em>внутрь</em></h2>
+            <p class="sub">Листайте стопку: перетащите верхнюю карточку в сторону или нажмите на неё.</p>
+            <div class="dots" id="dots"></div>
+            <p class="stack-hint">← перетащите →</p>
+          </div>
+          <div class="stack" id="stack">
+            <div class="card"><b>Юрта с баней<small>здесь будет ваше фото</small></b></div>
+            <div class="card"><b>Сакская парная<small>здесь будет ваше фото</small></b></div>
+            <div class="card"><b>Бассейн<small>здесь будет ваше фото</small></b></div>
+            <div class="card"><b>Ресторан<small>здесь будет ваше фото</small></b></div>
+            <div class="card"><b>Двор и мангал<small>здесь будет ваше фото</small></b></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="reviews">
+        <div class="kicker">Отзывы</div>
+        <h2>За что гости ставят <em>4.9</em></h2>
+        <div class="praise">
+          <div class="score"><b>4.9</b><div class="st">★★★★★</div><p>171 оценка · 100+ отзывов в 2ГИС</p></div>
+          <div class="themes">
+            <div><h3>✨ Чистота</h3><p>Чаще всего гости отмечают чистые парные, бассейн и комнаты.</p></div>
+            <div><h3>🤝 Персонал</h3><p>Приветливые и внимательные сотрудники.</p></div>
+            <div><h3>🍽 Кухня</h3><p>Вкусная еда, особенно хвалят свежую рыбу.</p></div>
+            <div><h3>🌿 Банщики</h3><p>Гости отдельно хвалят мастерство банщиков.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="cta">
+          <div>
+            <div class="kicker">Бронь</div>
+            <div class="sum">от 25 000 ₸</div>
+            <p>Точную цену и свободное время подскажем в WhatsApp — круглосуточно.</p>
+            <div class="pay"><span>💳 Карта</span><span>📱 QR-код</span><span>💵 Наличные</span></div>
+          </div>
+          <a class="btn gold wa" href="#">Узнать свободное время</a>
+        </div>
+      </section>
+
+      <section id="contacts">
+        <div class="kicker">Контакты</div>
+        <h2>Ждём <em>вас</em></h2>
+        <div class="contacts">
+          <div><dl><dt>АДРЕС</dt><dd>ул. Нуртазина, 1а/1, Нурлытау, Бостандыкский район</dd></dl></div>
+          <div><dl><dt>WHATSAPP · ТЕЛЕФОН</dt><dd><a class="wa" href="#">+7 771 777 33 33</a></dd><dt style="margin-top:14px">ВРЕМЯ</dt><dd>Круглосуточно</dd></dl></div>
+          <div><dl><dt>INSTAGRAM</dt><dd><a href="https://instagram.com/bellarancho" target="_blank">@bellarancho</a></dd><dt style="margin-top:14px">КАРТА</dt><dd><a href="https://2gis.kz/almaty/firm/70000001107417201" target="_blank">Открыть в 2ГИС →</a></dd></dl></div>
+        </div>
+      </section>
+    </main>
+
+    <footer>© Bella Rancho · демо-сайт сделал <a href="https://aknas04.github.io" target="_blank">Бекарыс</a></footer>
+
+    <a class="wa-float wa" href="#" aria-label="Написать в WhatsApp">
+      <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C2.7 15.7 2.2 13.9 2.2 12 2.2 6.6 6.6 2.2 12 2.2S21.8 6.6 21.8 12 17.4 21.8 12 21.8zM12 0C5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12S18.6 0 12 0z"/></svg>
+    </a>
+
+    <script>
+      // ===== WhatsApp: все кнопки с готовым текстом брони =====
+      const waText = "Здравствуйте! Хочу забронировать Bella Rancho. Дата и время: ..., гостей: ...";
+      const waUrl = "https://wa.me/77717773333?text=" + encodeURIComponent(waText);
+      document.querySelectorAll(".wa").forEach((a) => { a.href = waUrl; a.target = "_blank"; });
+
+      const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      // ===== Pixel Stars: пиксельные звёзды мерцают, иногда падает звезда =====
+      const cv = document.getElementById("stars");
+      const cx = cv.getContext("2d");
+      let W, H, stars = [], shoot = null;
+      function sizeStars() {
+        const r = cv.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2);
+        cv.width = r.width * d; cv.height = r.height * d; W = cv.width; H = cv.height;
+        const count = Math.round((r.width * r.height) / 2600);
+        stars = Array.from({ length: count }, () => ({
+          x: Math.random() * W, y: Math.random() * H * 0.75,
+          s: Math.random() < 0.12 ? 3 * d : (Math.random() < 0.5 ? 2 * d : d),
+          p: Math.random() * Math.PI * 2, sp: 0.01 + Math.random() * 0.03,
+          gold: Math.random() < 0.18,
+        }));
+      }
+      function drawStars() {
+        cx.clearRect(0, 0, W, H);
+        for (const s of stars) {
+          s.p += s.sp;
+          const a = 0.35 + 0.65 * Math.abs(Math.sin(s.p));
+          cx.fillStyle = s.gold ? `rgba(247,223,174,${a})` : `rgba(235,240,255,${a})`;
+          cx.fillRect(Math.round(s.x), Math.round(s.y), s.s, s.s); // квадратные «пиксели»
+        }
+        if (!shoot && Math.random() < 0.004) shoot = { x: Math.random() * W * 0.6 + W * 0.2, y: Math.random() * H * 0.3, l: 0 };
+        if (shoot) {
+          shoot.l += 1;
+          const len = 120, t = shoot.l * 9;
+          const g = cx.createLinearGradient(shoot.x + t, shoot.y + t * 0.45, shoot.x + t - len, shoot.y + t * 0.45 - len * 0.45);
+          g.addColorStop(0, "rgba(255,248,230,.9)"); g.addColorStop(1, "rgba(255,248,230,0)");
+          cx.strokeStyle = g; cx.lineWidth = 2;
+          cx.beginPath(); cx.moveTo(shoot.x + t, shoot.y + t * 0.45); cx.lineTo(shoot.x + t - len, shoot.y + t * 0.45 - len * 0.45); cx.stroke();
+          if (shoot.l > 40) shoot = null;
+        }
+        if (!reduce) requestAnimationFrame(drawStars);
+      }
+      sizeStars(); drawStars();
+      addEventListener("resize", sizeStars);
+
+      // ===== Stacked Card Carousel: перетащить или нажать верхнюю карточку =====
+      const stack = document.getElementById("stack");
+      const cards = [...stack.children];
+      const dotsBox = document.getElementById("dots");
+      let order = cards.map((_, i) => i);
+      cards.forEach((_, i) => {
+        const b = document.createElement("button");
+        b.setAttribute("aria-label", "Фото " + (i + 1));
+        b.addEventListener("click", () => { while (order[0] !== i) order.push(order.shift()); layout(); });
+        dotsBox.appendChild(b);
+      });
+      function layout() {
+        order.forEach((ci, pos) => {
+          const c = cards[ci];
+          c.style.zIndex = cards.length - pos;
+          c.style.transform = `translate(${pos * 18}px, ${pos * -14}px) scale(${1 - pos * 0.06}) rotate(${pos * 2.5}deg)`;
+          c.style.opacity = pos > 3 ? 0 : 1 - pos * 0.18;
+        });
+        [...dotsBox.children].forEach((d, i) => d.classList.toggle("on", i === order[0]));
+      }
+      function next() { order.push(order.shift()); layout(); }
+      let drag = null;
+      stack.addEventListener("pointerdown", (e) => {
+        const top = cards[order[0]];
+        if (!top.contains(e.target)) return;
+        drag = { x: e.clientX, card: top, moved: 0 };
+        top.style.transition = "none"; top.setPointerCapture(e.pointerId);
+      });
+      stack.addEventListener("pointermove", (e) => {
+        if (!drag) return;
+        const dx = e.clientX - drag.x; drag.moved = dx;
+        drag.card.style.transform = `translateX(${dx}px) rotate(${dx / 18}deg)`;
+      });
+      stack.addEventListener("pointerup", () => {
+        if (!drag) return;
+        const { card, moved } = drag; drag = null;
+        card.style.transition = "";
+        if (Math.abs(moved) > 90 || Math.abs(moved) < 4) next(); else layout();
+      });
+      layout();
+    </script>
+  </body>
+</html>
