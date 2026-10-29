@@ -121,6 +121,21 @@
         .hero { padding: 40px 0 60px; }
         .about { grid-template-columns: 1fr; }
       }
+
+      /* Печать / PDF */
+      @media print {
+        @page { size: A4; margin: 14mm; }
+        body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        .nav-right, .btns, .more { display: none; }
+        nav { padding: 0 0 8px; }
+        .hero { padding: 24px 0 32px; }
+        h1 { font-size: 44px; }
+        section { padding: 28px 0; }
+        h2 { margin-bottom: 18px; }
+        .projects { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .project { padding: 18px; break-inside: avoid; box-shadow: none; }
+        .about, .contact { break-inside: avoid; }
+      }
     </style>
   </head>
   <body>
