@@ -135,7 +135,8 @@
         .projects { grid-template-columns: repeat(3, 1fr); gap: 12px; }
         .project { padding: 18px; break-inside: avoid; box-shadow: none; }
         .skills, .about, .contact { break-inside: avoid; }
-        .skills { break-before: auto; }
+        section:has(.skills), section:has(.about) { break-inside: avoid; }
+        h2 { break-after: avoid; }
       }
     </style>
   </head>
