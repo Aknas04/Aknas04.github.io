@@ -78,7 +78,7 @@
       .hero .ph { position: absolute; inset: 0; border-radius: 0; }
       .hero .ph img { animation: kenburns 22s ease-in-out infinite alternate; }
       @keyframes kenburns { from { transform: scale(1.02); } to { transform: scale(1.12) translate(-1.5%, -1%); } }
-      .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,28,19,.55) 0%, rgba(15,28,19,.1) 35%, rgba(15,28,19,.85) 100%); pointer-events: none; }
+      .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,28,19,.78) 0%, rgba(15,28,19,.35) 55%, rgba(15,28,19,.1) 100%), linear-gradient(180deg, rgba(15,28,19,.5) 0%, transparent 30%, rgba(15,28,19,.85) 100%); pointer-events: none; }
       .hero .wrap { position: relative; z-index: 2; width: 100%; padding-bottom: 90px; }
       .hero .eyebrow { color: var(--gold2); }
       .hero h1 { font-size: clamp(56px, 10vw, 140px); letter-spacing: .08em; text-transform: uppercase; margin-top: 14px; }
@@ -294,44 +294,44 @@
         <div class="eyebrow reveal">Варианты отдыха</div>
         <h2 class="reveal">Выберите свой формат</h2>
         <div class="tabs" id="tabs">
-          <button class="on">Юрты с баней</button>
-          <button>Дома с бассейном</button>
-          <button>Альпийское шале</button>
+          <button class="on">Дома с бассейном</button>
+          <button>Спальни</button>
+          <button>Банкетный зал</button>
           <button>Ресторан & караоке</button>
         </div>
         <div class="slides" id="slides">
           <div class="slide on">
-            <div class="ph" data-file="yurt.jpg"><img src="photos/yurt.jpg" alt="Юрта с баней" /></div>
-            <div>
-              <div class="eyebrow">Для компании</div>
-              <h3>Юрты с баней</h3>
-              <p>Атмосферный отдых в юрте с собственной баней — для семьи и друзей, днём или ночью.</p>
-              <ul><li>Сакская баня и веники</li><li>Купели и банный чан</li><li>Комната отдыха и чай</li></ul>
-              <div class="btns"><a class="btn dark wa" href="#">Забронировать</a><a class="link" href="#spa">Подробнее</a></div>
-            </div>
-          </div>
-          <div class="slide">
-            <div class="ph" data-file="house-pool.jpg"><img src="photos/house-pool.jpg" alt="Дом с бассейном" /></div>
+            <div class="ph" data-file="yurt.jpg"><img src="photos/yurt.jpg" alt="Дом с бассейном" /></div>
             <div>
               <div class="eyebrow">Приватно</div>
               <h3>Дома с бассейном</h3>
-              <p>Свой дом и бассейн — поплавать после парной и отдохнуть всей компанией.</p>
-              <ul><li>Бассейн</li><li>Баня и купели</li><li>Мангал</li></ul>
+              <p>Свой дом-сруб и бассейн внутри — поплавать после парной и отдохнуть всей компанией.</p>
+              <ul><li>Бассейн в доме</li><li>Баня и купели</li><li>Мангал во дворе</li></ul>
               <div class="btns"><a class="btn dark wa" href="#">Забронировать</a><a class="link" href="#gallery">Фото</a></div>
             </div>
           </div>
           <div class="slide">
-            <div class="ph" data-file="chalet.jpg"><img src="photos/chalet.jpg" alt="Альпийское шале" /></div>
+            <div class="ph" data-file="house-pool.jpg"><img src="photos/house-pool.jpg" alt="Спальня" /></div>
             <div>
-              <div class="eyebrow">Отдых словно заграницей</div>
-              <h3>Альпийское шале</h3>
-              <p>Уютное шале в альпийском стиле — горы, тишина и горячая баня, которая снимает усталость.</p>
-              <ul><li>Альпийский стиль</li><li>Уют для компании</li><li>Фото и цены — в WhatsApp</li></ul>
+              <div class="eyebrow">С ночёвкой</div>
+              <h3>Уютные спальни</h3>
+              <p>Деревянные стены, мягкий свет и ковры ручной работы — оставайтесь на ночь после бани.</p>
+              <ul><li>Полотенца и простыни</li><li>Тапочки</li><li>Wi-Fi</li></ul>
               <div class="btns"><a class="btn dark wa" href="#">Забронировать</a><a class="link" href="#gallery">Фото</a></div>
             </div>
           </div>
           <div class="slide">
-            <div class="ph" data-file="restaurant.jpg"><img src="photos/restaurant.jpg" alt="Ресторан" /></div>
+            <div class="ph" data-file="chalet.jpg"><img src="photos/chalet.jpg" alt="Банкетный зал" /></div>
+            <div>
+              <div class="eyebrow">Для праздника</div>
+              <h3>Банкетный зал</h3>
+              <p>Большой стол для всей компании — дни рождения, встречи и семейные праздники.</p>
+              <ul><li>Ресторан на территории</li><li>Караоке</li><li>Комната отдыха</li></ul>
+              <div class="btns"><a class="btn dark wa" href="#">Забронировать зал</a><a class="link" href="#kitchen">Кухня</a></div>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="ph" data-file="restaurant.jpg"><img src="photos/restaurant.jpg" alt="Блюда ресторана" /></div>
             <div>
               <div class="eyebrow">Вкусный ужин</div>
               <h3>Ресторан & караоке</h3>
@@ -349,7 +349,7 @@
     <section class="about">
       <div class="wrap">
         <div class="eyebrow reveal">О комплексе</div>
-        <p class="big reveal">Bella Rancho — <em>горячая баня, тёплые юрты и вкусный ужин</em> в одном месте. Отдых словно заграницей — прямо в Алматы.</p>
+        <p class="big reveal">Bella Rancho — <em>горячая баня, дома с бассейном и вкусный ужин</em> в одном месте. Отдых словно заграницей — прямо в Алматы.</p>
         <div class="more" id="more"><div>
           <p>Банно-гостевой комплекс в Нурлытау работает круглосуточно: приезжайте париться вечером, оставайтесь в доме с бассейном на ночь, ужинайте в ресторане и пойте в караоке. Полотенца, простыни, тапочки и чай — уже ждут вас.</p>
         </div></div>
@@ -358,7 +358,7 @@
         <div class="features">
           <div class="feature reveal"><div class="ph" data-file="feature-banya.jpg"><img src="photos/feature-banya.jpg" alt="" /></div><h3>Горячая баня</h3><p>Сакская баня, веники и мастера пара — усталость уходит после первого захода.</p></div>
           <div class="feature reveal"><div class="ph" data-file="feature-dinner.jpg"><img src="photos/feature-dinner.jpg" alt="" /></div><h3>Вкусный ужин</h3><p>Ресторан на территории — гости особенно хвалят кухню и свежую рыбу.</p></div>
-          <div class="feature reveal"><div class="ph" data-file="feature-abroad.jpg"><img src="photos/feature-abroad.jpg" alt="" /></div><h3>Словно заграницей</h3><p>Альпийское шале, горы и тишина — не нужно лететь далеко.</p></div>
+          <div class="feature reveal"><div class="ph" data-file="feature-abroad.jpg"><img src="photos/feature-abroad.jpg" alt="" /></div><h3>Словно заграницей</h3><p>Срубы в альпийском стиле, камин и тишина — не нужно лететь далеко.</p></div>
         </div>
       </div>
     </section>
@@ -367,14 +367,14 @@
     <section id="gallery">
       <div class="wrap">
         <div class="eyebrow reveal">Фото</div>
-        <h2 class="reveal">Территория комплекса</h2>
+        <h2 class="reveal">Как у нас внутри</h2>
         <div class="gallery" id="galleryGrid">
-          <figure class="ph" data-file="g1.jpg"><img src="photos/g1.jpg" alt="" /><figcaption>Территория</figcaption></figure>
+          <figure class="ph" data-file="g1.jpg"><img src="photos/g1.jpg" alt="" /><figcaption>Каминный зал</figcaption></figure>
           <figure class="ph" data-file="g2.jpg"><img src="photos/g2.jpg" alt="" /><figcaption>Бассейн</figcaption></figure>
           <figure class="ph" data-file="g3.jpg"><img src="photos/g3.jpg" alt="" /><figcaption>Парная</figcaption></figure>
-          <figure class="ph" data-file="g4.jpg"><img src="photos/g4.jpg" alt="" /><figcaption>Юрта</figcaption></figure>
-          <figure class="ph" data-file="g5.jpg"><img src="photos/g5.jpg" alt="" /><figcaption>Купели</figcaption></figure>
-          <figure class="ph" data-file="g6.jpg"><img src="photos/g6.jpg" alt="" /><figcaption>Комната отдыха</figcaption></figure>
+          <figure class="ph" data-file="g4.jpg"><img src="photos/g4.jpg" alt="" /><figcaption>Гостиная</figcaption></figure>
+          <figure class="ph" data-file="g5.jpg"><img src="photos/g5.jpg" alt="" /><figcaption>Интерьер</figcaption></figure>
+          <figure class="ph" data-file="g6.jpg"><img src="photos/g6.jpg" alt="" /><figcaption>Двор и мангал</figcaption></figure>
         </div>
       </div>
     </section>
@@ -395,7 +395,7 @@
           <div class="ph" data-file="pool.jpg"><img src="photos/pool.jpg" alt="Бассейн" /></div>
           <div>
             <div class="eyebrow">Отдых</div>
-            <h2>Бассейн, караоке и мангал</h2>
+            <h2>Двор, беседка и мангал</h2>
             <ul><li>Бассейн</li><li>Караоке</li><li>Кальян</li><li>Мангал</li><li>Wi-Fi</li><li>Круглосуточно</li></ul>
             <a class="btn dark wa" href="#">Забронировать</a>
           </div>
@@ -507,7 +507,7 @@
       <div class="wrap">
         <div class="f-grid">
           <div><img src="logo-180.png" alt="Bella Rancho" /><p style="margin-top:16px">Банно-гостевой комплекс<br />Алматы, Нурлытау · 24/7</p></div>
-          <div><h4>Отдых</h4><a href="#rest">Юрты с баней</a><a href="#rest">Дома с бассейном</a><a href="#rest">Альпийское шале</a></div>
+          <div><h4>Отдых</h4><a href="#rest">Дома с бассейном</a><a href="#rest">Спальни</a><a href="#rest">Банкетный зал</a></div>
           <div><h4>Услуги</h4><a href="#spa">Баня & SPA</a><a href="#kitchen">Ресторан</a><a href="#rest">Караоке</a></div>
           <div><h4>Связь</h4><a class="wa" href="#">WhatsApp</a><a href="tel:+77717773333">+7 771 777 33 33</a><a href="https://instagram.com/bellarancho" target="_blank">Instagram</a></div>
         </div>
