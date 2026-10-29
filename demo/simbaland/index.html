@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>СимбаЛенд — гостевой дом в Алматы (демо)</title>
+    <meta name="robots" content="noindex" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;600&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #f6f3ec;
+        --ink: #1d2a1f;
+        --muted: #5d685e;
+        --card: #ffffff;
+        --line: #e3ddd0;
+        --accent: #2f6b3f;
+        --warm: #d98a3a;
+      }
+      * { box-sizing: border-box; margin: 0; }
+      body { font-family: "Manrope", system-ui, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; }
+      a { color: inherit; }
+      .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+      /* Плашка демо */
+      .demo-bar {
+        background: var(--ink); color: #fff; font-size: 14px; text-align: center; padding: 8px 16px;
+      }
+      .demo-bar a { color: #ffd59a; }
+
+      /* Hero */
+      .hero {
+        min-height: min(82vh, 760px); display: flex; align-items: flex-end; padding: 40px 0 60px;
+        background:
+          linear-gradient(180deg, rgba(20,35,24,.15) 0%, rgba(20,35,24,.75) 100%),
+          radial-gradient(ellipse at 70% 20%, #f2c27d 0%, transparent 45%),
+          linear-gradient(160deg, #6f8f6a 0%, #2f4d35 55%, #1d2a1f 100%);
+        color: #fff;
+      }
+      .hero { position: relative; }
+      .hero > .wrap { width: 100%; }
+      .hero nav { position: absolute; top: 24px; left: 0; right: 0; }
+      .hero nav .wrap { display: flex; justify-content: space-between; align-items: center; }
+      .logo { font-family: "Unbounded", sans-serif; font-weight: 700; font-size: 20px; text-decoration: none; }
+      .hero h1 {
+        font-family: "Unbounded", sans-serif; font-weight: 700;
+        font-size: clamp(36px, 7vw, 72px); line-height: 1.05; max-width: 760px;
+      }
+      .hero p { font-size: 19px; max-width: 560px; margin-top: 18px; opacity: .9; }
+      .facts { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+      .facts span { background: rgba(255,255,255,.14); backdrop-filter: blur(6px); padding: 8px 16px; border-radius: 999px; font-size: 15px; }
+      .btn {
+        display: inline-flex; align-items: center; gap: 10px; margin-top: 32px;
+        background: #25d366; color: #fff; text-decoration: none; font-weight: 600; font-size: 17px;
+        padding: 16px 28px; border-radius: 999px; transition: transform .15s ease;
+      }
+      .btn:hover { transform: translateY(-2px); }
+      .btn svg { width: 22px; height: 22px; }
+
+      section.wrap { padding: 50px 20px; }
+      h2 { font-family: "Unbounded", sans-serif; font-weight: 500; font-size: clamp(26px, 4vw, 38px); margin-bottom: 36px; }
+
+      /* Удобства */
+      .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+      .feature { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 26px; }
+      .feature .ic { font-size: 32px; }
+      .feature h3 { font-size: 18px; margin: 10px 0 6px; }
+      .feature p { color: var(--muted); font-size: 15px; }
+
+      /* Галерея */
+      .gallery { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 180px; gap: 12px; }
+      .ph {
+        border-radius: 16px; display: flex; align-items: flex-end; padding: 14px;
+        color: #fff; font-weight: 600; font-size: 14px;
+      }
+      .ph.big { grid-column: span 2; grid-row: span 2; }
+      .ph:nth-child(1) { background: linear-gradient(150deg, #8aa57f, #3d5c42); }
+      .ph:nth-child(2) { background: linear-gradient(150deg, #e0b27a, #9b5f2c); }
+      .ph:nth-child(3) { background: linear-gradient(150deg, #7da2b5, #3c5e70); }
+      .ph:nth-child(4) { background: linear-gradient(150deg, #c99b7a, #7a4a33); }
+      .ph:nth-child(5) { background: linear-gradient(150deg, #a5b88d, #566b44); }
+      .note { color: var(--muted); font-size: 14px; margin-top: 12px; }
+
+      /* Поводы */
+      .events { display: flex; flex-wrap: wrap; gap: 10px; }
+      .events span { background: var(--card); border: 1px solid var(--line); padding: 12px 20px; border-radius: 999px; }
+
+      /* Цена */
+      .price {
+        background: var(--accent); color: #fff; border-radius: 24px; padding: 48px;
+        display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap;
+      }
+      .price .sum { font-family: "Unbounded", sans-serif; font-size: clamp(30px, 5vw, 48px); }
+      .price p { opacity: .85; }
+      .price .btn { margin-top: 0; }
+
+      /* Контакты */
+      .contacts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .contacts > div { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 28px; }
+      .contacts h3 { font-size: 15px; color: var(--muted); font-weight: 600; margin-bottom: 6px; }
+      .contacts p { font-size: 18px; }
+      .contacts p + h3 { margin-top: 18px; }
+
+      footer { padding: 40px 0 100px; color: var(--muted); font-size: 14px; }
+
+      /* Плавающая кнопка WhatsApp */
+      .wa-float {
+        position: fixed; right: 20px; bottom: 20px; width: 60px; height: 60px; border-radius: 50%;
+        background: #25d366; display: grid; place-items: center; box-shadow: 0 8px 24px rgba(0,0,0,.25);
+      }
+      .wa-float svg { width: 30px; height: 30px; fill: #fff; }
+
+      @media (max-width: 720px) {
+        .gallery { grid-template-columns: 1fr 1fr; grid-auto-rows: 140px; }
+        .contacts { grid-template-columns: 1fr; }
+        .price { padding: 32px 24px; }
+        section.wrap { padding: 36px 20px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="demo-bar">
+      Демо-версия сайта для гостевого дома «СимбаЛенд». Сделал
+      <a href="https://aknas04.github.io" target="_blank">Бекарыс</a>
+    </div>
+
+    <header class="hero">
+      <nav><div class="wrap"><a href="#" class="logo">СимбаЛенд</a></div></nav>
+      <div class="wrap">
+        <h1>Гостевой дом у гор для большой компании</h1>
+        <p>Сауна, баня, беседки и место для всех: отдыхайте семьёй и друзьями в микрорайоне Нур Алатау, Алматы.</p>
+        <div class="facts">
+          <span>👥 до 60 гостей</span>
+          <span>🧖 сауна и баня</span>
+          <span>🐾 можно с животными</span>
+          <span>🕒 круглосуточно</span>
+        </div>
+        <a class="btn wa" href="#">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C2.7 15.7 2.2 13.9 2.2 12 2.2 6.6 6.6 2.2 12 2.2S21.8 6.6 21.8 12 17.4 21.8 12 21.8zM12 0C5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12S18.6 0 12 0z"/></svg>
+          Забронировать в WhatsApp
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <section class="wrap">
+        <h2>Всё для отдыха</h2>
+        <div class="features">
+          <div class="feature"><div class="ic">🧖</div><h3>Сауна и баня</h3><p>Попарьтесь после прогулки в горах.</p></div>
+          <div class="feature"><div class="ic">🍖</div><h3>Беседки</h3><p>Для шашлыков и посиделок на свежем воздухе.</p></div>
+          <div class="feature"><div class="ic">👨‍👩‍👧‍👦</div><h3>До 60 гостей</h3><p>Хватит места для большой семьи или всей команды.</p></div>
+          <div class="feature"><div class="ic">🐶</div><h3>С питомцами</h3><p>Берите собаку с собой — здесь ей рады.</p></div>
+        </div>
+      </section>
+
+      <section class="wrap">
+        <h2>Фото</h2>
+        <div class="gallery">
+          <div class="ph big">Дом и территория</div>
+          <div class="ph">Сауна</div>
+          <div class="ph">Беседка</div>
+          <div class="ph">Комнаты</div>
+          <div class="ph">Вид на горы</div>
+        </div>
+        <p class="note">В готовом сайте здесь будут ваши фотографии.</p>
+      </section>
+
+      <section class="wrap">
+        <h2>Для каких поводов</h2>
+        <div class="events">
+          <span>🎂 Дни рождения</span><span>🏢 Корпоративы</span><span>👨‍👩‍👧 Семейный отдых</span>
+          <span>💍 Той и праздники</span><span>🎓 Выпускные</span><span>🎉 Встречи с друзьями</span>
+        </div>
+      </section>
+
+      <section class="wrap">
+        <div class="price">
+          <div>
+            <div class="sum">от 135 000 ₸</div>
+            <p>Точную цену и свободные даты уточняйте в WhatsApp</p>
+          </div>
+          <a class="btn wa" href="#">Узнать свободные даты</a>
+        </div>
+      </section>
+
+      <section class="wrap">
+        <h2>Как нас найти</h2>
+        <div class="contacts">
+          <div>
+            <h3>Адрес</h3>
+            <p>мкр. Нур Алатау, 1858/1, Бостандыкский район, Алматы</p>
+            <h3>Режим работы</h3>
+            <p>Круглосуточно</p>
+          </div>
+          <div>
+            <h3>WhatsApp и телефон</h3>
+            <p><a class="wa" href="#">+7 701 252 01 45</a></p>
+            <h3>Instagram</h3>
+            <p><a href="https://instagram.com/lazy_cats_almaty" target="_blank">@lazy_cats_almaty</a></p>
+            <h3>Карта</h3>
+            <p><a href="https://2gis.kz/almaty/firm/70000001101321821" target="_blank">Открыть в 2ГИС →</a></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="wrap">© СимбаЛенд · Демо-сайт сделал <a href="https://aknas04.github.io" target="_blank">Бекарыс</a></footer>
+
+    <a class="wa-float wa" href="#" aria-label="Написать в WhatsApp">
+      <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C2.7 15.7 2.2 13.9 2.2 12 2.2 6.6 6.6 2.2 12 2.2S21.8 6.6 21.8 12 17.4 21.8 12 21.8zM12 0C5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12S18.6 0 12 0z"/></svg>
+    </a>
+
+    <script>
+      // Все кнопки WhatsApp открывают чат с готовым текстом брони
+      const text = "Здравствуйте! Хочу забронировать СимбаЛенд. Даты: ..., гостей: ...";
+      const url = "https://wa.me/77012520145?text=" + encodeURIComponent(text);
+      document.querySelectorAll(".wa").forEach((a) => { a.href = url; a.target = "_blank"; });
+    </script>
+  </body>
+</html>
