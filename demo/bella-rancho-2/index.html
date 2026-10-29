@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bella Rancho — банно-гостевой комплекс в Алматы (демо)</title>
+    <meta name="description" content="Дома с бассейном, юрты с баней, ресторан, караоке, купели и SPA. Круглосуточно, Нурлытау, Алматы." />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="logo-180.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --forest: #0f1c13;
+        --forest2: #16281c;
+        --forest3: #1e3426;
+        --gold: #d9b77e;
+        --gold2: #ecd3a3;
+        --cream: #f4eee3;
+        --ink: #1a1a17;
+        --muted: #6f6a5f;
+        --line: #e3dccd;
+        --radius: 18px;
+      }
+      * { box-sizing: border-box; margin: 0; }
+      html { scroll-behavior: smooth; }
+      body { font-family: "Manrope", system-ui, sans-serif; color: var(--ink); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
+      a { color: inherit; }
+      img { display: block; max-width: 100%; }
+      .wrap { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+      .caps { text-transform: uppercase; letter-spacing: .14em; }
+      h1, h2, h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; line-height: 1.05; }
+      h2 { font-size: clamp(34px, 5vw, 58px); }
+      .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+      .lead { font-size: 17px; color: var(--muted); max-width: 620px; }
+
+      .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-weight: 600; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; padding: 15px 28px; border-radius: 999px; border: 1px solid currentColor; transition: background .25s, color .25s, transform .15s; cursor: pointer; background: none; }
+      .btn:hover { transform: translateY(-1px); }
+      .btn.gold { background: var(--gold); border-color: var(--gold); color: var(--forest); }
+      .btn.gold:hover { background: var(--gold2); }
+      .btn.ghost-light { color: var(--cream); border-color: rgba(244,238,227,.55); }
+      .btn.ghost-light:hover { background: var(--cream); color: var(--forest); }
+      .btn.dark { background: var(--forest); color: var(--cream); border-color: var(--forest); }
+      .link { font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: .08em; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 2px; }
+
+      /* Фото-слоты: если файла нет — показываем подпись, какое фото сюда положить */
+      .ph { position: relative; overflow: hidden; background: linear-gradient(150deg, var(--forest3), var(--forest)); border-radius: var(--radius); }
+      .ph img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s cubic-bezier(.2,.8,.2,1); }
+      .ph:hover img { transform: scale(1.04); }
+      .ph.missing::after { content: "фото: " attr(data-file); position: absolute; inset: 0; display: grid; place-items: center; color: rgba(236,211,163,.7); font-size: 13px; letter-spacing: .06em; text-align: center; padding: 10px; }
+      .ph.missing img { display: none; }
+
+      /* ===== Демо-плашка ===== */
+      .demo-bar { background: #000; color: #b9b2a3; font-size: 12px; text-align: center; padding: 6px 12px; position: relative; z-index: 60; }
+      .demo-bar a { color: var(--gold); }
+
+      /* ===== Шапка ===== */
+      .header { position: fixed; top: 29px; left: 0; right: 0; z-index: 50; transition: background .3s, top .3s, box-shadow .3s; }
+      .header.solid { top: 0; background: rgba(15,28,19,.94); backdrop-filter: blur(10px); box-shadow: 0 6px 30px rgba(0,0,0,.25); }
+      .header .wrap { display: flex; align-items: center; gap: 28px; height: 84px; }
+      .header .logo img { width: 58px; height: 58px; }
+      .header nav { display: flex; gap: 30px; margin-left: auto; }
+      .header nav a { color: var(--cream); text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; opacity: .85; transition: opacity .2s, color .2s; }
+      .header nav a:hover { opacity: 1; color: var(--gold2); }
+      .header .btn { padding: 12px 22px; }
+      .burger { display: none; margin-left: auto; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(244,238,227,.4); background: none; cursor: pointer; }
+      .burger span { display: block; width: 18px; height: 1.5px; background: var(--cream); margin: 4px auto; transition: transform .3s, opacity .3s; }
+      .menu-open .burger span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+      .menu-open .burger span:nth-child(2) { opacity: 0; }
+      .menu-open .burger span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+      .drawer { position: fixed; inset: 0; z-index: 45; background: var(--forest); color: var(--cream); padding: 130px 24px 40px; display: flex; flex-direction: column; gap: 18px; transform: translateY(-100%); transition: transform .45s cubic-bezier(.2,.8,.2,1); }
+      .menu-open .drawer { transform: none; }
+      .drawer a { font-family: "Cormorant Garamond", serif; font-size: 34px; text-decoration: none; }
+      .drawer .btn { font-family: "Manrope", sans-serif; font-size: 14px; margin-top: 16px; align-self: flex-start; }
+
+      /* ===== Hero ===== */
+      .hero { position: relative; height: 100vh; min-height: 640px; color: var(--cream); display: flex; align-items: flex-end; }
+      .hero .ph { position: absolute; inset: 0; border-radius: 0; }
+      .hero .ph img { animation: kenburns 22s ease-in-out infinite alternate; }
+      @keyframes kenburns { from { transform: scale(1.02); } to { transform: scale(1.12) translate(-1.5%, -1%); } }
+      .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,28,19,.55) 0%, rgba(15,28,19,.1) 35%, rgba(15,28,19,.85) 100%); pointer-events: none; }
+      .hero .wrap { position: relative; z-index: 2; width: 100%; padding-bottom: 90px; }
+      .hero .eyebrow { color: var(--gold2); }
+      .hero h1 { font-size: clamp(56px, 10vw, 140px); letter-spacing: .08em; text-transform: uppercase; margin-top: 14px; }
+      .hero p { max-width: 560px; font-size: 18px; opacity: .9; margin-top: 18px; }
+      .hero .btns { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+      .hero .rating { position: absolute; right: 24px; bottom: 120px; z-index: 2; text-align: right; }
+      .hero .rating b { font-family: "Cormorant Garamond", serif; font-size: 64px; line-height: 1; color: var(--gold2); }
+      .hero .rating span { display: block; font-size: 13px; opacity: .8; }
+      .scroll-cue { position: absolute; left: 50%; bottom: 26px; z-index: 2; width: 1px; height: 46px; background: linear-gradient(var(--gold2), transparent); animation: cue 2s ease-in-out infinite; }
+      @keyframes cue { 50% { transform: translateY(8px); opacity: .4; } }
+
+      section { padding: 110px 0; }
+
+      /* ===== Слайдер с вкладками ===== */
+      .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 34px; border-bottom: 1px solid var(--line); }
+      .tabs button { font: 600 13px "Manrope", sans-serif; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); background: none; border: 0; padding: 14px 18px; cursor: pointer; position: relative; }
+      .tabs button::after { content: ""; position: absolute; left: 18px; right: 18px; bottom: -1px; height: 2px; background: var(--forest); transform: scaleX(0); transition: transform .35s; }
+      .tabs button.on { color: var(--ink); }
+      .tabs button.on::after { transform: scaleX(1); }
+      .slides { position: relative; margin-top: 40px; }
+      .slide { display: none; grid-template-columns: 1.35fr 1fr; gap: 56px; align-items: center; animation: fade .6s ease; }
+      .slide.on { display: grid; }
+      @keyframes fade { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+      .slide .ph { aspect-ratio: 4 / 3; }
+      .slide h3 { font-size: clamp(34px, 4vw, 50px); margin-top: 10px; }
+      .slide p { color: var(--muted); margin-top: 16px; }
+      .slide ul { list-style: none; padding: 0; margin-top: 20px; display: grid; gap: 8px; }
+      .slide li { padding-left: 22px; position: relative; }
+      .slide li::before { content: ""; position: absolute; left: 0; top: 11px; width: 10px; height: 1px; background: var(--gold); }
+      .slide .btns { display: flex; gap: 18px; align-items: center; margin-top: 30px; flex-wrap: wrap; }
+      .slide-nav { display: flex; gap: 10px; margin-top: 28px; }
+      .slide-nav button { width: 52px; height: 52px; border-radius: 50%; border: 1px solid var(--line); background: #fff; cursor: pointer; font-size: 18px; transition: background .2s, color .2s; }
+      .slide-nav button:hover { background: var(--forest); color: var(--cream); }
+
+      /* ===== О комплексе ===== */
+      .about { background: var(--forest); color: var(--cream); }
+      .about .big { font-family: "Cormorant Garamond", serif; font-size: clamp(30px, 4.2vw, 54px); line-height: 1.15; max-width: 1050px; margin-top: 18px; }
+      .about .big em { font-style: italic; color: var(--gold2); }
+      .about .more { color: rgba(244,238,227,.75); max-width: 720px; margin-top: 26px; display: grid; grid-template-rows: 0fr; transition: grid-template-rows .5s ease; }
+      .about .more > div { overflow: hidden; }
+      .about .more.open { grid-template-rows: 1fr; }
+      .about .toggle { margin-top: 20px; color: var(--gold2); background: none; border: 0; cursor: pointer; }
+      .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 70px; }
+      .feature .ph { aspect-ratio: 4 / 5; }
+      .feature h3 { font-size: 30px; margin-top: 20px; color: var(--gold2); }
+      .feature p { color: rgba(244,238,227,.7); margin-top: 8px; font-size: 15px; }
+
+      /* ===== Галерея ===== */
+      .gallery { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 240px; gap: 14px; margin-top: 44px; }
+      .gallery .ph { cursor: zoom-in; }
+      .gallery .ph:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+      .gallery .ph:nth-child(6) { grid-column: span 4; }
+      .gallery figcaption { position: absolute; left: 16px; bottom: 14px; z-index: 1; color: #fff; font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; text-shadow: 0 1px 8px rgba(0,0,0,.6); }
+      .lightbox { position: fixed; inset: 0; z-index: 80; background: rgba(8,14,10,.94); display: none; place-items: center; padding: 30px; cursor: zoom-out; }
+      .lightbox.on { display: grid; }
+      .lightbox img { max-height: 88vh; border-radius: 12px; }
+
+      /* ===== Разделы-строки (фото + список) ===== */
+      .split { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+      .split + .split { margin-top: 110px; }
+      .split.rev .ph { order: 2; }
+      .split .ph { aspect-ratio: 5 / 4; }
+      .split h2 { margin-top: 10px; }
+      .split ul { list-style: none; padding: 0; margin-top: 26px; columns: 2; column-gap: 30px; }
+      .split li { padding: 10px 0; border-bottom: 1px solid var(--line); break-inside: avoid; }
+      .split .btn { margin-top: 32px; }
+
+      /* ===== Баня & SPA ===== */
+      .spa { background: var(--forest2); color: var(--cream); }
+      .spa .banner { aspect-ratio: 21 / 8; margin-top: 40px; }
+      .spa-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 22px; }
+      .spa-card { background: var(--forest3); border-radius: var(--radius); padding: 30px; display: flex; flex-direction: column; gap: 10px; transition: transform .25s, background .25s; }
+      .spa-card:hover { transform: translateY(-4px); background: #254030; }
+      .spa-card h3 { font-size: 28px; color: var(--gold2); }
+      .spa-card p { color: rgba(244,238,227,.7); font-size: 15px; flex: 1; }
+      .spa-card .link { color: var(--gold2); align-self: flex-start; margin-top: 8px; }
+
+      /* ===== Кухня ===== */
+      .kitchen { display: grid; grid-template-columns: 1fr 1.25fr; gap: 60px; align-items: start; }
+      .k-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 170px; gap: 10px; }
+      .k-grid .ph:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+      .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+      .tags span { border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; font-size: 14px; background: #fff; }
+
+      /* ===== Баннер-приглашение ===== */
+      .invite { position: relative; border-radius: 28px; overflow: hidden; color: var(--cream); min-height: 420px; display: flex; align-items: center; }
+      .invite .ph { position: absolute; inset: 0; border-radius: 0; }
+      .invite::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,28,19,.92) 0%, rgba(15,28,19,.55) 55%, transparent 100%); }
+      .invite > div:last-child { position: relative; z-index: 2; padding: 60px; max-width: 640px; }
+      .invite h2 { margin-top: 10px; }
+      .invite p { opacity: .85; margin-top: 16px; }
+      .invite .btn { margin-top: 28px; }
+
+      /* ===== Отзывы ===== */
+      .reviews-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; flex-wrap: wrap; }
+      .score { display: flex; align-items: center; gap: 18px; }
+      .score b { font-family: "Cormorant Garamond", serif; font-size: 84px; line-height: 1; color: var(--forest); }
+      .score .stars { color: var(--gold); font-size: 20px; letter-spacing: 3px; }
+      .score small { display: block; color: var(--muted); font-size: 14px; }
+      .r-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 34px; }
+      .r-tabs button { font: 600 13px "Manrope", sans-serif; border: 1px solid var(--line); background: #fff; color: var(--ink); border-radius: 999px; padding: 10px 18px; cursor: pointer; transition: background .2s, color .2s; }
+      .r-tabs button.on { background: var(--forest); color: var(--cream); border-color: var(--forest); }
+      .r-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 26px; }
+      .r-card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; }
+      .r-card[hidden] { display: none; }
+      .r-card .t { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+      .r-card h3 { font-size: 26px; margin-top: 8px; }
+      .r-card p { color: var(--muted); font-size: 15px; margin-top: 8px; }
+      .r-note { color: var(--muted); font-size: 13px; margin-top: 18px; }
+      .strip { overflow: hidden; margin-top: 60px; }
+      .strip .track { display: flex; gap: 14px; width: max-content; animation: strip 45s linear infinite; }
+      .strip .ph { width: 300px; height: 210px; flex: none; }
+      @keyframes strip { to { transform: translateX(-50%); } }
+
+      /* ===== Контакты ===== */
+      .contacts { background: var(--forest); color: var(--cream); }
+      .c-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 50px; margin-top: 44px; align-items: stretch; }
+      .c-rows div { display: grid; grid-template-columns: 150px 1fr; gap: 16px; padding: 18px 0; border-bottom: 1px solid rgba(244,238,227,.14); }
+      .c-rows dt { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+      .c-rows dd { margin: 0; font-size: 18px; }
+      .c-rows dd a { text-decoration: none; }
+      .c-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+      .map { border-radius: var(--radius); overflow: hidden; min-height: 380px; background: var(--forest3); }
+      .map iframe { width: 100%; height: 100%; min-height: 380px; border: 0; filter: grayscale(.4) contrast(1.05); }
+
+      /* ===== Подвал ===== */
+      footer { background: #0a140d; color: rgba(244,238,227,.65); padding: 70px 0 110px; font-size: 14px; }
+      .f-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 30px; }
+      .f-grid img { width: 90px; }
+      .f-grid h4 { color: var(--cream); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 14px; }
+      .f-grid a { display: block; text-decoration: none; padding: 4px 0; }
+      .f-grid a:hover { color: var(--gold2); }
+      .f-bottom { border-top: 1px solid rgba(244,238,227,.1); margin-top: 50px; padding-top: 24px; display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; font-size: 13px; }
+      .f-bottom a { color: var(--gold); }
+
+      /* ===== Плавающие виджеты ===== */
+      .open-badge { position: fixed; left: 20px; bottom: 20px; z-index: 40; display: flex; align-items: center; gap: 10px; background: var(--cream); color: var(--forest); border-radius: 999px; padding: 10px 18px 10px 12px; box-shadow: 0 10px 30px rgba(0,0,0,.2); font-size: 13px; font-weight: 600; text-decoration: none; }
+      .open-badge i { width: 10px; height: 10px; border-radius: 50%; background: #2fbf71; box-shadow: 0 0 0 4px rgba(47,191,113,.25); }
+      .wa-float { position: fixed; right: 20px; bottom: 20px; z-index: 40; width: 60px; height: 60px; border-radius: 50%; background: #25d366; display: grid; place-items: center; box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+      .wa-float svg { width: 30px; height: 30px; fill: #fff; }
+
+      /* Появление при прокрутке */
+      .reveal { opacity: 0; transform: translateY(26px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1); }
+      .reveal.in { opacity: 1; transform: none; }
+
+      @media (max-width: 960px) {
+        .header nav, .header .btn { display: none; }
+        .burger { display: block; }
+        .slide, .split, .kitchen, .c-grid { grid-template-columns: 1fr; gap: 30px; }
+        .split.rev .ph { order: 0; }
+        .features, .spa-cards, .r-list { grid-template-columns: 1fr; }
+        .gallery { grid-template-columns: 1fr 1fr; grid-auto-rows: 160px; }
+        .gallery .ph:nth-child(6) { grid-column: span 2; }
+        .f-grid { grid-template-columns: 1fr 1fr; }
+        .hero .rating { display: none; }
+        .invite > div:last-child { padding: 36px 26px; }
+        section { padding: 80px 0; }
+      }
+      @media (max-width: 560px) {
+        .wrap { padding: 0 16px; }
+        .split ul { columns: 1; }
+        .c-rows div { grid-template-columns: 1fr; gap: 4px; }
+        .open-badge span { display: none; }
+        .open-badge { padding: 12px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .hero .ph img, .strip .track, .scroll-cue { animation: none; }
+        .reveal { opacity: 1; transform: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="demo-bar">Демо-версия сайта для Bella Rancho. Сделал <a href="https://aknas04.github.io" target="_blank">Бекарыс</a></div>
+
+    <header class="header" id="header">
+      <div class="wrap">
+        <a class="logo" href="#"><img src="logo-180.png" alt="Bella Rancho — Hotel & SPA" /></a>
+        <nav>
+          <a href="#rest">Отдых</a>
+          <a href="#spa">Баня & SPA</a>
+          <a href="#kitchen">Ресторан</a>
+          <a href="#reviews">Отзывы</a>
+          <a href="#contacts">Контакты</a>
+        </nav>
+        <a class="btn gold wa" href="#">Забронировать</a>
+        <button class="burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+      </div>
+    </header>
+    <div class="drawer" id="drawer">
+      <a href="#rest">Отдых</a><a href="#spa">Баня & SPA</a><a href="#kitchen">Ресторан</a><a href="#reviews">Отзывы</a><a href="#contacts">Контакты</a>
+      <a class="btn gold wa" href="#">Забронировать</a>
+    </div>
+
+    <!-- ===== Hero ===== -->
+    <div class="hero">
+      <div class="ph" data-file="hero.jpg"><img src="photos/hero.jpg" alt="Bella Rancho" /></div>
+      <div class="wrap">
+        <div class="eyebrow">Банно-гостевой комплекс · Алматы · 24/7</div>
+        <h1>Bella Rancho</h1>
+        <p>Дома с бассейном, юрты с баней, ресторан, караоке, купели и SPA — отдых словно заграницей, круглосуточно.</p>
+        <div class="btns">
+          <a class="btn gold wa" href="#">Забронировать</a>
+          <a class="btn ghost-light" href="#rest">Смотреть отдых</a>
+        </div>
+      </div>
+      <div class="rating"><b>4.9</b><span>★★★★★ · 171 оценка в 2ГИС</span></div>
+      <div class="scroll-cue" aria-hidden="true"></div>
+    </div>
+
+    <!-- ===== Варианты отдыха: вкладки + слайдер ===== -->
+    <section id="rest">
+      <div class="wrap">
+        <div class="eyebrow reveal">Варианты отдыха</div>
+        <h2 class="reveal">Выберите свой формат</h2>
+        <div class="tabs" id="tabs">
+          <button class="on">Юрты с баней</button>
+          <button>Дома с бассейном</button>
+          <button>Альпийское шале</button>
+          <button>Ресторан & караоке</button>
+        </div>
+        <div class="slides" id="slides">
+          <div class="slide on">
+            <div class="ph" data-file="yurt.jpg"><img src="photos/yurt.jpg" alt="Юрта с баней" /></div>
+            <div>
+              <div class="eyebrow">Для компании</div>
+              <h3>Юрты с баней</h3>
+              <p>Атмосферный отдых в юрте с собственной баней — для семьи и друзей, днём или ночью.</p>
+              <ul><li>Сакская баня и веники</li><li>Купели и банный чан</li><li>Комната отдыха и чай</li></ul>
+              <div class="btns"><a class="btn dark wa" href="#">Забронировать</a><a class="link" href="#spa">Подробнее</a></div>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="ph" data-file="house-pool.jpg"><img src="photos/house-pool.jpg" alt="Дом с бассейном" /></div>
+            <div>
+              <div class="eyebrow">Приватно</div>
+              <h3>Дома с бассейном</h3>
+              <p>Свой дом и бассейн — поплавать после парной и отдохнуть всей компанией.</p>
+              <ul><li>Бассейн</li><li>Баня и купели</li><li>Мангал</li></ul>
+              <div class="btns"><a class="btn dark wa" href="#">Забронировать</a><a class="link" href="#gallery">Фото</a></div>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="ph" data-file="chalet.jpg"><img src="photos/chalet.jpg" alt="Альпийское шале" /></div>
+            <div>
+              <div class="eyebrow">Отдых словно заграницей</div>
+              <h3>Альпийское шале</h3>
+              <p>Уютное шале в альпийском стиле — горы, тишина и горячая баня, которая снимает усталость.</p>
+              <ul><li>Альпийский стиль</li><li>Уют для компании</li><li>Фото и цены — в WhatsApp</li></ul>
+              <div class="btns"><a class="btn dark wa" href="#">Забронировать</a><a class="link" href="#gallery">Фото</a></div>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="ph" data-file="restaurant.jpg"><img src="photos/restaurant.jpg" alt="Ресторан" /></div>
+            <div>
+              <div class="eyebrow">Вкусный ужин</div>
+              <h3>Ресторан & караоке</h3>
+              <p>Ужин после бани, караоке и кальян — продолжите вечер, не уезжая.</p>
+              <ul><li>Ресторан на территории</li><li>Караоке</li><li>Кальян</li></ul>
+              <div class="btns"><a class="btn dark wa" href="#">Забронировать стол</a><a class="link" href="#kitchen">Подробнее</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="slide-nav"><button id="prev" aria-label="Назад">←</button><button id="next" aria-label="Вперёд">→</button></div>
+      </div>
+    </section>
+
+    <!-- ===== О комплексе ===== -->
+    <section class="about">
+      <div class="wrap">
+        <div class="eyebrow reveal">О комплексе</div>
+        <p class="big reveal">Bella Rancho — <em>горячая баня, тёплые юрты и вкусный ужин</em> в одном месте. Отдых словно заграницей — прямо в Алматы.</p>
+        <div class="more" id="more"><div>
+          <p>Банно-гостевой комплекс в Нурлытау работает круглосуточно: приезжайте париться вечером, оставайтесь в доме с бассейном на ночь, ужинайте в ресторане и пойте в караоке. Полотенца, простыни, тапочки и чай — уже ждут вас.</p>
+        </div></div>
+        <button class="toggle link" id="toggle">Подробнее</button>
+
+        <div class="features">
+          <div class="feature reveal"><div class="ph" data-file="feature-banya.jpg"><img src="photos/feature-banya.jpg" alt="" /></div><h3>Горячая баня</h3><p>Сакская баня, веники и мастера пара — усталость уходит после первого захода.</p></div>
+          <div class="feature reveal"><div class="ph" data-file="feature-dinner.jpg"><img src="photos/feature-dinner.jpg" alt="" /></div><h3>Вкусный ужин</h3><p>Ресторан на территории — гости особенно хвалят кухню и свежую рыбу.</p></div>
+          <div class="feature reveal"><div class="ph" data-file="feature-abroad.jpg"><img src="photos/feature-abroad.jpg" alt="" /></div><h3>Словно заграницей</h3><p>Альпийское шале, горы и тишина — не нужно лететь далеко.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Галерея ===== -->
+    <section id="gallery">
+      <div class="wrap">
+        <div class="eyebrow reveal">Фото</div>
+        <h2 class="reveal">Территория комплекса</h2>
+        <div class="gallery" id="galleryGrid">
+          <figure class="ph" data-file="g1.jpg"><img src="photos/g1.jpg" alt="" /><figcaption>Территория</figcaption></figure>
+          <figure class="ph" data-file="g2.jpg"><img src="photos/g2.jpg" alt="" /><figcaption>Бассейн</figcaption></figure>
+          <figure class="ph" data-file="g3.jpg"><img src="photos/g3.jpg" alt="" /><figcaption>Парная</figcaption></figure>
+          <figure class="ph" data-file="g4.jpg"><img src="photos/g4.jpg" alt="" /><figcaption>Юрта</figcaption></figure>
+          <figure class="ph" data-file="g5.jpg"><img src="photos/g5.jpg" alt="" /><figcaption>Купели</figcaption></figure>
+          <figure class="ph" data-file="g6.jpg"><img src="photos/g6.jpg" alt="" /><figcaption>Комната отдыха</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Разделы: баня / бассейн ===== -->
+    <section style="padding-top:0">
+      <div class="wrap">
+        <div class="split reveal">
+          <div class="ph" data-file="banya.jpg"><img src="photos/banya.jpg" alt="Сакская баня" /></div>
+          <div>
+            <div class="eyebrow">Баня</div>
+            <h2>Сакская баня</h2>
+            <ul><li>Парная</li><li>Веники</li><li>Банный чан</li><li>Купели</li><li>Полотенца и простыни</li><li>Тапочки</li><li>Чай</li><li>Комната отдыха</li></ul>
+            <a class="btn dark wa" href="#">Забронировать баню</a>
+          </div>
+        </div>
+        <div class="split rev reveal">
+          <div class="ph" data-file="pool.jpg"><img src="photos/pool.jpg" alt="Бассейн" /></div>
+          <div>
+            <div class="eyebrow">Отдых</div>
+            <h2>Бассейн, караоке и мангал</h2>
+            <ul><li>Бассейн</li><li>Караоке</li><li>Кальян</li><li>Мангал</li><li>Wi-Fi</li><li>Круглосуточно</li></ul>
+            <a class="btn dark wa" href="#">Забронировать</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Баня & SPA ===== -->
+    <section class="spa" id="spa">
+      <div class="wrap">
+        <div class="eyebrow reveal">Баня & SPA</div>
+        <h2 class="reveal">Пар, купели и уход</h2>
+        <p class="lead reveal" style="color:rgba(244,238,227,.7);margin-top:16px">Горячая баня снимает усталость, а SPA-процедуры помогают расслабиться полностью.</p>
+        <div class="ph banner reveal" data-file="spa.jpg"><img src="photos/spa.jpg" alt="SPA" /></div>
+        <div class="spa-cards">
+          <div class="spa-card reveal"><h3>Парение</h3><p>Сакская баня с вениками — гости отдельно хвалят мастерство банщиков.</p><a class="link wa" href="#">Узнать подробнее</a></div>
+          <div class="spa-card reveal"><h3>SPA для головы</h3><p>Расслабляющая процедура после бани — для полного отдыха.</p><a class="link wa" href="#">Узнать подробнее</a></div>
+          <div class="spa-card reveal"><h3>Чан и купели</h3><p>Горячий банный чан и холодные купели — контраст, который бодрит.</p><a class="link wa" href="#">Узнать подробнее</a></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Кухня ===== -->
+    <section id="kitchen">
+      <div class="wrap kitchen">
+        <div class="reveal">
+          <div class="eyebrow">Ресторан</div>
+          <h2>Наша кухня</h2>
+          <p class="lead" style="margin-top:16px">Вкусный ужин после бани — прямо на территории комплекса. Гости в отзывах особенно отмечают кухню и свежую рыбу.</p>
+          <div class="tags"><span>🐟 Свежая рыба</span><span>🍖 Мангал</span><span>🫖 Чай после бани</span></div>
+          <a class="btn dark wa" href="#" style="margin-top:30px">Узнать меню</a>
+        </div>
+        <div class="k-grid reveal">
+          <div class="ph" data-file="k1.jpg"><img src="photos/k1.jpg" alt="" /></div>
+          <div class="ph" data-file="k2.jpg"><img src="photos/k2.jpg" alt="" /></div>
+          <div class="ph" data-file="k3.jpg"><img src="photos/k3.jpg" alt="" /></div>
+          <div class="ph" data-file="k4.jpg"><img src="photos/k4.jpg" alt="" /></div>
+          <div class="ph" data-file="k5.jpg"><img src="photos/k5.jpg" alt="" /></div>
+          <div class="ph" data-file="k6.jpg"><img src="photos/k6.jpg" alt="" /></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Приглашение ===== -->
+    <section style="padding-top:0">
+      <div class="wrap">
+        <div class="invite reveal">
+          <div class="ph" data-file="invite.jpg"><img src="photos/invite.jpg" alt="" /></div>
+          <div>
+            <div class="eyebrow">Для вашей компании</div>
+            <h2>Соберите друзей на вечер, который запомнится</h2>
+            <p>Дни рождения, встречи с друзьями, семейный отдых — подберём дом, юрту и время под вашу компанию.</p>
+            <a class="btn gold wa" href="#">Подобрать отдых</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Отзывы ===== -->
+    <section id="reviews" style="padding-top:0">
+      <div class="wrap">
+        <div class="reviews-head">
+          <div class="reveal"><div class="eyebrow">Отзывы гостей</div><h2>Что говорят гости</h2></div>
+          <div class="score reveal"><b>4.9</b><div><div class="stars">★★★★★</div><small>171 оценка · 100+ отзывов в 2ГИС</small></div></div>
+        </div>
+        <div class="r-tabs" id="rtabs">
+          <button class="on" data-f="all">Все</button><button data-f="banya">Баня</button><button data-f="food">Ресторан</button><button data-f="staff">Персонал</button><button data-f="place">Территория</button>
+        </div>
+        <div class="r-list">
+          <div class="r-card" data-t="place"><div class="t">Территория</div><h3>Чистота</h3><p>Чаще всего гости отмечают чистые парные, бассейн и комнаты.</p></div>
+          <div class="r-card" data-t="staff"><div class="t">Персонал</div><h3>Внимательные сотрудники</h3><p>Приветливый персонал, который помогает с любым вопросом.</p></div>
+          <div class="r-card" data-t="food"><div class="t">Ресторан</div><h3>Вкусная кухня</h3><p>Гости хвалят блюда ресторана, особенно свежую рыбу.</p></div>
+          <div class="r-card" data-t="banya"><div class="t">Баня</div><h3>Мастера пара</h3><p>Отдельно отмечают мастерство банщиков и хороший пар.</p></div>
+        </div>
+        <p class="r-note">Темы собраны по отзывам гостей в 2ГИС. <a href="https://2gis.kz/almaty/firm/70000001107417201/tab/reviews" target="_blank">Читать все отзывы →</a></p>
+      </div>
+      <div class="strip" aria-hidden="true">
+        <div class="track" id="strip"></div>
+      </div>
+    </section>
+
+    <!-- ===== Контакты ===== -->
+    <section class="contacts" id="contacts">
+      <div class="wrap">
+        <div class="eyebrow reveal">Контакты</div>
+        <h2 class="reveal">Мы на связи 24/7</h2>
+        <div class="c-grid">
+          <div class="reveal">
+            <dl class="c-rows">
+              <div><dt>Адрес</dt><dd>ул. Нуртазина, 1а/1, мкр. Нурлытау, Бостандыкский район, Алматы</dd></div>
+              <div><dt>Режим работы</dt><dd>Круглосуточно, без выходных</dd></div>
+              <div><dt>Телефон</dt><dd><a href="tel:+77717773333">+7 771 777 33 33</a></dd></div>
+              <div><dt>Instagram</dt><dd><a href="https://instagram.com/bellarancho" target="_blank">@bellarancho</a></dd></div>
+              <div><dt>Оплата</dt><dd>Карта, QR-код, наличные</dd></div>
+            </dl>
+            <div class="c-btns">
+              <a class="btn gold wa" href="#">Написать в WhatsApp</a>
+              <a class="btn ghost-light" href="https://2gis.kz/almaty/firm/70000001107417201?m=76.899769%2C43.164231%2F16" target="_blank">Построить маршрут</a>
+            </div>
+          </div>
+          <div class="map reveal">
+            <iframe title="Карта: Bella Rancho" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=76.8898%2C43.1592%2C76.9098%2C43.1692&amp;layer=mapnik&amp;marker=43.164231%2C76.899769"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="wrap">
+        <div class="f-grid">
+          <div><img src="logo-180.png" alt="Bella Rancho" /><p style="margin-top:16px">Банно-гостевой комплекс<br />Алматы, Нурлытау · 24/7</p></div>
+          <div><h4>Отдых</h4><a href="#rest">Юрты с баней</a><a href="#rest">Дома с бассейном</a><a href="#rest">Альпийское шале</a></div>
+          <div><h4>Услуги</h4><a href="#spa">Баня & SPA</a><a href="#kitchen">Ресторан</a><a href="#rest">Караоке</a></div>
+          <div><h4>Связь</h4><a class="wa" href="#">WhatsApp</a><a href="tel:+77717773333">+7 771 777 33 33</a><a href="https://instagram.com/bellarancho" target="_blank">Instagram</a></div>
+        </div>
+        <div class="f-bottom"><span>© 2026 Bella Rancho. Все права защищены.</span><span>Демо-сайт сделал <a href="https://aknas04.github.io" target="_blank">Бекарыс</a></span></div>
+      </div>
+    </footer>
+
+    <a class="open-badge" href="#contacts"><i></i><span>Открыто круглосуточно</span></a>
+    <a class="wa-float wa" href="#" aria-label="Написать в WhatsApp">
+      <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C2.7 15.7 2.2 13.9 2.2 12 2.2 6.6 6.6 2.2 12 2.2S21.8 6.6 21.8 12 17.4 21.8 12 21.8zM12 0C5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12S18.6 0 12 0z"/></svg>
+    </a>
+
+    <div class="lightbox" id="lightbox"><img alt="" /></div>
+
+    <script>
+      // ===== WhatsApp: все кнопки брони =====
+      const waText = "Здравствуйте! Хочу забронировать отдых в Bella Rancho. Дата и время: ..., гостей: ...";
+      const waUrl = "https://wa.me/77717773333?text=" + encodeURIComponent(waText);
+      document.querySelectorAll(".wa").forEach((a) => { a.href = waUrl; a.target = "_blank"; });
+
+      // ===== Фото-слоты: нет файла — показываем подсказку =====
+      document.querySelectorAll(".ph img").forEach((img) => {
+        const box = img.closest(".ph");
+        const fail = () => box.classList.add("missing");
+        if (img.complete && img.naturalWidth === 0) fail();
+        img.addEventListener("error", fail);
+      });
+
+      // ===== Шапка: становится плотной при прокрутке =====
+      const header = document.getElementById("header");
+      const onScroll = () => header.classList.toggle("solid", scrollY > 40);
+      addEventListener("scroll", onScroll, { passive: true }); onScroll();
+
+      // ===== Мобильное меню =====
+      document.getElementById("burger").addEventListener("click", () => document.body.classList.toggle("menu-open"));
+      document.querySelectorAll("#drawer a").forEach((a) => a.addEventListener("click", () => document.body.classList.remove("menu-open")));
+
+      // ===== Вкладки + слайдер вариантов отдыха =====
+      const tabBtns = [...document.querySelectorAll("#tabs button")];
+      const slides = [...document.querySelectorAll("#slides .slide")];
+      let cur = 0;
+      function show(i) {
+        cur = (i + slides.length) % slides.length;
+        slides.forEach((s, k) => s.classList.toggle("on", k === cur));
+        tabBtns.forEach((b, k) => b.classList.toggle("on", k === cur));
+      }
+      tabBtns.forEach((b, i) => b.addEventListener("click", () => show(i)));
+      document.getElementById("prev").addEventListener("click", () => show(cur - 1));
+      document.getElementById("next").addEventListener("click", () => show(cur + 1));
+
+      // ===== «Подробнее» в блоке о комплексе =====
+      document.getElementById("toggle").addEventListener("click", (e) => {
+        const open = document.getElementById("more").classList.toggle("open");
+        e.target.textContent = open ? "Свернуть" : "Подробнее";
+      });
+
+      // ===== Фильтр отзывов =====
+      document.querySelectorAll("#rtabs button").forEach((b) => b.addEventListener("click", () => {
+        document.querySelectorAll("#rtabs button").forEach((x) => x.classList.toggle("on", x === b));
+        document.querySelectorAll(".r-card").forEach((c) => { c.hidden = b.dataset.f !== "all" && c.dataset.t !== b.dataset.f; });
+      }));
+
+      // ===== Лента фото внизу отзывов (бесконечная) =====
+      const strip = document.getElementById("strip");
+      const stripFiles = ["g1.jpg", "g2.jpg", "g3.jpg", "g4.jpg", "g5.jpg", "g6.jpg", "k1.jpg", "spa.jpg"];
+      strip.innerHTML = [...stripFiles, ...stripFiles].map((f) => `<div class="ph" data-file="${f}"><img src="photos/${f}" alt="" onerror="this.parentNode.classList.add('missing')" /></div>`).join("");
+
+      // ===== Лайтбокс галереи =====
+      const lb = document.getElementById("lightbox");
+      document.querySelectorAll("#galleryGrid .ph").forEach((f) => f.addEventListener("click", () => {
+        if (f.classList.contains("missing")) return;
+        lb.querySelector("img").src = f.querySelector("img").src; lb.classList.add("on");
+      }));
+      lb.addEventListener("click", () => lb.classList.remove("on"));
+
+      // ===== Появление блоков при прокрутке =====
+      const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.12 });
+      document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+    </script>
+  </body>
+</html>
