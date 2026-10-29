@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mood Houses — гостевой дом в Алматы (демо)</title>
+    <meta name="robots" content="noindex" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Manrope:wght@400;600&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #f7efe6;
+        --ink: #2b1d17;
+        --muted: #7a6358;
+        --card: #fffaf4;
+        --line: #ead9c8;
+        --accent: #b5543a;
+      }
+      * { box-sizing: border-box; margin: 0; }
+      body { font-family: "Manrope", system-ui, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; }
+      a { color: inherit; }
+      .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+      h1, h2, .logo, .sum { font-family: "Fraunces", Georgia, serif; }
+
+      .demo-bar { background: var(--ink); color: #fff; font-size: 14px; text-align: center; padding: 8px 16px; }
+      .demo-bar a { color: #ffc9a8; }
+
+      nav .wrap { display: flex; justify-content: space-between; align-items: center; padding-top: 22px; padding-bottom: 22px; }
+      .logo { font-size: 24px; font-weight: 700; text-decoration: none; }
+      .logo span { color: var(--accent); }
+      nav ul { display: flex; gap: 24px; list-style: none; padding: 0; }
+      nav ul a { text-decoration: none; color: var(--muted); }
+
+      /* Hero: текст + большое фото */
+      .hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; padding-top: 30px; padding-bottom: 60px; }
+      .kicker { color: var(--accent); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; font-size: 13px; }
+      h1 { font-size: clamp(38px, 6vw, 66px); line-height: 1.05; font-weight: 700; margin-top: 12px; }
+      h1 em { color: var(--accent); }
+      .hero p { font-size: 18px; color: var(--muted); margin-top: 18px; max-width: 480px; }
+      .hero-photo {
+        aspect-ratio: 4 / 5; border-radius: 200px 200px 24px 24px;
+        background: radial-gradient(circle at 60% 30%, #f3c79c 0%, transparent 40%), linear-gradient(170deg, #c98a63, #6e3b2a);
+        display: flex; align-items: flex-end; padding: 20px; color: #fff; font-weight: 600; font-size: 14px;
+      }
+      .btn {
+        display: inline-flex; align-items: center; gap: 10px; margin-top: 28px;
+        background: var(--accent); color: #fff; text-decoration: none; font-weight: 600; font-size: 17px;
+        padding: 16px 28px; border-radius: 999px; transition: transform .15s ease;
+      }
+      .btn:hover { transform: translateY(-2px); }
+      .btn svg { width: 22px; height: 22px; }
+
+      section.wrap { padding: 50px 20px; }
+      h2 { font-size: clamp(28px, 4vw, 42px); font-weight: 500; margin-bottom: 30px; }
+
+      /* Цифры */
+      .stats { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+      .stats div { padding: 26px 10px; text-align: center; }
+      .stats div + div { border-left: 1px solid var(--line); }
+      .stats b { display: block; font-family: "Fraunces", serif; font-size: 34px; }
+      .stats span { color: var(--muted); font-size: 14px; }
+
+      /* Для кого */
+      .who { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+      .who > div { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 28px; }
+      .who .ic { font-size: 30px; }
+      .who h3 { margin: 10px 0 6px; font-size: 19px; }
+      .who p { color: var(--muted); font-size: 15px; }
+
+      /* Галерея */
+      .gallery { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 220px; gap: 12px; }
+      .ph { border-radius: 18px; display: flex; align-items: flex-end; padding: 14px; color: #fff; font-weight: 600; font-size: 14px; }
+      .ph.tall { grid-row: span 2; }
+      .ph:nth-child(1) { background: linear-gradient(160deg, #d4a07c, #8a4a33); }
+      .ph:nth-child(2) { background: linear-gradient(160deg, #9fae8e, #5a6b4a); }
+      .ph:nth-child(3) { background: linear-gradient(160deg, #e6c3a3, #a8735a); }
+      .ph:nth-child(4) { background: linear-gradient(160deg, #a6b5c2, #5d6f80); }
+      .ph:nth-child(5) { background: linear-gradient(160deg, #c79a86, #7b4c3e); }
+      .note { color: var(--muted); font-size: 14px; margin-top: 12px; }
+
+      /* Бронь */
+      .book {
+        background: var(--ink); color: #fff; border-radius: 28px; padding: 52px;
+        display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center;
+      }
+      .book .sum { font-size: clamp(34px, 5vw, 52px); }
+      .book p { opacity: .75; }
+      .book .btn { margin-top: 0; background: #25d366; }
+      .steps { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 18px; font-size: 15px; opacity: .85; }
+
+      /* Контакты */
+      .contacts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .contacts > div { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 28px; }
+      .contacts h3 { font-size: 14px; color: var(--muted); font-weight: 600; margin-bottom: 4px; }
+      .contacts p { font-size: 18px; }
+      .contacts p + h3 { margin-top: 16px; }
+
+      footer { padding: 30px 0 100px; color: var(--muted); font-size: 14px; }
+
+      .wa-float {
+        position: fixed; right: 20px; bottom: 20px; width: 60px; height: 60px; border-radius: 50%;
+        background: #25d366; display: grid; place-items: center; box-shadow: 0 8px 24px rgba(0,0,0,.25);
+      }
+      .wa-float svg { width: 30px; height: 30px; fill: #fff; }
+
+      @media (max-width: 760px) {
+        nav ul { display: none; }
+        .hero { grid-template-columns: 1fr; padding-top: 10px; }
+        .hero-photo { aspect-ratio: 1 / 1; border-radius: 160px 160px 20px 20px; }
+        .stats { grid-template-columns: 1fr 1fr; }
+        .stats div:nth-child(3) { border-left: 0; }
+        .stats div:nth-child(n+3) { border-top: 1px solid var(--line); }
+        .who, .contacts { grid-template-columns: 1fr; }
+        .gallery { grid-template-columns: 1fr 1fr; grid-auto-rows: 150px; }
+        .book { grid-template-columns: 1fr; padding: 34px 24px; }
+        section.wrap { padding: 36px 20px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="demo-bar">
+      Демо-версия сайта для гостевого дома «Mood Houses». Сделал
+      <a href="https://aknas04.github.io" target="_blank">Бекарыс</a>
+    </div>
+
+    <nav>
+      <div class="wrap">
+        <a href="#" class="logo">Mood<span>.</span>Houses</a>
+        <ul>
+          <li><a href="#who">Для кого</a></li>
+          <li><a href="#photo">Фото</a></li>
+          <li><a href="#contacts">Контакты</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <header class="wrap hero">
+      <div>
+        <div class="kicker">Гостевой дом · Алматы</div>
+        <h1>Дом только <em>для вашей</em> компании</h1>
+        <p>Уютный гостевой дом до 10 гостей в Бостандыкском районе. Беседка, гараж и полная приватность — никаких соседей по номерам.</p>
+        <a class="btn wa" href="#">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C2.7 15.7 2.2 13.9 2.2 12 2.2 6.6 6.6 2.2 12 2.2S21.8 6.6 21.8 12 17.4 21.8 12 21.8zM12 0C5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12S18.6 0 12 0z"/></svg>
+          Забронировать в WhatsApp
+        </a>
+      </div>
+      <div class="hero-photo">Главное фото дома</div>
+    </header>
+
+    <section class="wrap">
+      <div class="stats">
+        <div><b>до 10</b><span>гостей</span></div>
+        <div><b>1</b><span>дом целиком</span></div>
+        <div><b>🔥</b><span>беседка</span></div>
+        <div><b>🚗</b><span>гараж</span></div>
+      </div>
+    </section>
+
+    <section class="wrap" id="who">
+      <h2>Для кого этот дом</h2>
+      <div class="who">
+        <div><div class="ic">🎂</div><h3>День рождения</h3><p>Отметить с близкими друзьями в своём пространстве, без ресторана.</p></div>
+        <div><div class="ic">👨‍👩‍👧</div><h3>Семья</h3><p>Выходные с родителями и детьми — всем хватит места.</p></div>
+        <div><div class="ic">🥂</div><h3>Девичник и встречи</h3><p>Беседка, музыка и вечер, который никто не прервёт.</p></div>
+      </div>
+    </section>
+
+    <section class="wrap" id="photo">
+      <h2>Фото</h2>
+      <div class="gallery">
+        <div class="ph tall">Гостиная</div>
+        <div class="ph">Беседка</div>
+        <div class="ph">Спальня</div>
+        <div class="ph">Двор</div>
+        <div class="ph">Вечером</div>
+      </div>
+      <p class="note">В готовом сайте здесь будут ваши фотографии.</p>
+    </section>
+
+    <section class="wrap">
+      <div class="book">
+        <div>
+          <div class="sum">от 100 000 ₸</div>
+          <p>Цену на ваши даты уточняйте в WhatsApp</p>
+          <div class="steps"><span>1. Напишите даты</span><span>2. Получите цену</span><span>3. Отдыхайте</span></div>
+        </div>
+        <a class="btn wa" href="#">Узнать свободные даты</a>
+      </div>
+    </section>
+
+    <section class="wrap" id="contacts">
+      <h2>Контакты</h2>
+      <div class="contacts">
+        <div>
+          <h3>Адрес</h3>
+          <p>ул. Центральная, 43, Нефтяник, Бостандыкский район, Алматы</p>
+          <h3>Карта</h3>
+          <p><a href="https://2gis.kz/almaty/firm/70000001115054253" target="_blank">Открыть в 2ГИС →</a></p>
+        </div>
+        <div>
+          <h3>WhatsApp и телефон</h3>
+          <p><a class="wa" href="#">+7 771 385 71 97</a></p>
+          <h3>Instagram</h3>
+          <p><a href="https://instagram.com/mood.houses_almaty" target="_blank">@mood.houses_almaty</a></p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="wrap">© Mood Houses · Демо-сайт сделал <a href="https://aknas04.github.io" target="_blank">Бекарыс</a></footer>
+
+    <a class="wa-float wa" href="#" aria-label="Написать в WhatsApp">
+      <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C2.7 15.7 2.2 13.9 2.2 12 2.2 6.6 6.6 2.2 12 2.2S21.8 6.6 21.8 12 17.4 21.8 12 21.8zM12 0C5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12S18.6 0 12 0z"/></svg>
+    </a>
+
+    <script>
+      // Все кнопки WhatsApp открывают чат с готовым текстом брони
+      const text = "Здравствуйте! Хочу забронировать Mood Houses. Даты: ..., гостей: ...";
+      const url = "https://wa.me/77713857197?text=" + encodeURIComponent(text);
+      document.querySelectorAll(".wa").forEach((a) => { a.href = url; a.target = "_blank"; });
+    </script>
+  </body>
+</html>
