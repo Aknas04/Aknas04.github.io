@@ -1,0 +1,719 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>МирОтель — отель 4 звезды в Астане (демо)</title>
+    <meta name="description" content="Отель 4 звезды в тихом переулке Астаны: 49 номеров, тайский спа, хаммам и своя кухня. Ресепшн работает круглосуточно. Бронь напрямую в WhatsApp." />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23351a2b'/%3E%3Ccircle cx='16' cy='16' r='11' fill='%23edccbe'/%3E%3Cpath d='M16 16V8M16 16l5 3' stroke='%23351a2b' stroke-width='2' fill='none'/%3E%3C/svg%3E" />
+    <link rel="preload" href="fonts/sofia-sans-extra-condensed-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="fonts/sofia-sans-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link href="fonts/fonts.css" rel="stylesheet" />
+    <script>document.documentElement.classList.add("js");</script>
+    <style>
+      @font-face { font-family: "Condensed Fallback"; src: local("Arial Narrow"), local("Arial"), local("Roboto"), local("Helvetica"); size-adjust: 58%; }
+      :root {
+        --bg: #edccbe;
+        --surface: #e8c2b2;
+        --paper: #f4e2d9;
+        --ink: #351a2b;
+        --muted: #6c4857;
+        --field: #351a2b;
+        --field-ink: #edccbe;
+        --step-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+        --step-body: clamp(1.125rem, 1.05rem + 0.2vw, 1.1875rem);
+        --step-sub: clamp(1.375rem, 1.1rem + 1vw, 2.25rem);
+        --step-head: clamp(3rem, 1.4rem + 6.5vw, 7.5rem);
+        --step-title: min(24.5vw, 46svh);
+        --step-phone: 18.7vw;
+        --margin: clamp(16px, 2.2vw, 32px);
+        --bar-h: 64px;
+        --bar-bg: var(--bg);
+        --bar-ink: var(--ink);
+        --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      * { box-sizing: border-box; margin: 0; }
+      html { scroll-behavior: smooth; scroll-padding-top: var(--bar-h); }
+      body { font-family: "Sofia Sans", system-ui, sans-serif; font-size: var(--step-body); line-height: 1.5; color: var(--ink); background: var(--bg); overflow-x: clip; }
+      a { color: inherit; }
+      img { display: block; max-width: 100%; height: auto; }
+      ul { list-style: none; padding: 0; }
+      :focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
+      h1, h2, .display { font-family: "Sofia Sans Extra Condensed", "Condensed Fallback", sans-serif; font-weight: 800; text-transform: uppercase; line-height: 0.88; letter-spacing: -0.01em; }
+      h2 { font-size: var(--step-head); text-wrap: balance; }
+      h3 { font-size: var(--step-sub); font-weight: 700; line-height: 1.1; }
+      .lede { max-width: 46ch; margin-top: 20px; }
+      .small { font-size: var(--step-small); }
+
+      .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 26px; border: 0; background: var(--ink); color: var(--bg); font: 700 var(--step-body) "Sofia Sans", sans-serif; text-decoration: none; cursor: pointer; transition: transform 140ms var(--ease-out), background-color 180ms ease, color 180ms ease; }
+      .btn:hover { background: #4d2a40; }
+      .btn:active { transform: scale(0.97); }
+      .dark .btn, .btn.light { background: var(--bg); color: var(--ink); }
+      .dark .btn:hover, .btn.light:hover { background: var(--paper); }
+      .link { font-weight: 700; text-underline-offset: 4px; transition: opacity 180ms ease; }
+      .link:hover { opacity: 0.75; }
+      .dark { background: var(--field); color: var(--field-ink); }
+
+      .demo { background: #1f0f19; color: var(--bg); font-size: var(--step-small); line-height: 1.4; text-align: center; padding: 5px 12px; }
+      .demo a { font-weight: 700; }
+
+      /* ===== Шапка: цвет идёт за разделом под ней ===== */
+      .bar { position: sticky; top: 0; z-index: 30; height: var(--bar-h); margin-bottom: calc(var(--bar-h) * -1); display: flex; align-items: center; gap: 28px; padding: 0 var(--margin); background: var(--bar-bg); color: var(--bar-ink); transition: background-color 300ms ease, color 300ms ease; }
+      .word { font-weight: 700; text-decoration: none; font-size: var(--step-body); }
+      .bar nav { display: flex; gap: 26px; margin-left: auto; }
+      .bar nav a { text-decoration: none; font-weight: 500; font-size: var(--step-body); transition: opacity 180ms ease; }
+      .bar nav a:hover { opacity: 0.65; }
+      .menu-btn { display: none; margin-left: auto; min-height: 44px; padding: 0 4px; border: 0; background: none; color: inherit; font: 700 var(--step-body) "Sofia Sans", sans-serif; cursor: pointer; }
+      .action { min-height: 44px; padding: 0 20px; background: var(--bar-ink); color: var(--bar-bg); transition: transform 140ms var(--ease-out), opacity 200ms ease, background-color 300ms ease, color 300ms ease; }
+      .action:hover { background: var(--bar-ink); filter: brightness(1.2); }
+      .in-hero .action { visibility: hidden; }
+
+      /* ===== Первый экран: название стоит, под ним сменяются «миры» ===== */
+      .hero { position: relative; }
+      .js .hero { height: 270svh; }
+      .hero-stage { --hero-bg: var(--bg); --hero-ink: var(--ink); position: sticky; top: 0; height: 100svh; min-height: 560px; overflow: hidden; background: var(--hero-bg); color: var(--hero-ink); transition: background-color 400ms ease, color 400ms ease; }
+      .hero-title { position: absolute; z-index: 3; left: 0; right: 0; top: 96px; font-size: var(--step-title); line-height: 0.92; text-align: center; white-space: nowrap; overflow: hidden; pointer-events: none; }
+      .ch { display: inline-block; }
+      .js .hero-title .ch { transform: translateY(105%); transition: transform 800ms var(--ease-expo); }
+      .js .hero-title.go .ch { transform: none; }
+      .hero-pics { position: absolute; z-index: 1; left: 50%; top: 90px; height: calc(100% - 90px); aspect-ratio: 2 / 3; max-width: 38vw; transform: translateX(-50%); overflow: hidden; background: var(--surface); }
+      .fig { position: absolute; inset: 0; margin: 0; clip-path: inset(100% 0 0 0); transition: clip-path 1100ms var(--ease-expo); overflow: hidden; }
+      .fig.on { clip-path: inset(0); }
+      .fig img { width: 100%; height: 100%; object-fit: cover; }
+      .fig.on img { animation: drift 16s ease-out both; }
+      @keyframes drift { from { transform: scale(1.06); } to { transform: scale(1); } }
+      .hero-foot { position: absolute; z-index: 2; left: var(--margin); right: var(--margin); bottom: 56px; display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; }
+      .hero-lede { width: min(26ch, 26vw); font-weight: 700; }
+      .hero-side { width: min(34ch, 27vw); display: grid; justify-items: end; gap: 12px; text-align: right; }
+      .hero-cap { font-weight: 700; }
+      .hero-btn { background: var(--hero-ink); color: var(--hero-bg); }
+      .hero-btn:hover { background: var(--hero-ink); filter: brightness(1.2); }
+
+      /* ===== Стойка: те же пять часов, что на стене, и бронь ===== */
+      .desk { padding: clamp(96px, 11vw, 160px) var(--margin); }
+      .desk-top { display: grid; grid-template-columns: 7fr 5fr; gap: 40px; align-items: end; }
+      .desk-top figure { margin: 0; }
+      .desk-top img { width: 100%; aspect-ratio: 2 / 1; object-fit: cover; }
+      .desk-top figcaption { font-size: var(--step-small); margin-top: 8px; }
+      .clocks { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(12px, 3vw, 48px); margin-top: clamp(56px, 7vw, 96px); }
+      .clock { text-align: center; }
+      .clock svg { display: block; width: 100%; max-width: 230px; margin: 0 auto; }
+      .clock-face { fill: var(--bg); }
+      .clock-num { fill: var(--ink); font: 500 8px "Sofia Sans", sans-serif; text-anchor: middle; dominant-baseline: central; }
+      .clock-hand { stroke: var(--ink); stroke-linecap: round; }
+      .clock-name { display: block; font-size: var(--step-sub); font-weight: 700; line-height: 1.1; margin-top: 16px; }
+      .clock-time { display: block; font-variant-numeric: tabular-nums; }
+      .book { margin-top: clamp(56px, 7vw, 96px); background: var(--bg); color: var(--ink); padding: clamp(20px, 3vw, 40px); display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px 20px; align-items: end; }
+      .book h3 { grid-column: 1 / -1; }
+      .field { grid-column: span 4; display: grid; gap: 6px; font-weight: 700; }
+      .field input, .field select { width: 100%; min-height: 56px; padding: 0 14px; border: 2px solid var(--ink); border-radius: 0; background: var(--paper); color: var(--ink); font: 500 var(--step-body) "Sofia Sans", sans-serif; color-scheme: light; }
+      .book .btn { grid-column: span 4; align-self: end; min-height: 56px; background: var(--ink); color: var(--bg); }
+      .book .btn:hover { background: #4d2a40; }
+      .book-sum { grid-column: span 8; font-size: var(--step-head); }
+      .book-note { grid-column: 1 / -1; font-size: var(--step-small); }
+
+      /* ===== Номера: фото стоит, список рядом ===== */
+      .rooms { padding: clamp(96px, 11vw, 160px) var(--margin); display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 20px; align-items: start; }
+      .rooms-pic { grid-column: 1 / 6; position: sticky; top: 12vh; aspect-ratio: 4 / 5; background: var(--surface); }
+      .rooms-pic img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 300ms ease; }
+      .rooms-pic img.on { opacity: 1; }
+      .rooms-list { grid-column: 7 / 13; }
+      .row { display: grid; grid-template-columns: 1fr auto; gap: 4px 20px; width: 100%; padding: 16px 0; border: 0; background: none; color: var(--muted); font: inherit; text-align: left; cursor: pointer; transition: color 200ms ease; }
+      .row.on, .row:hover { color: var(--ink); }
+      .row-name { font-size: var(--step-sub); font-weight: 700; line-height: 1.15; }
+      .row-note { font-size: var(--step-small); font-weight: 700; align-self: center; }
+      .row-desc { grid-column: 1 / -1; color: var(--ink); max-width: 52ch; }
+      .rooms-list ul { margin-top: 32px; }
+      .row-pic { display: none; }
+
+      /* ===== Спа: фото стоит, карточки идут поперёк ===== */
+      .spa { position: relative; background: var(--field); color: var(--field-ink); }
+      .spa-stage { position: relative; overflow: hidden; }
+      .spa-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.5); }
+      .spa-track { position: relative; display: flex; align-items: center; gap: 40px; width: max-content; height: 100%; padding: 0 var(--margin); }
+      .spa-head { width: min(38vw, 560px); flex: none; }
+      .spa-head .lede { color: var(--field-ink); }
+      .card { flex: none; width: min(720px, 56vw); height: min(560px, 74svh); display: grid; grid-template-rows: 68% 32%; color: var(--ink); background: var(--c, var(--bg)); transition: transform 240ms var(--ease-out); }
+      .card:hover { transform: translateY(-6px); }
+      .card-pic { overflow: hidden; }
+      .card-pic img { width: 100%; height: 100%; object-fit: cover; transition: transform 800ms var(--ease-out); }
+      .card:hover .card-pic img { transform: scale(1.03); }
+      .card-text { padding: 20px 28px; display: grid; grid-template-columns: 2fr 3fr; gap: 20px; align-items: end; }
+      .card-text p { font-size: var(--step-body); line-height: 1.35; }
+      .card.flat { grid-template-rows: 1fr auto; }
+      .card-price { align-self: center; padding: 0 28px; font-size: var(--step-head); }
+
+      /* ===== Всё под одной крышей: листы наезжают друг на друга ===== */
+      .house { padding-top: clamp(96px, 11vw, 160px); }
+      .house-head { padding: 0 var(--margin) 48px; display: grid; grid-template-columns: 7fr 5fr; gap: 20px 40px; align-items: end; }
+      .house-head .lede { margin: 0; }
+      .sheet { --band: calc(var(--step-head) * 1.02); position: sticky; top: calc(var(--bar-h) + var(--i) * var(--band)); margin-bottom: calc((3 - var(--i)) * var(--band)); height: calc(100svh - var(--bar-h) - 3 * var(--band) - 12px); min-height: 440px; display: grid; grid-template-columns: repeat(12, 1fr); grid-template-rows: var(--band) minmax(0, 1fr); column-gap: 20px; padding: 0 var(--margin); background: var(--s-bg); color: var(--s-ink); }
+      .sheet h3 { grid-column: 1 / -1; grid-row: 1; align-self: center; font-size: var(--step-head); white-space: nowrap; }
+      .sheet-text { grid-column: 1 / 5; grid-row: 2; padding: 4px 0 24px; }
+      .sheet-pic { grid-column: 5 / 13; grid-row: 2; overflow: hidden; margin-bottom: 20px; }
+      .sheet-pic img { width: 100%; height: 100%; object-fit: cover; }
+      .sheets { padding-bottom: 8svh; }
+
+      /* ===== Как добраться ===== */
+      .place { padding: clamp(96px, 11vw, 160px) var(--margin); display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 20px; align-items: start; background: var(--surface); }
+      .place figure { grid-column: 1 / 6; margin: 0; }
+      .place figure img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+      .place-text { grid-column: 7 / 13; }
+      .facts { display: grid; grid-template-columns: 1fr 1fr; gap: 32px 20px; margin-top: 40px; }
+      .facts dd { margin: 4px 0 0; }
+      .facts dt { font-size: var(--step-head); }
+      .map { display: block; width: 100%; height: 320px; border: 0; margin-top: 40px; background: var(--bg); }
+      .place .btn { margin-top: 20px; }
+
+      /* ===== Отзывы ===== */
+      .quote-bg { width: 100%; height: 58svh; object-fit: cover; }
+      .quote-in { padding: 48px var(--margin); display: grid; grid-template-columns: 7fr 5fr; gap: 40px; align-items: end; background: var(--bg); color: var(--ink); }
+      .quote blockquote { font-size: var(--step-sub); font-weight: 700; line-height: 1.2; margin-top: 20px; max-width: 40ch; }
+      .quote cite { display: block; font-size: var(--step-body); font-weight: 500; font-style: normal; margin-top: 12px; }
+      .score { text-align: right; }
+      .score b { display: block; font-size: var(--step-head); }
+      /* Infinite Slider (21st.dev), порт на чистый CSS и JS */
+      .marquee { overflow: hidden; background: var(--ink); color: var(--bg); padding: 28px 0; }
+      .marquee-track { display: flex; width: max-content; animation: slide 70s linear infinite; }
+      .marquee:hover .marquee-track { animation-play-state: paused; }
+      .marquee li { flex: none; padding: 0 28px; white-space: nowrap; }
+      .marquee .display { font-size: var(--step-sub); line-height: 1.1; }
+      .marquee small { font-size: var(--step-small); margin-left: 10px; }
+      @keyframes slide { to { transform: translateX(-50%); } }
+
+      /* ===== Контакты ===== */
+      .contact { min-height: 100svh; padding: calc(var(--bar-h) + 32px) var(--margin) 32px; display: flex; flex-direction: column; gap: 32px; }
+      .contact-top { display: grid; grid-template-columns: 7fr 5fr; gap: 20px 40px; align-items: end; }
+      .contact-top .lede { margin: 0; }
+      .big-phone { display: block; margin-top: auto; font-size: var(--step-phone); line-height: 0.88; text-decoration: none; white-space: nowrap; transition: opacity 180ms ease; }
+      .big-phone:hover { opacity: 0.8; }
+      .contact-foot { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+      .contact-foot a { font-weight: 700; text-underline-offset: 4px; }
+      .contact-foot .right { text-align: right; }
+
+      /* ===== Подвал ===== */
+      .foot { display: grid; grid-template-columns: 1fr 1fr; min-height: 100svh; background: var(--bg); }
+      .foot-pic { position: relative; overflow: hidden; }
+      .foot-pic img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      .foot-menu { padding: 40px var(--margin); display: flex; flex-direction: column; gap: 40px; }
+      .foot-menu ul { display: grid; gap: 14px; }
+      .foot-menu li a { display: inline-block; font-size: var(--step-sub); font-weight: 700; text-decoration: none; transition: transform 240ms var(--ease-out); }
+      .foot-menu li a:hover { transform: translateX(12px); }
+      .foot-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+      .foot-cols a { font-weight: 700; text-underline-offset: 4px; }
+      .legal { margin-top: auto; font-size: var(--step-small); }
+
+      /* Появление частей раздела (только если работает JS) */
+      .js [data-r] { opacity: 0; transform: translateY(24px); transition: opacity 800ms var(--ease-expo), transform 800ms var(--ease-expo); }
+      .js [data-r].in { opacity: 1; transform: none; }
+
+      /* Закреплённая сцена спа только на широких экранах и без «уменьшить движение» */
+      @media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+        .js .spa { height: 270svh; }
+        .js .spa-stage { position: sticky; top: 0; height: 100svh; }
+      }
+      @media (min-width: 900px) and (prefers-reduced-motion: reduce), (min-width: 900px) and (scripting: none) {
+        .spa-stage { padding: 96px 0; }
+        .spa-track { width: auto; overflow-x: auto; padding-bottom: 16px; scrollbar-width: thin; scrollbar-color: var(--bg) transparent; }
+      }
+      @media (max-width: 899px) {
+        :root { --bar-h: 56px; --step-title: 27.5vw; --step-phone: 27.5vw; }
+        .bar { gap: 12px; }
+        .menu-btn { display: block; }
+        .bar nav { display: none; position: absolute; left: 0; right: 0; top: var(--bar-h); flex-direction: column; gap: 4px; margin: 0; padding: 8px var(--margin) 20px; background: var(--bar-bg); }
+        .bar nav a { font-size: var(--step-sub); font-weight: 700; padding: 6px 0; }
+        .menu-open .bar nav { display: flex; }
+        .action, .action:hover { position: fixed; right: 16px; bottom: 16px; z-index: 40; min-height: 52px; background: var(--act-bg, var(--ink)); color: var(--act-ink, var(--bg)); }
+        .in-hero .action { visibility: visible; }
+        .no-action .action { opacity: 0; pointer-events: none; }
+
+        .hero-title { top: calc(var(--bar-h) + 4px); }
+        .hero-pics { left: 16px; right: 16px; top: calc(var(--bar-h) + 14vw); height: 54svh; width: auto; max-width: none; aspect-ratio: auto; transform: none; }
+        .hero-foot { left: 16px; right: 16px; top: calc(var(--bar-h) + 14vw + 54svh + 12px); bottom: auto; flex-direction: column; align-items: stretch; gap: 6px; }
+        .hero-side { display: contents; }
+        .hero-cap { order: 1; text-align: left; }
+        .hero-lede { order: 2; width: auto; font-weight: 500; line-height: 1.35; }
+        .hero-rating { order: 3; font-weight: 700; text-align: left; }
+        .hero-btn { display: none; }
+
+        .desk-top, .quote-in, .house-head { grid-template-columns: 1fr; }
+        .clocks { grid-template-columns: repeat(4, 1fr); gap: 28px 8px; }
+        .clock.here { grid-column: 1 / -1; order: -1; }
+        .clock.here svg { width: 56vw; }
+        .clock-name { font-size: var(--step-small); margin-top: 8px; }
+        .clock-time { font-size: var(--step-small); }
+        .clock.here .clock-name, .clock.here .clock-time { font-size: var(--step-body); }
+        .field { grid-column: 1 / -1; }
+        .book .btn { grid-column: 1 / -1; }
+        .book-sum { grid-column: 1 / -1; font: 700 var(--step-sub) / 1.15 "Sofia Sans", sans-serif; text-transform: none; }
+
+        .rooms { display: block; }
+        .rooms-pic { display: none; }
+        .row { color: var(--ink); padding: 20px 0; }
+        .row-pic { display: block; grid-column: 1 / -1; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; margin-bottom: 12px; }
+
+        .spa-stage { padding: 72px 0 48px; }
+        .spa-track { width: auto; height: auto; align-items: stretch; gap: 12px; padding: 0 16px 8px; overflow-x: auto; scroll-snap-type: x proximity; scroll-padding: 0 16px; scrollbar-width: none; }
+        .spa-track::-webkit-scrollbar { display: none; }
+        .spa-head { width: 78vw; align-self: center; scroll-snap-align: start; }
+        .card { width: 84vw; height: auto; grid-template-rows: auto 1fr; scroll-snap-align: start; }
+        .card.flat { grid-template-rows: 1fr auto; }
+        .card-pic { aspect-ratio: 4 / 3; }
+        .card-text { grid-template-columns: 1fr; gap: 8px; padding: 18px 20px 22px; }
+        .card-price { padding: 28px 20px 0; }
+        .card:hover { transform: none; }
+
+        .sheet { --text-h: 170px; height: calc(var(--band) + (100vw - 2 * var(--margin)) * 0.625 + var(--text-h)); min-height: 0; grid-template-columns: 1fr; grid-template-rows: var(--band) auto minmax(0, 1fr); }
+        .sheet h3 { grid-column: 1; }
+        .sheet-text { grid-column: 1; }
+        .sheet-text { grid-column: 1; grid-row: 3; padding: 20px 0 28px; }
+        .sheet-pic { grid-column: 1; grid-row: 2; aspect-ratio: 16 / 10; margin: 0; }
+
+        .place { display: block; }
+        .place-text { margin-top: 48px; }
+        .quote-bg { height: auto; aspect-ratio: 4 / 3; }
+        .quote-in { display: flex; flex-direction: column; gap: 20px; padding: 40px var(--margin); }
+        .quote-in > div:first-child { display: contents; }
+        .quote-in h2 { order: 1; }
+        .quote-in .score { order: 2; }
+        .quote-in blockquote { order: 3; margin: 0; }
+        .score { text-align: left; }
+
+        .contact { min-height: 86svh; padding-top: 72px; }
+        .contact-top { grid-template-columns: 1fr; }
+        .big-phone span { display: block; }
+        .contact-foot .right { text-align: left; }
+        .foot { display: block; }
+        .foot-pic { height: 50svh; }
+        .foot-menu { padding-bottom: 96px; }
+      }
+      @media (max-width: 599px) {
+        .sheet { --text-h: 250px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        .fig, .js .hero-title .ch { transition: none; }
+        .fig.on img, .marquee-track { animation: none; }
+        .marquee { overflow-x: auto; }
+        .js [data-r] { opacity: 1; transform: none; transition: none; }
+        .card:hover, .card:hover .card-pic img, .foot-menu li a:hover { transform: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="demo">Демо-версия сайта для МирОтеля. Сделал <a href="https://aknas04.github.io" target="_blank" rel="noopener">Бекарыс</a></div>
+
+    <header class="bar" id="bar">
+      <a class="word" href="#top">МирОтель</a>
+      <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="nav">Меню</button>
+      <nav id="nav" aria-label="Разделы">
+        <a href="#rooms">Номера</a>
+        <a href="#spa">Спа</a>
+        <a href="#house">Кухня и залы</a>
+        <a href="#place">Как добраться</a>
+        <a href="#reviews">Отзывы</a>
+      </nav>
+      <a class="btn action" href="#desk">Забронировать</a>
+    </header>
+
+    <main id="top">
+      <section class="hero" id="hero" data-bg="#edccbe" data-ink="#351a2b" aria-label="МирОтель">
+        <div class="hero-stage" id="heroStage">
+          <h1 class="hero-title" id="heroTitle">МирОтель</h1>
+          <div class="hero-pics">
+            <figure class="fig on"><img src="photos/hero-1.jpg" width="1000" height="1500" alt="Здание МирОтеля зимой: светлый фасад с вывесками, снег у входа" fetchpriority="high" /></figure>
+            <figure class="fig"><img src="photos/hero-2.jpg" width="1000" height="1500" alt="Номер с большой кроватью и плотными шторами" /></figure>
+            <figure class="fig"><img src="photos/hero-3.jpg" width="1000" height="1500" alt="Голова Будды и сухие метёлки пампасной травы в спа" /></figure>
+            <figure class="fig"><img src="photos/hero-4.jpg" width="1000" height="1500" alt="Фасад ночью с вывесками Thai Spa, Mirotel и мейрамхана" /></figure>
+          </div>
+          <div class="hero-foot">
+            <p class="hero-lede">Отель 4 звезды в тихом переулке Астаны: 49 номеров, тайский спа, хаммам и своя кухня. Номер от&nbsp;25&nbsp;000&nbsp;₸.</p>
+            <div class="hero-side">
+              <p class="hero-cap" id="heroCap">Мир снаружи: снег, столица, переулок Аркат</p>
+              <p class="hero-rating">4,9 в 2ГИС, 858 оценок</p>
+              <a class="btn hero-btn" href="#desk">Выбрать даты</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="desk dark" id="desk" data-bg="#351a2b" data-ink="#edccbe">
+        <div class="desk-top">
+          <div data-r>
+            <h2>Весь мир на стене</h2>
+            <p class="lede">За нашей стойкой висят пять часов: Пекин, Москва, Астана, Лондон и Нью-Йорк. Ресепшн работает круглосуточно, так что приезжайте в любой час.</p>
+          </div>
+          <figure data-r>
+            <img src="photos/wall.jpg" width="1200" height="600" alt="Стена за стойкой ресепшна: золотая надпись Mirotel и пять часов с названиями городов" loading="lazy" />
+            <figcaption>Та самая стена. Ниже те же города, время настоящее.</figcaption>
+          </figure>
+        </div>
+        <ul class="clocks" id="clocks" aria-label="Время в пяти городах"></ul>
+        <form class="book" id="book" data-r>
+          <h3>Забронировать номер напрямую</h3>
+          <label class="field">Заезд<input type="date" id="dateIn" /></label>
+          <label class="field">Выезд<input type="date" id="dateOut" /></label>
+          <label class="field">Гостей
+            <select id="guests">
+              <option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option>
+            </select>
+          </label>
+          <output class="book-sum display" id="sum" for="dateIn dateOut">Номер от 25&nbsp;000&nbsp;тг</output>
+          <a class="btn" id="send" href="https://wa.me/77021962727" target="_blank" rel="noopener">Отправить в WhatsApp</a>
+          <p class="book-note">Это начальная цена из 2ГИС, точную подтвердим в ответ. Заезд с 14:00, выезд до 12:00.</p>
+        </form>
+      </section>
+
+      <section class="rooms" id="rooms" data-bg="#edccbe" data-ink="#351a2b">
+        <div class="rooms-pic" id="roomsPic">
+          <img class="on" src="photos/room-bed.jpg" width="900" height="1125" alt="Большая кровать в номере" loading="lazy" />
+          <img src="photos/room-sofa.jpg" width="900" height="1125" alt="Номер с угловым кожаным диваном и журнальным столиком" loading="lazy" />
+          <img src="photos/room-desk.jpg" width="900" height="1125" alt="Рабочий стол с креслом, телефоном и телевизором на стене" loading="lazy" />
+          <img src="photos/room-tea.jpg" width="900" height="1125" alt="Чайник, кофемашина и небольшой холодильник под телевизором" loading="lazy" />
+          <img src="photos/room-bath.jpg" width="900" height="1125" alt="Ванная со стеклянной душевой и раковиной" loading="lazy" />
+          <img src="photos/room-clean.jpg" width="900" height="1125" alt="Заправленная кровать и шторы в чистом номере" loading="lazy" />
+        </div>
+        <div class="rooms-list">
+          <div data-r>
+            <h2>Мир номера</h2>
+            <p class="lede">49 номеров на пяти этажах. Чаще всего гости пишут о том, что здесь просторно и чисто.</p>
+          </div>
+          <ul>
+            <li data-r><button class="row on" type="button" aria-pressed="true"><img class="row-pic" src="photos/room-bed.jpg" width="900" height="1125" alt="Большая кровать в номере" loading="lazy" /><span class="row-name">Большая кровать</span><span class="row-note">от&nbsp;25&nbsp;000&nbsp;₸</span><span class="row-desc">Широкая кровать и плотные шторы. «Кровать просто огромная», пишет гостья Нина.</span></button></li>
+            <li data-r><button class="row" type="button" aria-pressed="false"><img class="row-pic" src="photos/room-sofa.jpg" width="900" height="1125" alt="Номер с угловым кожаным диваном и журнальным столиком" loading="lazy" /><span class="row-name">Гостиная с диваном</span><span class="row-note">в части номеров</span><span class="row-desc">Угловой кожаный диван, журнальный столик и люстра. Удобно, если едете семьёй или принимаете гостей.</span></button></li>
+            <li data-r><button class="row" type="button" aria-pressed="false"><img class="row-pic" src="photos/room-desk.jpg" width="900" height="1125" alt="Рабочий стол с креслом, телефоном и телевизором на стене" loading="lazy" /><span class="row-name">Рабочий стол</span><span class="row-desc">Стол с креслом, телефон, телевизор и Wi-Fi. Сюда приезжают и по работе.</span></button></li>
+            <li data-r><button class="row" type="button" aria-pressed="false"><img class="row-pic" src="photos/room-tea.jpg" width="900" height="1125" alt="Чайник, кофемашина и небольшой холодильник под телевизором" loading="lazy" /><span class="row-name">Чай, кофе и мини-бар</span><span class="row-desc">Чайник, кофемашина и маленький холодильник. «Mini bar is not overpriced», пишет гость Андрей.</span></button></li>
+            <li data-r><button class="row" type="button" aria-pressed="false"><img class="row-pic" src="photos/room-bath.jpg" width="900" height="1125" alt="Ванная со стеклянной душевой и раковиной" loading="lazy" /><span class="row-name">Ванная</span><span class="row-desc">Стеклянная душевая, раковина с большим зеркалом и биде. Полотенца уже на месте.</span></button></li>
+            <li data-r><button class="row" type="button" aria-pressed="false"><img class="row-pic" src="photos/room-clean.jpg" width="900" height="1125" alt="Заправленная кровать и шторы в чистом номере" loading="lazy" /><span class="row-name">Уборка и прачечная</span><span class="row-desc">«Убирали каждый день, хоть мы и остановились всего на две ночи», пишет гостья. В отеле есть прачечная.</span></button></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="spa" id="spa" data-bg="#351a2b" data-ink="#edccbe">
+        <div class="spa-stage">
+          <img class="spa-bg" src="photos/spa-bg.jpg" width="1920" height="1080" alt="Сухие метёлки в золотых вазах у стены спа" loading="lazy" />
+          <div class="spa-track spa-ticker" id="spaTrack">
+            <div class="spa-head">
+              <h2>Мир тайского спа</h2>
+              <p class="lede">Массаж, хаммам и сауна в этом же доме: выходить на улицу не нужно. Вывеска Thai Spa висит прямо на фасаде.</p>
+            </div>
+            <article class="card" style="--c:#edccbe">
+              <div class="card-pic"><img src="photos/card-massage.jpg" width="1000" height="526" alt="Массажные столы с полотенцем в кабинете" loading="lazy" /></div>
+              <div class="card-text"><h3>Тайский массаж</h3><p>«Хороший СПА в отеле, массажисты из Тайланда, очень опытные», пишет гостья Полина.</p></div>
+            </article>
+            <article class="card flat" style="--c:#f4e2d9">
+              <p class="card-price display">от 10&nbsp;000&nbsp;тг</p>
+              <div class="card-text"><h3>Хаммам и сауна</h3><p>Компания до 6 человек. Веники, полотенца, простыни, тапочки и чай уже на месте.</p></div>
+            </article>
+            <article class="card" style="--c:#dcc39b">
+              <div class="card-pic"><img src="photos/card-tea.jpg" width="1000" height="526" alt="Чайник и чашки с чаем на круглом столе" loading="lazy" /></div>
+              <div class="card-text"><h3>Комната отдыха</h3><p>Приглушённый свет и чай после процедуры, с Wi-Fi и полотенцами.</p></div>
+            </article>
+            <article class="card" style="--c:#e8c2b2">
+              <div class="card-pic"><img src="photos/card-gift.jpg" width="1000" height="526" alt="Подарочный сертификат Thai Spa Mirotel на 5000 тенге" loading="lazy" /></div>
+              <div class="card-text"><h3>Сертификат в подарок</h3><p>На любые спа-процедуры в Thai Spa Mirotel. Номиналы подскажем в WhatsApp.</p></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="house" id="house" data-bg="#edccbe" data-ink="#351a2b">
+        <div class="house-head" data-r>
+          <h2>Мир под одной крышей</h2>
+          <p class="lede">Завтрак, ресторан, большой стол для компании и зал для встреч: искать, куда пойти, не придётся.</p>
+        </div>
+        <div class="sheets">
+          <article class="sheet" style="--i:0;--s-bg:#351a2b;--s-ink:#edccbe">
+            <h3 class="display">Завтрак</h3>
+            <div class="sheet-text"><p>Шведский стол по утрам. «Завтраки разнообразные, вкусные», пишет гостья Полина, а Танзила отвечает коротко: «Шведский стол керемет».</p></div>
+            <div class="sheet-pic"><img src="photos/food-breakfast.jpg" width="1400" height="636" alt="Шведский стол: фрукты, выпечка, сыры и десерты" loading="lazy" /></div>
+          </article>
+          <article class="sheet" style="--i:1;--s-bg:#f4e2d9;--s-ink:#351a2b">
+            <h3 class="display">Ресторан</h3>
+            <div class="sheet-text"><p>«Цены совсем не гостиничные», пишет гость Габит. А ещё советуют том-ям от шеф-повара Заура: «Один из лучших в Астане».</p></div>
+            <div class="sheet-pic"><img src="photos/food-restaurant.jpg" width="1400" height="636" alt="Горячее блюдо с грибным соусом на большой тарелке" loading="lazy" /></div>
+          </article>
+          <article class="sheet" style="--i:2;--s-bg:#4d2a40;--s-ink:#f4e2d9">
+            <h3 class="display">Стол для компании</h3>
+            <div class="sheet-text"><p>День рождения, встреча, гости издалека: накроем большой стол. «Компания болып отыруға өте қолайлы жер», пишет гостья Айым.</p></div>
+            <div class="sheet-pic"><img src="photos/food-table.jpg" width="1400" height="636" alt="Праздничный стол с мясом на резном блюде, фруктами и закусками" loading="lazy" /></div>
+          </article>
+          <article class="sheet" style="--i:3;--s-bg:#e8c2b2;--s-ink:#351a2b">
+            <h3 class="display">Конференц-зал</h3>
+            <div class="sheet-text"><p>Зал до 30 человек и Wi-Fi. «Приятно что в городе есть места, куда не стыдно привезти иностранных партнеров», пишет гостья Арайко.</p></div>
+            <div class="sheet-pic"><img src="photos/work-lobby.jpg" width="1400" height="636" alt="Лобби отеля с мраморными колоннами и люстрой" loading="lazy" /></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="place" id="place" data-bg="#e8c2b2" data-ink="#351a2b">
+        <figure data-r>
+          <img src="photos/place.jpg" width="900" height="1125" alt="Вид с высоты на зелёный двор, невысокие дома и башни Астаны" loading="lazy" />
+        </figure>
+        <div class="place-text">
+          <div data-r>
+            <h2>Мир за дверью</h2>
+            <p class="lede">Переулок Аркат, 1. «В очень тихом месте», пишет гость Габит: шумные дороги в стороне, а город рядом.</p>
+          </div>
+          <dl class="facts" data-r>
+            <div><dt class="display">600 м</dt><dd>до остановки Акыртас, 6 минут пешком</dd></div>
+            <div><dt class="display">5</dt><dd>парковок рядом с отелем</dd></div>
+            <div><dt class="display">19 км</dt><dd>до аэропорта, приезжайте и ночью</dd></div>
+            <div><dt class="display">Рядом</dt><dd>набережная для утренней пробежки, музеи, парки и торговые центры</dd></div>
+          </dl>
+          <iframe class="map" title="Карта: МирОтель, переулок Аркат, 1" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=71.4537%2C51.1274%2C71.4777%2C51.1374&amp;layer=mapnik&amp;marker=51.132434%2C71.46575"></iframe>
+          <a class="btn" href="https://2gis.kz/astana/firm/70000001061054743" target="_blank" rel="noopener">Построить маршрут в 2ГИС</a>
+        </div>
+      </section>
+
+      <section id="reviews" data-bg="#351a2b" data-ink="#edccbe">
+        <div class="quote">
+          <img class="quote-bg" src="photos/quote-bg.jpg" width="1920" height="1080" alt="Люстра под светлым потолком в лобби" loading="lazy" />
+          <div class="quote-in">
+            <div data-r>
+              <h2>Мир о нас</h2>
+              <blockquote>«Миротель можно сравнить с хорошей небольшой гостиницей Стамбула, в тихом уютном районе».<cite>Габит, останавливался здесь дважды</cite></blockquote>
+            </div>
+            <div class="score" data-r>
+              <b class="display">4,9</b>
+              <p>858 оценок и 273 отзыва в 2ГИС</p>
+              <a class="link" href="https://2gis.kz/astana/firm/70000001061054743/tab/reviews" target="_blank" rel="noopener">Читать все отзывы</a>
+            </div>
+          </div>
+        </div>
+        <div class="marquee">
+          <ul class="marquee-track" id="sliderTrack" aria-label="Короткие цитаты из отзывов в 2ГИС">
+            <li><span class="display">«Кровать просто огромная»</span><small>Нина</small></li>
+            <li><span class="display">«Отличный тайский массаж»</span><small>Сергей</small></li>
+            <li><span class="display">«Клиентоориентированность просто вау»</span><small>из отзыва в 2ГИС</small></li>
+            <li><span class="display">«Дали бесплатное мороженное»</span><small>Избасар</small></li>
+            <li><span class="display">«Polite and friendly staff, rooms are clean»</span><small>Andrey</small></li>
+            <li><span class="display">«Бәрі өте қатты ұнады»</span><small>Айым</small></li>
+            <li><span class="display">«Завтраки вкусные разнообразные»</span><small>Альмира</small></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="contact dark" id="contact" data-bg="#351a2b" data-ink="#edccbe">
+        <div class="contact-top" data-r>
+          <h2>Мир на связи</h2>
+          <p class="lede">Ресепшн отвечает круглосуточно. Напишите, и мы подтвердим номер и цену.</p>
+        </div>
+        <a class="big-phone display wa" href="https://wa.me/77021962727" target="_blank" rel="noopener" aria-label="Написать в WhatsApp: +7 702 196 27 27"><span>+7 702</span> <span>196 27 27</span></a>
+        <div class="contact-foot">
+          <p>Переулок Аркат, 1, Алматы район, Астана<br /><a href="tel:+77021962727">Позвонить</a> · <a href="mailto:mirotel.astana@mail.ru">mirotel.astana@mail.ru</a></p>
+          <p class="right">Второй номер: <a href="tel:+77025760101">+7 702 576 01 01</a><br />Оплата картой, наличными и по QR · Пандус и широкий лифт</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot" data-bg="#351a2b" data-ink="#edccbe">
+      <div class="foot-pic"><img src="photos/foot.jpg" width="1000" height="1250" alt="Буквы логотипа Mirotel на рельефной стене крупным планом" loading="lazy" /></div>
+      <div class="foot-menu">
+        <a class="word" href="#top">МирОтель</a>
+        <ul>
+          <li><a href="#desk">Забронировать</a></li>
+          <li><a href="#rooms">Номера</a></li>
+          <li><a href="#spa">Спа</a></li>
+          <li><a href="#house">Кухня и залы</a></li>
+          <li><a href="#place">Как добраться</a></li>
+          <li><a href="#reviews">Отзывы</a></li>
+        </ul>
+        <div class="foot-cols">
+          <p><a class="wa" href="https://wa.me/77021962727" target="_blank" rel="noopener">WhatsApp</a><br /><a href="tel:+77021962727">+7 702 196 27 27</a></p>
+          <p><a href="https://instagram.com/mirotel_astana" target="_blank" rel="noopener">Instagram</a><br /><a href="mailto:mirotel.astana@mail.ru">Почта</a></p>
+        </div>
+        <p class="legal">© 2026 МирОтель. Цены и услуги по данным 2ГИС на 30 октября 2026. Демо-сайт сделал <a href="https://aknas04.github.io" target="_blank" rel="noopener">Бекарыс</a>.</p>
+      </div>
+    </footer>
+
+    <script>
+      const root = document.documentElement;
+      const clamp = (v) => Math.min(1, Math.max(0, v));
+
+      // ===== Появление частей раздела =====
+      const revealIO = new IntersectionObserver((es) => {
+        es.filter((e) => e.isIntersecting).forEach((e, i) => {
+          e.target.style.transitionDelay = i * 80 + "ms";
+          e.target.classList.add("in");
+          revealIO.unobserve(e.target);
+        });
+      }, { rootMargin: "0px 0px -6% 0px" });
+      document.querySelectorAll("[data-r]").forEach((el) => revealIO.observe(el));
+
+      // ===== Название поднимается по буквам при загрузке =====
+      const title = document.getElementById("heroTitle");
+      title.setAttribute("aria-label", title.textContent);
+      title.innerHTML = [...title.textContent].map((c, i) => `<span class="ch" aria-hidden="true" style="transition-delay:${i * 30}ms">${c}</span>`).join("");
+      requestAnimationFrame(() => requestAnimationFrame(() => title.classList.add("go")));
+
+      // ===== WhatsApp: обычные ссылки с готовым текстом =====
+      const WA = "https://wa.me/77021962727?text=";
+      document.querySelectorAll(".wa").forEach((a) => { a.href = WA + encodeURIComponent("Здравствуйте! Хочу забронировать номер в МирОтель. Даты: ..., гостей: ..."); });
+
+      // ===== Шаги первого экрана: фото, подпись и цвет =====
+      const HERO = [
+        { bg: "#edccbe", ink: "#351a2b", cap: "Мир снаружи: снег, столица, переулок Аркат" },
+        { bg: "#e7d8c6", ink: "#351a2b", cap: "Мир внутри: большая кровать и тишина" },
+        { bg: "#e8c2b2", ink: "#351a2b", cap: "Мир Таиланда: массаж и спа в этом же доме" },
+        { bg: "#351a2b", ink: "#edccbe", cap: "Мир в любой час: ресепшн не закрывается" },
+      ];
+      const hero = document.getElementById("hero"), stage = document.getElementById("heroStage"), heroCap = document.getElementById("heroCap");
+      const figs = [...hero.querySelectorAll(".fig")];
+      let heroStep = -1;
+      function setHero(i) {
+        if (i === heroStep) return;
+        heroStep = i;
+        figs.forEach((f, k) => f.classList.toggle("on", k <= i));
+        stage.style.setProperty("--hero-bg", HERO[i].bg);
+        stage.style.setProperty("--hero-ink", HERO[i].ink);
+        hero.dataset.bg = HERO[i].bg;
+        hero.dataset.ink = HERO[i].ink;
+        heroCap.textContent = HERO[i].cap;
+      }
+
+      // ===== Спа: карточки идут поперёк, пока фото стоит =====
+      const spa = document.getElementById("spa"), spaTrack = document.getElementById("spaTrack");
+      const spaPin = matchMedia("(min-width: 900px) and (prefers-reduced-motion: no-preference)");
+
+      // ===== Всё, что зависит от прокрутки =====
+      const chapters = [...document.querySelectorAll("[data-bg]")];
+      const desk = document.getElementById("desk"), contact = document.getElementById("contact");
+      let ticking = false;
+      function onScroll() {
+        ticking = false;
+        const H = innerHeight, barH = document.getElementById("bar").offsetHeight;
+        const heroBox = hero.getBoundingClientRect();
+        setHero(Math.min(HERO.length - 1, Math.floor(clamp(-heroBox.top / Math.max(1, heroBox.height - H)) * HERO.length)));
+        if (spaPin.matches) {
+          const r = spa.getBoundingClientRect();
+          spaTrack.style.transform = `translate3d(${-clamp(-r.top / Math.max(1, r.height - H)) * Math.max(0, spaTrack.offsetWidth - root.clientWidth)}px,0,0)`;
+        } else {
+          spaTrack.style.transform = "";
+        }
+        const now = chapters.find((s) => { const r = s.getBoundingClientRect(); return r.top <= barH && r.bottom > barH; });
+        if (now) {
+          root.style.setProperty("--bar-bg", now.dataset.bg);
+          root.style.setProperty("--bar-ink", now.dataset.ink);
+        }
+        const under = chapters.find((s) => { const r = s.getBoundingClientRect(); return r.top <= H - 40 && r.bottom > H - 40; });
+        if (under) {
+          root.style.setProperty("--act-bg", under.dataset.ink);
+          root.style.setProperty("--act-ink", under.dataset.bg);
+        }
+        document.body.classList.toggle("in-hero", heroBox.bottom > H * 0.5);
+        const near = (el) => { const r = el.getBoundingClientRect(); return r.top < H - 80 && r.bottom > H - 80; };
+        document.body.classList.toggle("no-action", near(desk) || near(contact));
+      }
+      const requestScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } };
+      addEventListener("scroll", requestScroll, { passive: true });
+      addEventListener("resize", requestScroll);
+      onScroll();
+
+      // ===== Меню на телефоне =====
+      const menuBtn = document.getElementById("menuBtn");
+      menuBtn.addEventListener("click", () => menuBtn.setAttribute("aria-expanded", document.body.classList.toggle("menu-open")));
+      document.querySelectorAll("#nav a").forEach((a) => a.addEventListener("click", () => { document.body.classList.remove("menu-open"); menuBtn.setAttribute("aria-expanded", "false"); }));
+
+      // ===== Пять часов, как на стене у стойки =====
+      const CITIES = [["Пекин", "Asia/Shanghai"], ["Москва", "Europe/Moscow"], ["Астана", null], ["Лондон", "Europe/London"], ["Нью-Йорк", "America/New_York"]];
+      const clocksEl = document.getElementById("clocks");
+      const numerals = Array.from({ length: 12 }, (_, i) => {
+        const a = ((i + 1) / 12) * Math.PI * 2;
+        return `<text class="clock-num" x="${(Math.sin(a) * 38).toFixed(2)}" y="${(-Math.cos(a) * 38).toFixed(2)}">${i + 1}</text>`;
+      }).join("");
+      clocksEl.innerHTML = CITIES.map(([name], i) => `
+        <li class="clock${i === 2 ? " here" : ""}">
+          <svg viewBox="-50 -50 100 100" aria-hidden="true">
+            <circle class="clock-face" r="49" />${numerals}
+            <line class="clock-hand h" y2="-22" stroke-width="3" />
+            <line class="clock-hand m" y2="-32" stroke-width="2" />
+            <line class="clock-hand s" y2="-36" stroke-width="0.8" />
+            <circle r="2.4" fill="#351a2b" />
+          </svg>
+          <span class="clock-name">${name}</span>
+          <span class="clock-time"></span>
+        </li>`).join("");
+      const clockEls = [...clocksEl.children].map((li) => ({
+        h: li.querySelector(".h"), m: li.querySelector(".m"), s: li.querySelector(".s"), t: li.querySelector(".clock-time"),
+      }));
+      const fmts = CITIES.map(([, tz]) => tz && new Intl.DateTimeFormat("en-GB", { timeZone: tz, hour: "numeric", minute: "numeric", second: "numeric", hourCycle: "h23" }));
+      function tick() {
+        const now = new Date();
+        clockEls.forEach((c, i) => {
+          let h, m, s;
+          if (fmts[i]) {
+            const p = {};
+            fmts[i].formatToParts(now).forEach((x) => { p[x.type] = +x.value; });
+            ({ hour: h, minute: m, second: s } = p);
+          } else {
+            // Астана: весь Казахстан с 2024 года живёт по UTC+5
+            h = (now.getUTCHours() + 5) % 24; m = now.getUTCMinutes(); s = now.getUTCSeconds();
+          }
+          c.h.setAttribute("transform", `rotate(${((h % 12) + m / 60) * 30})`);
+          c.m.setAttribute("transform", `rotate(${(m + s / 60) * 6})`);
+          c.s.setAttribute("transform", `rotate(${s * 6})`);
+          c.t.textContent = String(h).padStart(2, "0") + ":" + String(m).padStart(2, "0");
+        });
+      }
+      tick();
+      let clockTimer = 0;
+      new IntersectionObserver(([e]) => {
+        clearInterval(clockTimer);
+        if (e.isIntersecting) { tick(); clockTimer = setInterval(() => { if (!document.hidden) tick(); }, 1000); }
+      }).observe(clocksEl);
+
+      // ===== Бронь: даты, сумма от и готовое сообщение в WhatsApp =====
+      const PRICE_FROM = 25000;
+      const DAY = 86400000;
+      const iso = (ms) => new Date(ms).toISOString().slice(0, 10);
+      const parse = (v) => (v ? Date.parse(v + "T00:00:00Z") : NaN);
+      const plural = (n, a, b, c) => { const t = n % 100, u = n % 10; return t > 10 && t < 20 ? c : u === 1 ? a : u >= 2 && u <= 4 ? b : c; };
+      const dayName = (ms) => new Intl.DateTimeFormat("ru-RU", { day: "numeric", month: "long", timeZone: "UTC" }).format(ms);
+      const dateIn = document.getElementById("dateIn"), dateOut = document.getElementById("dateOut"), guests = document.getElementById("guests"), sum = document.getElementById("sum"), send = document.getElementById("send");
+      const today = parse(iso(Date.now() + 5 * 3600000));
+      dateIn.min = iso(today);
+      dateIn.value = iso(today);
+      dateOut.min = iso(today + DAY);
+      dateOut.value = iso(today + DAY);
+      function updateBooking() {
+        const a = parse(dateIn.value);
+        if (!isNaN(a)) {
+          dateOut.min = iso(a + DAY);
+          if (!(parse(dateOut.value) > a)) dateOut.value = iso(a + DAY);
+        }
+        const b = parse(dateOut.value), n = (b - a) / DAY, g = +guests.value;
+        const who = `${g} ${plural(g, "гость", "гостя", "гостей")}`;
+        if (n > 0) {
+          sum.textContent = `${n} ${plural(n, "ночь", "ночи", "ночей")}, от ${(PRICE_FROM * n).toLocaleString("ru-RU")}\u00a0тг`;
+          send.href = WA + encodeURIComponent(`Здравствуйте! Хочу забронировать номер в МирОтель. Заезд: ${dayName(a)}, выезд: ${dayName(b)} (${n} ${plural(n, "ночь", "ночи", "ночей")}), ${who}.`);
+        } else {
+          sum.textContent = "Номер от 25\u00a0000\u00a0тг";
+          send.href = WA + encodeURIComponent(`Здравствуйте! Хочу забронировать номер в МирОтель. Даты: ..., ${who}.`);
+        }
+      }
+      [dateIn, dateOut, guests].forEach((el) => el.addEventListener("change", updateBooking));
+      updateBooking();
+
+      // ===== Номера: строка меняет фото =====
+      const rows = [...document.querySelectorAll(".row")], roomPics = [...document.querySelectorAll("#roomsPic img")];
+      function pickRow(i) {
+        rows.forEach((r, k) => { r.classList.toggle("on", k === i); r.setAttribute("aria-pressed", k === i); });
+        roomPics.forEach((p, k) => p.classList.toggle("on", k === i));
+      }
+      rows.forEach((r, i) => {
+        r.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") pickRow(i); });
+        r.addEventListener("focus", () => pickRow(i));
+        r.addEventListener("click", () => pickRow(i));
+      });
+      const rowIO = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) pickRow(rows.indexOf(e.target)); }), { rootMargin: "-50% 0px -40% 0px" });
+      rows.forEach((r) => rowIO.observe(r));
+
+      // ===== Infinite Slider: вторая копия ленты для бесконечного хода =====
+      const sliderTrack = document.getElementById("sliderTrack");
+      [...sliderTrack.children].forEach((li) => { const c = li.cloneNode(true); c.setAttribute("aria-hidden", "true"); sliderTrack.append(c); });
+    </script>
+  </body>
+</html>
