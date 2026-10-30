@@ -84,6 +84,12 @@
       .fig img { width: 100%; height: 100%; object-fit: cover; }
       .fig.on img { animation: drift 16s ease-out both; }
       @keyframes drift { from { transform: scale(1.06); } to { transform: scale(1); } }
+      /* Scroll Expansion Hero (21st.dev), порт на чистый CSS и JS: последний кадр раскрывается на весь экран, название расходится */
+      .half { display: inline-block; }
+      .hero-open { display: none; }
+      .js .hero-open { display: block; position: absolute; inset: 0; z-index: 1; margin: 0; overflow: hidden; clip-path: inset(100% 0 0 0); transition: clip-path 1100ms var(--ease-expo); }
+      .js .hero-open.free { transition: none; }
+      .hero-open img { width: 100%; height: 100%; object-fit: cover; object-position: 52% 50%; }
       .hero-foot { position: absolute; z-index: 2; left: var(--margin); right: var(--margin); bottom: 56px; display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; }
       .hero-lede { width: min(26ch, 26vw); font-weight: 700; }
       .hero-side { width: min(34ch, 27vw); display: grid; justify-items: end; gap: 12px; text-align: right; }
@@ -209,6 +215,10 @@
       .js [data-r] { opacity: 0; transform: translateY(24px); transition: opacity 800ms var(--ease-expo), transform 800ms var(--ease-expo); }
       .js [data-r].in { opacity: 1; transform: none; }
 
+      /* Раскрытие кадра только без «уменьшить движение» */
+      @media (prefers-reduced-motion: no-preference) {
+        .js .hero { height: 400svh; }
+      }
       /* Закреплённая сцена спа только на широких экранах и без «уменьшить движение» */
       @media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
         .js .spa { height: 270svh; }
@@ -229,6 +239,7 @@
         .in-hero .action { visibility: visible; }
         .no-action .action { opacity: 0; pointer-events: none; }
 
+        .hero-stage { height: 100lvh; }
         .hero-title { top: calc(var(--bar-h) + 4px); }
         .hero-pics { left: 16px; right: 16px; top: calc(var(--bar-h) + 14vw); height: 54svh; width: auto; max-width: none; aspect-ratio: auto; transform: none; }
         .hero-foot { left: 16px; right: 16px; top: calc(var(--bar-h) + 14vw + 54svh + 12px); bottom: auto; flex-direction: column; align-items: stretch; gap: 6px; }
@@ -294,7 +305,7 @@
       }
       @media (prefers-reduced-motion: reduce) {
         html { scroll-behavior: auto; }
-        .fig, .js .hero-title .ch { transition: none; }
+        .fig, .js .hero-title .ch, .js .hero-open { transition: none; }
         .fig.on img, .marquee-track { animation: none; }
         .marquee { overflow-x: auto; }
         .js [data-r] { opacity: 1; transform: none; transition: none; }
@@ -326,8 +337,8 @@
             <figure class="fig on"><img src="photos/hero-1.jpg" width="1000" height="1500" alt="Здание МирОтеля зимой: светлый фасад с вывесками, снег у входа" fetchpriority="high" /></figure>
             <figure class="fig"><img src="photos/hero-2.jpg" width="1000" height="1500" alt="Номер с большой кроватью и плотными шторами" /></figure>
             <figure class="fig"><img src="photos/hero-3.jpg" width="1000" height="1500" alt="Голова Будды и сухие метёлки пампасной травы в спа" /></figure>
-            <figure class="fig"><img src="photos/hero-4.jpg" width="1000" height="1500" alt="Фасад ночью с вывесками Thai Spa, Mirotel и мейрамхана" /></figure>
           </div>
+          <figure class="hero-open" id="heroOpen"><img src="photos/hero-wide.jpg" width="1920" height="863" alt="Фасад ночью: неоновая вывеска Mirotel, Thai Spa и мейрамхана" /></figure>
           <div class="hero-foot">
             <p class="hero-lede">Отель 4 звезды в тихом переулке Астаны: 49 номеров, тайский спа, хаммам и своя кухня. Номер от&nbsp;25&nbsp;000&nbsp;₸.</p>
             <div class="hero-side">
@@ -543,10 +554,11 @@
       }, { rootMargin: "0px 0px -6% 0px" });
       document.querySelectorAll("[data-r]").forEach((el) => revealIO.observe(el));
 
-      // ===== Название поднимается по буквам при загрузке =====
+      // ===== Название поднимается по буквам при загрузке и делится на «Мир» и «Отель» =====
       const title = document.getElementById("heroTitle");
       title.setAttribute("aria-label", title.textContent);
-      title.innerHTML = [...title.textContent].map((c, i) => `<span class="ch" aria-hidden="true" style="transition-delay:${i * 30}ms">${c}</span>`).join("");
+      const letters = (s, from) => [...s].map((c, i) => `<span class="ch" aria-hidden="true" style="transition-delay:${(from + i) * 30}ms">${c}</span>`).join("");
+      title.innerHTML = `<span class="half">${letters("Мир", 0)}</span><span class="half">${letters("Отель", 3)}</span>`;
       requestAnimationFrame(() => requestAnimationFrame(() => title.classList.add("go")));
 
       // ===== WhatsApp: обычные ссылки с готовым текстом =====
@@ -574,6 +586,28 @@
         heroCap.textContent = HERO[i].cap;
       }
 
+      // ===== Scroll Expansion Hero: кадр раскрывается от обычной прокрутки, колесо не перехватываем =====
+      const heroOpen = document.getElementById("heroOpen"), heroOpenImg = heroOpen.querySelector("img");
+      const heroFrame = hero.querySelector(".hero-pics"), [halfA, halfB] = title.children;
+      const heroNotes = hero.querySelectorAll(".hero-lede, .hero-cap, .hero-rating");
+      const canOpen = matchMedia("(prefers-reduced-motion: no-preference)");
+      const STEPS_SHARE = 170 / 300; // четыре шага занимают 170svh из 300svh прокрутки первого экрана
+      let box;
+      function measureHero() {
+        const s = stage.getBoundingClientRect(), f = heroFrame.getBoundingClientRect();
+        box = { h: s.height, t: f.top - s.top, r: s.right - f.right, b: s.bottom - f.bottom, l: f.left - s.left, a: halfA.offsetLeft + halfA.offsetWidth, z: s.width - halfB.offsetLeft };
+      }
+      function setOpen(e) {
+        const k = 1 - e, top = heroStep === HERO.length - 1 ? box.t * k : box.h - box.b;
+        heroOpen.classList.toggle("free", e > 0);
+        heroOpen.style.clipPath = `inset(${top}px ${box.r * k}px ${box.b * k}px ${box.l * k}px)`;
+        heroOpenImg.style.transform = `scale(${1.1 - 0.1 * e})`;
+        heroNotes.forEach((n) => { n.style.opacity = clamp(1 - e / 0.2); }); // текст уходит раньше, чем на него наедет фото
+        halfA.style.transform = e ? `translate3d(${-e * box.a}px,0,0)` : "";
+        halfB.style.transform = e ? `translate3d(${e * box.z}px,0,0)` : "";
+      }
+      measureHero();
+
       // ===== Спа: карточки идут поперёк, пока фото стоит =====
       const spa = document.getElementById("spa"), spaTrack = document.getElementById("spaTrack");
       const spaPin = matchMedia("(min-width: 900px) and (prefers-reduced-motion: no-preference)");
@@ -586,7 +620,10 @@
         ticking = false;
         const H = innerHeight, barH = document.getElementById("bar").offsetHeight;
         const heroBox = hero.getBoundingClientRect();
-        setHero(Math.min(HERO.length - 1, Math.floor(clamp(-heroBox.top / Math.max(1, heroBox.height - H)) * HERO.length)));
+        const heroP = clamp(-heroBox.top / Math.max(1, heroBox.height - stage.offsetHeight));
+        setHero(Math.min(HERO.length - 1, Math.floor(clamp(heroP / (canOpen.matches ? STEPS_SHARE : 1)) * HERO.length)));
+        const e = canOpen.matches ? clamp((heroP - 0.6) / 0.33) : 0;
+        setOpen(e * e * (3 - 2 * e));
         if (spaPin.matches) {
           const r = spa.getBoundingClientRect();
           spaTrack.style.transform = `translate3d(${-clamp(-r.top / Math.max(1, r.height - H)) * Math.max(0, spaTrack.offsetWidth - root.clientWidth)}px,0,0)`;
@@ -609,8 +646,9 @@
       }
       const requestScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } };
       addEventListener("scroll", requestScroll, { passive: true });
-      addEventListener("resize", requestScroll);
+      addEventListener("resize", () => { measureHero(); requestScroll(); });
       onScroll();
+      document.fonts.ready.then(() => { measureHero(); onScroll(); });
 
       // ===== Меню на телефоне =====
       const menuBtn = document.getElementById("menuBtn");
