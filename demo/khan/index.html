@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Гостиница Хан в Алматы (демо)</title>
+    <meta name="description" content="Гостиница Хан, Алматы, Калкаман-2: 37 номеров, красная дорожка у входа, ресепшн круглосуточно. Номер от 9 000 ₸ за 2 часа. Бронь сразу в WhatsApp." />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23131011'/%3E%3Crect x='12' y='0' width='8' height='32' fill='%23c1102a'/%3E%3C/svg%3E" />
+    <link rel="preload" href="fonts/commissioner-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link href="fonts/fonts.css" rel="stylesheet" />
+    <script>document.documentElement.classList.add("js");</script>
+    <style>
+      :root {
+        --bg: #131011;
+        --sheet: #1c1718;
+        --surface: #282122;
+        --ink: #e6e3de;
+        --muted: #b5aea6;
+        --red: #c1102a;
+        --red-dark: #a50c23;
+        --dark-ink: #1c1718;
+        --step-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+        --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+        --step-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+        --step-head: clamp(2.25rem, 1.2rem + 2.6vw, 3.5rem);
+        --step-giant: clamp(5.5rem, 12vw, 11rem);
+        --edge: 12px;
+        --seam: 16px;
+        --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      * { box-sizing: border-box; margin: 0; }
+      html { scroll-behavior: smooth; }
+      body { font-family: "Commissioner", system-ui, sans-serif; font-size: var(--step-body); line-height: 1.55; color: var(--ink); background: var(--bg); overflow-x: clip; }
+      a { color: inherit; }
+      img { display: block; max-width: 100%; height: auto; }
+      ul { list-style: none; padding: 0; }
+      :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+      h1, h2 { font-size: var(--step-head); font-weight: 300; line-height: 1.02; letter-spacing: -0.035em; text-wrap: balance; }
+      h3 { font-size: var(--step-lead); font-weight: 400; line-height: 1.2; letter-spacing: -0.01em; }
+      .lede { max-width: 46ch; }
+
+      .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 54px; padding: 0 28px; border: 0; background: var(--red); color: #fff; font: 500 var(--step-body) "Commissioner", sans-serif; text-decoration: none; cursor: pointer; transition: background-color 180ms ease, transform 140ms var(--ease); }
+      .btn:hover { background: var(--red-dark); }
+      .btn:active { transform: scale(0.97); }
+      .link { font-weight: 500; text-underline-offset: 5px; transition: color 180ms ease; }
+      .link:hover { color: var(--muted); }
+
+      .demo { color: var(--muted); font-size: var(--step-small); line-height: 1.4; }
+      .demo a { color: var(--ink); font-weight: 500; }
+
+      /* Половина экрана стоит на месте, вторая читается; между ними раскатывается дорожка */
+      .split { position: relative; display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--seam); padding: var(--edge) var(--edge) 0; }
+      /* Tracing Beam: идея компонента с 21st.dev, написано вручную на чистом CSS и JS */
+      .carpet { position: absolute; top: var(--edge); bottom: 0; left: 50%; width: var(--seam); margin-left: calc(var(--seam) / -2); background: var(--surface); }
+      .carpet i { display: block; height: 100%; background: var(--red); transform-origin: top; }
+      .sheet { background: var(--sheet); min-width: 0; }
+      .stage { position: sticky; top: var(--edge); height: calc(100svh - 2 * var(--edge)); min-height: 520px; overflow: hidden; background: var(--surface); }
+      .stage-pics img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1600ms ease; }
+      .stage-pics img.on { opacity: 1; animation: drift 20s ease-out both; }
+      @keyframes drift { from { transform: scale(1.05); } to { transform: scale(1); } }
+      @media (min-width: 900px) {
+        .stage-pics img:first-child { object-position: 50% 0; transform-origin: 50% 0; }
+      }
+      .stage-bar { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 56px; padding: 0 0 0 20px; background: var(--sheet); font-size: var(--step-small); }
+      .stage-bar .btn { min-height: 56px; padding: 0 22px; font-size: var(--step-small); }
+      .stage-bar .addr { margin-left: auto; }
+
+      /* Первый экран: лист как меню, всё по центру */
+      .hero { min-height: calc(100svh - 2 * var(--edge)); padding: 28px 40px 40px; display: flex; flex-direction: column; text-align: center; }
+      .top { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 20px; }
+      .top div { display: flex; gap: 22px; }
+      .top div:last-child { justify-content: flex-end; }
+      .top a { text-decoration: none; transition: color 180ms ease; }
+      .top a:hover { color: var(--muted); }
+      .word { font-size: var(--step-lead); font-weight: 400; letter-spacing: 0.02em; text-decoration: none; }
+      .hero-main { margin: auto 0; padding-top: 24px; display: flex; flex-direction: column; align-items: center; gap: 28px; }
+      .hero-main h1 { max-width: 16ch; }
+      .hero-proof { color: var(--muted); font-size: var(--step-small); }
+
+      /* Шаги пути: в каждом колонка держит что-то своё */
+      .step { min-height: 84svh; padding: 72px clamp(28px, 5vw, 80px); display: flex; flex-direction: column; justify-content: center; gap: 28px; }
+      .step-pic { display: none; }
+      .facts { display: grid; grid-template-columns: repeat(3, auto); justify-content: space-between; gap: 16px; margin-top: 12px; }
+      .facts dt { font-size: var(--step-head); font-weight: 300; line-height: 1; letter-spacing: -0.035em; font-variant-numeric: tabular-nums; }
+      .facts dd { margin: 8px 0 0; color: var(--muted); font-size: var(--step-small); }
+      blockquote { font-size: var(--step-lead); font-weight: 300; line-height: 1.25; max-width: 30ch; }
+      cite { display: block; margin-top: 10px; color: var(--muted); font-size: var(--step-body); font-style: normal; }
+      .desk-row { display: grid; grid-template-columns: 148px 1fr; gap: 24px; align-items: center; }
+      .desk-row img { width: 148px; aspect-ratio: 1; object-fit: cover; }
+      .paper { background: var(--ink); color: var(--dark-ink); }
+      .paper .link:hover { color: var(--red-dark); }
+
+      /* Красная панель: дорожка вылилась в зал с ценами */
+      .prices { background: var(--red); color: #fff; padding: clamp(64px, 8vw, 120px) clamp(20px, 3vw, 44px); display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 20px; align-items: start; }
+      .prices-left { grid-column: 1 / 6; display: flex; flex-direction: column; gap: 24px; }
+      .plate { position: relative; aspect-ratio: 1; margin: 12px 0 0; background: var(--red-dark); overflow: hidden; }
+      .plate img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 500ms ease; }
+      .plate img.on { opacity: 1; }
+      .plate-cap { font-size: var(--step-small); }
+      .menu { grid-column: 7 / 13; display: flex; flex-direction: column; gap: 32px; }
+      fieldset { border: 0; padding: 0; min-width: 0; }
+      legend { padding: 0; margin-bottom: 8px; font-size: var(--step-lead); font-weight: 500; }
+      .opt { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 52px; padding: 0 14px; margin: 0 -14px; cursor: pointer; font-size: var(--step-body); font-variant-numeric: tabular-nums; transition: background-color 180ms ease, color 180ms ease; }
+      .opt:hover { background: var(--red-dark); }
+      .opt input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+      .opt:has(input:checked) { background: var(--ink); color: var(--dark-ink); font-weight: 500; }
+      .opt:has(input:focus-visible) { outline: 3px solid #fff; outline-offset: 2px; }
+      .when { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .when label { display: grid; gap: 6px; font-weight: 500; }
+      .when input { width: 100%; min-height: 54px; padding: 0 12px; border: 2px solid #fff; border-radius: 0; background: var(--red-dark); color: #fff; font: 400 var(--step-body) "Commissioner", sans-serif; color-scheme: dark; }
+      .sum { display: block; font-size: var(--step-lead); font-weight: 500; line-height: 1.2; }
+      .send { background: var(--ink); color: var(--dark-ink); width: 100%; }
+      .send:hover { background: #fff; }
+      .js .nojs-send { display: none; }
+      .send-link { display: none; }
+      .js .send-link { display: inline-flex; }
+      .note { font-size: var(--step-small); }
+
+      /* Номера: одна рамка, содержимое меняется */
+      .rooms { padding: clamp(96px, 11vw, 170px) clamp(20px, 3vw, 44px); display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 20px; align-items: center; }
+      .frame { grid-column: 1 / 6; position: relative; display: block; width: 100%; aspect-ratio: 4 / 5; padding: 0; border: 0; background: var(--surface); cursor: pointer; overflow: hidden; }
+      .frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 600ms ease; }
+      .frame img.on { opacity: 1; }
+      .rooms-text { grid-column: 7 / 13; display: flex; flex-direction: column; gap: 24px; }
+      .shots { margin-top: 8px; }
+      .shots button { display: block; width: 100%; padding: 9px 0; border: 0; background: none; color: var(--muted); font: 400 var(--step-lead) / 1.25 "Commissioner", sans-serif; text-align: left; cursor: pointer; transition: color 180ms ease, transform 240ms var(--ease); }
+      .shots button:hover { color: var(--ink); transform: translateX(8px); }
+      .shots button[aria-current="true"] { color: var(--ink); font-weight: 500; }
+
+      /* Отзывы */
+      .reviews { background: var(--sheet); padding: clamp(96px, 11vw, 170px) clamp(20px, 3vw, 44px); display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 20px; align-items: start; }
+      .score { grid-column: 1 / 5; display: flex; flex-direction: column; gap: 14px; position: sticky; top: 40px; }
+      .score b { display: block; font-size: var(--step-giant); font-weight: 300; line-height: 0.95; letter-spacing: -0.04em; }
+      .quotes { grid-column: 5 / 13; columns: 2; column-gap: 40px; }
+      .quotes li { break-inside: avoid; padding-bottom: 32px; }
+      .quotes blockquote { font-size: var(--step-lead); }
+
+      /* Адрес и связь */
+      .contact { padding: clamp(96px, 11vw, 170px) clamp(20px, 3vw, 44px) clamp(64px, 7vw, 110px); display: grid; grid-template-columns: repeat(12, 1fr); gap: 32px 20px; align-items: start; }
+      .contact-text { grid-column: 1 / 7; display: flex; flex-direction: column; gap: 24px; }
+      .contact-pic { grid-column: 8 / 10; width: 100%; aspect-ratio: 1; object-fit: cover; }
+      .contact-links { grid-column: 10 / 13; display: flex; flex-direction: column; gap: 10px; }
+      .contact-links p { font-weight: 500; }
+      .contact-links .small { color: var(--muted); font-size: var(--step-small); font-weight: 400; margin-top: 6px; }
+      .map { grid-column: 1 / -1; display: block; width: 100%; height: 400px; border: 0; background: var(--surface); }
+
+      /* Подвал: название на последнем снимке */
+      .foot { position: relative; min-height: 100svh; display: flex; flex-direction: column; justify-content: space-between; padding: 32px clamp(20px, 3vw, 44px) 28px; overflow: hidden; color: #fff; }
+      .foot-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.62); }
+      .foot-top, .foot-bottom { position: relative; }
+      .foot-top { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+      .foot-top ul { display: grid; gap: 4px; }
+      .foot-top a { text-underline-offset: 4px; }
+      .foot-contact { text-align: right; }
+      .foot-name { display: block; font-size: 44.5vw; font-weight: 300; line-height: 0.78; letter-spacing: -0.04em; text-transform: uppercase; text-decoration: none; white-space: nowrap; }
+      .foot-legal { margin-top: 28px; font-size: var(--step-small); }
+
+      /* Кнопка на телефоне */
+      .action { display: none; }
+
+      /* Появление частей раздела (только если работает JS) */
+      .js [data-r] { opacity: 0; transform: translateY(24px); transition: opacity 600ms var(--ease), transform 600ms var(--ease); }
+      .js [data-r].in { opacity: 1; transform: none; }
+
+      @media (max-width: 899px) {
+        .split { display: flex; flex-direction: column; padding-bottom: 0; }
+        .stage { order: -1; height: 56svh; min-height: 0; z-index: 0; }
+        .stage-bar .btn { display: none; }
+        .stage-bar { padding-right: 16px; }
+        .sheet { position: relative; z-index: 1; }
+        .carpet { left: 0; top: 0; width: 6px; margin-left: 0; z-index: 2; }
+        .hero { min-height: 0; padding: 20px 20px 36px; }
+        .top { grid-template-columns: 1fr 1fr; }
+        .top .word { grid-column: 1 / -1; grid-row: 1; justify-self: center; }
+        .hero-main { margin: 0; padding: 28px 0 24px; gap: 22px; }
+        .hero-main .btn { width: 100%; }
+        .frame, .plate { max-width: 560px; }
+        .js .contact [data-r], .js .reviews [data-r] { opacity: 1; transform: none; transition: none; }
+        .step { min-height: 0; padding: 32px 20px 52px; gap: 22px; }
+        .step-pic { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; margin-bottom: 4px; }
+        .prices, .rooms, .reviews, .contact { display: flex; flex-direction: column; padding-left: 20px; padding-right: 20px; }
+        .rooms, .reviews, .contact { gap: 32px; align-items: stretch; }
+        .prices { gap: 32px; align-items: stretch; }
+        .score { position: static; }
+        .quotes { columns: 1; }
+        .quotes li { padding-bottom: 26px; }
+        .contact-pic { width: 110px; }
+        .map { height: 320px; }
+        .foot { min-height: 88svh; }
+        .foot-contact { text-align: left; }
+        .action { display: inline-flex; position: fixed; right: 14px; bottom: 14px; z-index: 40; min-height: 52px; transition: opacity 200ms ease, background-color 180ms ease, transform 140ms var(--ease); }
+        .no-action .action { opacity: 0; pointer-events: none; }
+        .foot-legal { padding-bottom: 60px; }
+      }
+      @media (min-width: 600px) and (max-width: 899px) {
+        .step-pic { aspect-ratio: 1; }
+      }
+      @media (max-width: 599px) {
+        .desk-row { grid-template-columns: 96px 1fr; gap: 16px; }
+        .desk-row img { width: 96px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        .stage-pics img, .plate img, .frame img { transition: none; }
+        .stage-pics img.on { animation: none; }
+        .js [data-r] { opacity: 1; transform: none; transition: none; }
+        .shots button:hover { transform: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <main id="top">
+      <div class="split" id="split">
+        <div class="carpet" aria-hidden="true"><i id="beam"></i></div>
+
+        <div class="sheet">
+          <section class="hero" data-stage="0" aria-label="Гостиница Хан">
+            <nav class="top" aria-label="Разделы">
+              <div><a href="#prices">Цены</a><a href="#rooms">Номера</a></div>
+              <a class="word" href="#top">Хан</a>
+              <div><a href="#reviews">Отзывы</a><a href="#contact">Адрес</a></div>
+            </nav>
+            <div class="hero-main">
+              <h1 data-r>Встретим как хана в гостинице Хан</h1>
+              <p class="lede" data-r>Алматы, Калкаман-2: 37 номеров и красная дорожка у самого входа. Номер от 9&nbsp;000&nbsp;₸ за 2 часа, сутки от 26&nbsp;000&nbsp;₸.</p>
+              <a class="btn" href="#prices" data-r>Выбрать номер</a>
+              <p class="hero-proof" data-r>4,9 в 2ГИС, 412 оценок. Лучшая гостиница 2026 в 2GIS Awards</p>
+            </div>
+            <p class="demo">Демо-версия сайта для гостиницы Хан. Сделал <a href="https://aknas04.github.io" target="_blank" rel="noopener">Бекарыс</a></p>
+          </section>
+
+          <section class="step" data-stage="1">
+            <img class="step-pic" src="photos/stage-stairs.jpg" width="1100" height="1467" alt="Парадная лестница с красной дорожкой под чёрным навесом, вверху дверь в цветочной арке" loading="lazy" />
+            <h2 data-r>Дорожка от самого тротуара</h2>
+            <p class="lede" data-r>Красная дорожка лежит на всех ступенях парадной лестницы, а над ней чёрный навес. Её видно ещё с улицы, так что мимо не проедете.</p>
+            <dl class="facts" data-r>
+              <div><dt>37</dt><dd>номеров</dd></div>
+              <div><dt>7</dt><dd>этажей</dd></div>
+              <div><dt>24 часа</dt><dd>открыт ресепшн</dd></div>
+            </dl>
+          </section>
+
+          <section class="step" data-stage="2">
+            <img class="step-pic" src="photos/stage-arch.jpg" width="1100" height="1467" alt="Стеклянные двери в большой арке из розовых и голубых цветов, под ними красная дорожка" loading="lazy" />
+            <h2 data-r>Дверь в арке из цветов</h2>
+            <p class="lede" data-r>Дорожка проходит прямо под большой цветочной аркой и упирается в стеклянные двери. Дальше вас уже ждут.</p>
+            <blockquote data-r>«Гостинице большое спасибо за гостеприимство, тёплую атмосферу и позитив!»<cite>Нурлан, гость</cite></blockquote>
+          </section>
+
+          <section class="step" data-stage="3">
+            <img class="step-pic" src="photos/stage-desk.jpg" width="1100" height="1467" alt="Стойка ресепшна с золотым гербом Хан и короной, за ней стена с часами и флаги" loading="lazy" />
+            <h2 data-r>Ресепшн не закрывается</h2>
+            <div class="desk-row" data-r>
+              <img src="photos/crest.jpg" width="520" height="520" alt="Золотой герб гостиницы: корона над надписью Хан" loading="lazy" />
+              <p>Стойка с золотым гербом работает круглосуточно, поэтому приехать можно и ночью. Рядом мягкие кресла и большая люстра.</p>
+            </div>
+            <p class="lede" data-r>Оплата картой, наличными или по QR-коду.</p>
+          </section>
+
+          <section class="step" data-stage="4">
+            <img class="step-pic" src="photos/stage-room.jpg" width="1100" height="1467" alt="Просторный номер: большая кровать, картина над ней и ковёр с узором на деревянном полу" loading="lazy" />
+            <h2 data-r>И вот ваш номер</h2>
+            <p class="lede" data-r>Удобная кровать, мягкая мебель, телевизор, кондиционер и своя ванная комната. Wi-Fi бесплатный.</p>
+            <blockquote data-r>«Чистота на высшем уровне, удобная кровать»<cite>Ернур, гость</cite></blockquote>
+            <a class="link" href="#prices" data-r>Смотреть цены</a>
+          </section>
+
+          <section class="step paper" data-stage="5">
+            <img class="step-pic" src="photos/special.jpg" width="760" height="950" alt="Кровать с лепестками роз и двумя плюшевыми мишками, над ней красные шары-сердца" loading="lazy" />
+            <h2 data-r>Если повод особенный</h2>
+            <p class="lede" data-r>Шары-сердца, лепестки роз и мишки на кровати: номер можно украсить к годовщине или предложению. Напишите заранее, что хотите.</p>
+            <a class="link" data-r data-wa="Здравствуйте! Хочу заказать оформление номера в гостинице Хан. Дата и повод: ..." href="https://wa.me/77770440404" target="_blank" rel="noopener">Спросить про оформление в WhatsApp</a>
+          </section>
+
+          <section class="step" data-stage="6">
+            <img class="step-pic" src="photos/breakfast.jpg" width="760" height="950" alt="Завтрак на каменном столе: сосиски, сыр и стакан воды" loading="lazy" />
+            <h2 data-r>Утром вас ждёт завтрак</h2>
+            <p class="lede" data-r>Завтрак подаём гостям, которые остаются на сутки.</p>
+            <blockquote data-r>«Спасибо за вкусные завтраки»<cite>Khan, гость</cite></blockquote>
+          </section>
+        </div>
+
+        <aside class="stage" aria-label="Путь гостя в фотографиях">
+          <div class="stage-pics" id="stagePics">
+            <img class="on" src="photos/stage-facade.jpg" width="1100" height="1467" alt="Фасад гостиницы с вывеской Хан, навес и красная дорожка на лестнице" fetchpriority="high" />
+            <img src="photos/stage-stairs.jpg" width="1100" height="1467" alt="Парадная лестница с красной дорожкой под чёрным навесом" />
+            <img src="photos/stage-arch.jpg" width="1100" height="1467" alt="Стеклянные двери в большой цветочной арке" />
+            <img src="photos/stage-desk.jpg" width="1100" height="1467" alt="Стойка ресепшна с золотым гербом" />
+            <img src="photos/stage-room.jpg" width="1100" height="1467" alt="Просторный номер с большой кроватью и ковром" />
+            <img src="photos/special.jpg" width="760" height="950" alt="Кровать с лепестками роз, мишками и шарами-сердцами" />
+            <img src="photos/breakfast.jpg" width="760" height="950" alt="Завтрак на каменном столе" />
+          </div>
+          <div class="stage-bar">
+            <span>Круглосуточно</span>
+            <span class="addr">ул. Абишева, 35</span>
+            <a class="btn" href="#prices">Забронировать</a>
+          </div>
+        </aside>
+      </div>
+
+      <section class="prices" id="prices">
+        <div class="prices-left">
+          <h2 data-r>Выберите номер и срок</h2>
+          <p class="lede" data-r>Цена сразу видна, а в WhatsApp уйдёт готовое сообщение с номером и датой.</p>
+          <div class="plate" id="plate" data-r>
+            <img class="on" data-room="semi" src="photos/room-semi.jpg" width="900" height="900" alt="Номер с белым изголовьем кровати, двумя креслами и столиком" />
+            <img data-room="deluxe" src="photos/room-deluxe.jpg" width="900" height="900" alt="Номер с картиной над кроватью и ковром с узором" loading="lazy" />
+            <img data-room="vip" src="photos/room-vip.jpg" width="900" height="900" alt="Номер с зелёным бархатным изголовьем и диваном у окна" loading="lazy" />
+          </div>
+        </div>
+        <form class="menu" id="book" action="https://wa.me/77770440404" method="get" target="_blank" data-r>
+          <fieldset>
+            <legend>Полулюкс</legend>
+            <label class="opt"><input type="radio" name="text" data-room="semi" data-name="полулюкс" data-dur="на 2 часа" data-price="9 000 ₸" value="Здравствуйте! Хочу забронировать номер в гостинице Хан: полулюкс на 2 часа, 9 000 ₸." /><span>2 часа</span><span>9&nbsp;000&nbsp;₸</span></label>
+            <label class="opt"><input type="radio" name="text" data-room="semi" data-name="полулюкс" data-dur="на 12 часов" data-price="19 000 ₸" value="Здравствуйте! Хочу забронировать номер в гостинице Хан: полулюкс на 12 часов, 19 000 ₸." /><span>12 часов</span><span>19&nbsp;000&nbsp;₸</span></label>
+            <label class="opt"><input type="radio" name="text" data-room="semi" data-name="полулюкс" data-dur="на сутки" data-price="26 000 ₸" value="Здравствуйте! Хочу забронировать номер в гостинице Хан: полулюкс на сутки, 26 000 ₸." checked /><span>Сутки, с завтраком</span><span>26&nbsp;000&nbsp;₸</span></label>
+          </fieldset>
+          <fieldset>
+            <legend>Делюкс</legend>
+            <label class="opt"><input type="radio" name="text" data-room="deluxe" data-name="делюкс" data-dur="на 2 часа" data-price="11 000 ₸" value="Здравствуйте! Хочу забронировать номер в гостинице Хан: делюкс на 2 часа, 11 000 ₸." /><span>2 часа</span><span>11&nbsp;000&nbsp;₸</span></label>
+            <label class="opt"><input type="radio" name="text" data-room="deluxe" data-name="делюкс" data-dur="на 12 часов" data-price="22 000 ₸" value="Здравствуйте! Хочу забронировать номер в гостинице Хан: делюкс на 12 часов, 22 000 ₸." /><span>12 часов</span><span>22&nbsp;000&nbsp;₸</span></label>
+          </fieldset>
+          <fieldset>
+            <legend>VIP</legend>
+            <label class="opt"><input type="radio" name="text" data-room="vip" data-name="VIP" data-dur="на 2 часа" data-price="14 000 ₸" value="Здравствуйте! Хочу забронировать номер в гостинице Хан: VIP на 2 часа, 14 000 ₸." /><span>2 часа</span><span>14&nbsp;000&nbsp;₸</span></label>
+            <label class="opt"><input type="radio" name="text" data-room="vip" data-name="VIP" data-dur="на 12 часов" data-price="28 000 ₸" value="Здравствуйте! Хочу забронировать номер в гостинице Хан: VIP на 12 часов, 28 000 ₸." /><span>12 часов</span><span>28&nbsp;000&nbsp;₸</span></label>
+          </fieldset>
+          <div class="when">
+            <label>Дата заезда<input type="date" id="dateIn" /></label>
+            <label>Время<input type="time" id="timeIn" /></label>
+          </div>
+          <output class="sum" id="sum" for="dateIn timeIn">Полулюкс на сутки: 26&nbsp;000&nbsp;₸</output>
+          <button class="btn send nojs-send" type="submit">Отправить в WhatsApp</button>
+          <a class="btn send send-link" id="send" href="https://wa.me/77770440404" target="_blank" rel="noopener">Отправить в WhatsApp</a>
+          <p class="note">Цены из 2ГИС на 23 октября 2026, точную подтвердим в ответ. Сутки в делюкс и VIP уточним в WhatsApp.</p>
+        </form>
+      </section>
+
+      <section class="rooms" id="rooms">
+        <button class="frame" id="frame" type="button" aria-label="Следующее фото номера" data-r>
+          <img class="on" src="photos/g-carpet.jpg" width="900" height="1125" alt="Номер с белым изголовьем и тёмным ковром с медальоном" loading="lazy" />
+          <img src="photos/g-green.jpg" width="900" height="1125" alt="Номер с зелёным изголовьем, диваном и столом" loading="lazy" />
+          <img src="photos/g-twin.jpg" width="900" height="1125" alt="Номер с двумя отдельными кроватями" loading="lazy" />
+          <img src="photos/g-sofa.jpg" width="900" height="1125" alt="Номер с белым изголовьем и тёмным столиком у окна" loading="lazy" />
+          <img src="photos/g-beds.jpg" width="900" height="1125" alt="Две кровати и светлый ковёр с цветами" loading="lazy" />
+          <img src="photos/g-bath.jpg" width="900" height="1125" alt="Ванная со стеклянным душем и двумя раковинами" loading="lazy" />
+          <img src="photos/g-tea.jpg" width="900" height="1125" alt="Чайник, стаканы и цветы на столике" loading="lazy" />
+        </button>
+        <div class="rooms-text">
+          <h2 data-r>Номера не похожи друг на друга</h2>
+          <p class="lede" data-r>Разные изголовья, ковры и картины на стенах. Напишите, какой понравился, и мы скажем, свободен ли он.</p>
+          <ul class="shots" id="shots" data-r>
+            <li><button type="button" aria-current="true">Белое изголовье и тёмный ковёр</button></li>
+            <li><button type="button">Зелёное изголовье и диван</button></li>
+            <li><button type="button">Две отдельные кровати</button></li>
+            <li><button type="button">Столик у окна</button></li>
+            <li><button type="button">Две кровати и ковёр с цветами</button></li>
+            <li><button type="button">Ванная со стеклянным душем</button></li>
+            <li><button type="button">Чайник и чай в номере</button></li>
+          </ul>
+          <a class="link" data-r data-wa="Здравствуйте! Какие номера в гостинице Хан свободны на ...?" href="https://wa.me/77770440404" target="_blank" rel="noopener">Спросить, что свободно</a>
+        </div>
+      </section>
+
+      <section class="reviews" id="reviews">
+        <div class="score" data-r>
+          <h2>Что пишут гости</h2>
+          <b>4,9</b>
+          <p>412 оценок в 2ГИС и награда «Лучшая гостиница 2026» в 2GIS Awards.</p>
+          <a class="link" href="https://2gis.kz/almaty/firm/70000001110069891/tab/reviews" target="_blank" rel="noopener">Читать все отзывы</a>
+        </div>
+        <ul class="quotes">
+          <li data-r><blockquote>«Гостиница «Хан» — самая лучшая!»<cite>Albina</cite></blockquote></li>
+          <li data-r><blockquote>«Отличная гостиница, мне все понравилось. Чисто, тихо и уютно»<cite>Assyl</cite></blockquote></li>
+          <li data-r><blockquote>«Очень понравился отель. Номер чистый и уютный, всё необходимое есть.»<cite>Alisher</cite></blockquote></li>
+          <li data-r><blockquote>«Понравились чистота номеров, условия проживания, питание и организация обслуживания.»<cite>Богдан</cite></blockquote></li>
+          <li data-r><blockquote>«Очень хорошая гостиница, уважительный персонал, чисто уютно! Не дорого.»<cite>Gulnar</cite></blockquote></li>
+          <li data-r><blockquote>«Комфортный и уютный отель. Персонал очень оперативный»<cite>Aibota</cite></blockquote></li>
+          <li data-r><blockquote>«Отличный отель! Новый, очень чистый и уютный.»<cite>Айдос</cite></blockquote></li>
+          <li data-r><blockquote>«Номера чистые, уютные и комфортные, обслуживание на отличном уровне.»<cite>Nargiz</cite></blockquote></li>
+        </ul>
+      </section>
+
+      <section class="contact" id="contact">
+        <div class="contact-text">
+          <h2 data-r>Мы на Абишева, 35</h2>
+          <p class="lede" data-r>Калкаман-2, Наурызбайский район, Алматы. Остановка «Авторынок Жібек жолы» в 250 метрах, 3 минуты пешком.</p>
+          <a class="link" data-r href="https://2gis.kz/almaty/firm/70000001110069891" target="_blank" rel="noopener">Построить маршрут в 2ГИС</a>
+        </div>
+        <img class="contact-pic" src="photos/contact.jpg" width="520" height="520" alt="Ресепшн гостиницы: стойка с гербом и часы на стене" loading="lazy" data-r />
+        <div class="contact-links" data-r>
+          <p>Забронировать или спросить?</p>
+          <a class="link" data-wa="Здравствуйте! Хочу забронировать номер в гостинице Хан." href="https://wa.me/77770440404" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="link" href="tel:+77770440404">+7 777 044 04 04</a>
+          <a class="link" href="https://instagram.com/khan_hotel_almaty" target="_blank" rel="noopener">Instagram</a>
+          <a class="link" href="mailto:hanhotel007@gmail.com">hanhotel007@gmail.com</a>
+          <p class="small">Отвечаем круглосуточно</p>
+        </div>
+        <iframe class="map" title="Карта: гостиница Хан, улица Абишева, 35" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=76.7932%2C43.2305%2C76.8212%2C43.2425&amp;layer=mapnik&amp;marker=43.236542%2C76.807214"></iframe>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <img class="foot-bg" src="photos/foot.jpg" width="1920" height="1440" alt="Гостиница Хан ночью: светится вывеска и красная дорожка у входа" loading="lazy" />
+      <div class="foot-top">
+        <ul>
+          <li><a href="#prices">Цены</a></li>
+          <li><a href="#rooms">Номера</a></li>
+          <li><a href="#reviews">Отзывы</a></li>
+          <li><a href="#contact">Адрес</a></li>
+        </ul>
+        <p class="foot-contact">ул. Абишева, 35, Алматы<br /><a href="tel:+77770440404">+7 777 044 04 04</a><br />Второй филиал: <a href="https://2gis.kz/almaty/firm/70000001111759242" target="_blank" rel="noopener">шоссе Северное Кольцо, 32в</a></p>
+      </div>
+      <div class="foot-bottom">
+        <a class="foot-name" href="#top">Хан</a>
+        <p class="foot-legal"><span lang="kk">Қош келдіңіз!</span> © 2026 гостиница Хан. Данные из 2ГИС на 31 октября 2026. Демо-сайт сделал <a href="https://aknas04.github.io" target="_blank" rel="noopener">Бекарыс</a>.</p>
+      </div>
+    </footer>
+
+    <a class="btn action" href="#prices">Забронировать</a>
+
+    <script>
+      const $ = (id) => document.getElementById(id);
+      const clamp = (v) => Math.min(1, Math.max(0, v));
+      const calm = matchMedia("(prefers-reduced-motion: reduce)");
+      const WA = "https://wa.me/77770440404?text=";
+
+      // ===== Появление частей раздела: показываем всё, что уже на экране или выше него =====
+      let pending = [...document.querySelectorAll("[data-r]")];
+      function reveal() {
+        const limit = innerHeight * 1.02;
+        let i = 0;
+        pending = pending.filter((el) => {
+          if (el.getBoundingClientRect().top >= limit) return true;
+          el.style.transitionDelay = Math.min(i++, 4) * 70 + "ms";
+          el.classList.add("in");
+          return false;
+        });
+      }
+
+      // ===== Ссылки в WhatsApp с готовым текстом =====
+      document.querySelectorAll("[data-wa]").forEach((a) => { a.href = WA + encodeURIComponent(a.dataset.wa); });
+
+      // ===== Закреплённое фото меняется вместе с шагом пути =====
+      const stagePics = [...$("stagePics").children];
+      const showStage = (i) => stagePics.forEach((p, k) => p.classList.toggle("on", k === i));
+      const stepIO = new IntersectionObserver((es) => es.forEach((e) => {
+        if (e.isIntersecting) showStage(+e.target.dataset.stage);
+      }), { rootMargin: "-45% 0px -45% 0px" });
+      document.querySelectorAll("[data-stage]").forEach((s) => stepIO.observe(s));
+
+      // ===== Дорожка раскатывается при прокрутке и кнопка на телефоне =====
+      const split = $("split"), beam = $("beam"), prices = $("prices"), contact = $("contact"), heroBlock = document.querySelector(".hero");
+      let ticking = false;
+      function onScroll() {
+        ticking = false;
+        reveal();
+        const H = innerHeight, r = split.getBoundingClientRect();
+        beam.style.transform = calm.matches ? "" : `scaleY(${clamp((H * 0.72 - r.top) / r.height)})`;
+        const near = (el) => { const b = el.getBoundingClientRect(); return b.top < H - 80 && b.bottom > H - 80; };
+        document.body.classList.toggle("no-action", heroBlock.getBoundingClientRect().bottom > H * 0.35 || near(prices) || near(contact));
+      }
+      const requestScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } };
+      addEventListener("scroll", requestScroll, { passive: true });
+      addEventListener("resize", requestScroll);
+      onScroll();
+
+      // ===== Бронь: строка цены, дата и готовое сообщение =====
+      const form = $("book"), sum = $("sum"), send = $("send"), dateIn = $("dateIn"), timeIn = $("timeIn");
+      const plate = [...$("plate").children];
+      const iso = (ms) => new Date(ms).toISOString().slice(0, 10);
+      const dayName = (v) => new Intl.DateTimeFormat("ru-RU", { day: "numeric", month: "long", timeZone: "UTC" }).format(Date.parse(v + "T00:00:00Z"));
+      const today = iso(Date.now() + 5 * 3600000); // Алматы живёт по UTC+5
+      dateIn.min = today;
+      dateIn.value = today;
+      function updateBooking() {
+        const r = form.querySelector("input[name=text]:checked");
+        const { room, name, dur, price } = r.dataset;
+        plate.forEach((p) => p.classList.toggle("on", p.dataset.room === room));
+        sum.textContent = `${name[0].toUpperCase() + name.slice(1)} ${dur}: ${price.replace(" ", " ")}`.replace(/ ₸/, " ₸");
+        let when = "";
+        if (dateIn.value) when = ` Заезд: ${dayName(dateIn.value)}${timeIn.value ? " в " + timeIn.value : ""}.`;
+        send.href = WA + encodeURIComponent(`Здравствуйте! Хочу забронировать номер в гостинице Хан: ${name} ${dur}, ${price}.${when}`);
+      }
+      form.addEventListener("change", updateBooking);
+      updateBooking();
+
+      // ===== Номера: одна рамка, снимки сменяются =====
+      const shots = [...$("frame").children], labels = [...$("shots").querySelectorAll("button")];
+      let shot = 0, shotTimer = 0;
+      function showShot(i) {
+        shot = (i + shots.length) % shots.length;
+        shots.forEach((p, k) => p.classList.toggle("on", k === shot));
+        labels.forEach((b, k) => (k === shot ? b.setAttribute("aria-current", "true") : b.removeAttribute("aria-current")));
+      }
+      const stopShots = () => clearInterval(shotTimer);
+      const startShots = () => { stopShots(); if (!calm.matches) shotTimer = setInterval(() => { if (!document.hidden) showShot(shot + 1); }, 3200); };
+      $("frame").addEventListener("click", () => { showShot(shot + 1); startShots(); });
+      labels.forEach((b, i) => {
+        b.addEventListener("click", () => { showShot(i); stopShots(); });
+        b.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") { showShot(i); stopShots(); } });
+        b.addEventListener("focus", () => { showShot(i); stopShots(); });
+      });
+      new IntersectionObserver(([e]) => { if (e.isIntersecting) startShots(); else stopShots(); }).observe($("frame"));
+    </script>
+  </body>
+</html>
