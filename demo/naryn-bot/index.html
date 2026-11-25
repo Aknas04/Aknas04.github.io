@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Naryn — WhatsApp-бот (демо)</title>
+<meta name="description" content="Меню, заказ и бронь стола прямо в WhatsApp. Откройте и попробуйте сами: слева гость, справа администратор кафе.">
+<meta name="robots" content="noindex">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Naryn — WhatsApp-бот (демо)">
+<meta property="og:description" content="Меню, заказ и бронь стола прямо в WhatsApp. Откройте и попробуйте сами: слева гость, справа администратор кафе.">
+<meta property="og:url" content="https://aknas04.github.io/demo/naryn-bot/">
+<meta property="og:image" content="https://aknas04.github.io/demo/naryn-bot/og.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%92%AC%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --page:#e8e4dc; --ink:#191815; --mute:#68635a; --line:rgba(25,24,21,.12);
+  --chat:#efe7dc; --bubble:#fff; --mine:#d6f5cc; --bar:#1e2b31; --bar-ink:#e9edef;
+  --accent:#0b7a5f; --link:#0a69a6; --chip:#fffdf8; --shadow:0 30px 60px -30px rgba(30,25,15,.45);
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--page);color:var(--ink);font:15px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;display:flex;flex-direction:column}
+button{font:inherit;color:inherit;cursor:pointer}
+.top{display:flex;gap:16px;align-items:flex-end;justify-content:space-between;max-width:1080px;width:100%;margin:0 auto;padding:22px 16px 14px}
+.top h1{margin:0;font-size:22px;letter-spacing:-.01em}
+.top p{margin:4px 0 0;color:var(--mute);max-width:640px}
+.top .note{font-size:13px;margin-top:6px}
+.actions{display:flex;gap:8px;flex-shrink:0}
+.actions a,.actions button{border:1px solid var(--line);background:var(--chip);border-radius:10px;padding:8px 12px;text-decoration:none;color:var(--ink);font-size:14px}
+.actions a:hover,.actions button:hover{border-color:var(--accent)}
+.tabs{display:none}
+.phones{flex:1;min-height:0;display:flex;gap:40px;justify-content:center;padding:6px 16px 26px}
+.phone{display:flex;flex-direction:column;width:390px;min-height:0}
+.label{font-size:13px;color:var(--mute);margin:0 0 8px 6px}
+.label b{color:var(--ink);font-weight:600}
+.screen{position:relative;flex:1;min-height:0;max-height:820px;display:flex;flex-direction:column;border-radius:30px;overflow:hidden;background:var(--chat);border:8px solid #15130f;box-shadow:var(--shadow)}
+.bar{display:flex;align-items:center;gap:10px;background:var(--bar);color:var(--bar-ink);padding:12px 14px}
+.ava{width:36px;height:36px;border-radius:50%;background:#c9a45c;color:#1b1406;display:grid;place-items:center;font-weight:700}
+.who{display:flex;flex-direction:column;line-height:1.2}
+.who small{color:#9fb0b7;font-size:12px}
+.chat{flex:1;overflow-y:auto;padding:12px 10px 8px;display:flex;flex-direction:column;gap:6px;
+  background-image:radial-gradient(rgba(120,100,70,.07) 1px,transparent 1px);background-size:14px 14px}
+.row{display:flex;flex-direction:column;max-width:86%;position:relative}
+.row.left{align-self:flex-start}
+.row.right{align-self:flex-end;align-items:flex-end}
+.bubble{background:var(--bubble);border-radius:10px;padding:7px 9px 5px;box-shadow:0 1px .5px rgba(0,0,0,.12);word-wrap:break-word;overflow-wrap:anywhere;position:relative;min-width:72px}
+.row.left .bubble{border-top-left-radius:2px}
+.row.right .bubble{background:var(--mine);border-top-right-radius:2px}
+.bubble img{display:block;width:100%;max-width:300px;border-radius:7px;margin:-3px -5px 6px;width:calc(100% + 10px);max-width:none}
+.bubble .hdr{font-weight:700;margin-bottom:3px}
+.bubble .ft{color:var(--mute);font-size:12.5px;margin-top:4px}
+.meta{display:flex;justify-content:flex-end;gap:4px;font-size:11px;color:var(--mute);margin-top:2px}
+.ticks{color:#3a9ad9}
+.acts{display:flex;flex-direction:column;gap:2px;margin-top:2px}
+.act{display:block;width:100%;background:var(--bubble);border:0;border-radius:8px;padding:9px 10px;color:var(--link);font-weight:500;text-align:center;text-decoration:none;box-shadow:0 1px .5px rgba(0,0,0,.12)}
+.act:hover{background:#f6fbff}
+.act:active{transform:scale(.99)}
+.rep{position:absolute;top:2px;right:-30px;width:26px;height:26px;border-radius:50%;border:0;background:rgba(255,255,255,.85);color:var(--mute);opacity:0;transition:opacity .15s}
+.row:hover .rep{opacity:1}
+@media (hover:none){.rep{opacity:.7}}
+.quoted{border-left:3px solid var(--accent);background:rgba(0,0,0,.05);border-radius:6px;padding:4px 7px;margin-bottom:5px;font-size:13px;color:var(--mute);max-height:3.6em;overflow:hidden}
+.react{position:absolute;bottom:-12px;left:8px;background:#fff;border-radius:12px;padding:0 5px;font-size:13px;box-shadow:0 1px 2px rgba(0,0,0,.2)}
+.row.has-react{margin-bottom:10px}
+.loc{display:flex;flex-direction:column;gap:2px;padding:4px 2px}
+.loc a{color:var(--link)}
+.tpl{display:inline-block;font-size:11px;color:var(--accent);border:1px solid currentColor;border-radius:5px;padding:0 5px;margin-bottom:4px}
+.sys{align-self:center;background:var(--chip);color:var(--mute);font-size:12.5px;border-radius:8px;padding:6px 10px;text-align:center;max-width:90%;box-shadow:0 1px .5px rgba(0,0,0,.1)}
+.chips{align-self:center;display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:4px}
+.chips button{border:1px solid var(--line);background:var(--chip);border-radius:16px;padding:6px 12px;font-size:13.5px}
+.chips button:hover{border-color:var(--accent);color:var(--accent)}
+.quote[hidden]{display:none}
+.quote{display:flex;align-items:center;gap:8px;background:#f5f1ea;padding:6px 10px;border-top:1px solid var(--line)}
+.quote .qtext{flex:1;border-left:3px solid var(--accent);padding-left:8px;font-size:13px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.quote button{border:0;background:none;font-size:18px;color:var(--mute)}
+.composer{display:flex;gap:6px;align-items:center;padding:8px;background:#f0ebe3}
+.composer input{flex:1;min-width:0;border:0;border-radius:20px;padding:10px 14px;font:inherit;font-size:16px;background:#fff;outline:none}
+.composer input:focus-visible{box-shadow:0 0 0 2px var(--accent)}
+.composer button{border:0;width:40px;height:40px;border-radius:50%;flex-shrink:0}
+.composer .send{background:var(--accent);color:#fff}
+.composer .geo{background:transparent;font-size:18px}
+.sheet{position:absolute;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:flex-end;z-index:5}
+.sheet[hidden]{display:none}
+.sheet-card{background:#fff;width:100%;max-height:78%;border-radius:16px 16px 0 0;display:flex;flex-direction:column;animation:up .18s ease-out}
+@keyframes up{from{transform:translateY(30px);opacity:.6}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.sheet-card{animation:none}}
+.sheet-head{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line)}
+.sheet-head button{border:0;background:none;font-size:20px;color:var(--mute)}
+.sheet-body{overflow-y:auto;padding:4px 0 12px}
+.sec{font-size:13px;color:var(--accent);font-weight:600;padding:12px 18px 4px}
+.opt{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;border:0;background:none;padding:10px 18px}
+.opt:hover{background:#f5f3ef}
+.opt .r{flex-shrink:0;width:18px;height:18px;border-radius:50%;border:2px solid #9a958c;margin-top:2px}
+.opt b{display:block;font-weight:500}
+.opt small{color:var(--mute)}
+.badge{display:inline-block;min-width:18px;padding:0 5px;border-radius:9px;background:var(--accent);color:#fff;font-size:12px;line-height:18px;margin-left:4px}
+.badge[hidden]{display:none}
+.typing{font-size:12px;color:#8fd3b8}
+
+@media (max-width:860px){
+  .top{padding:14px 16px 8px;align-items:flex-start;flex-direction:column;gap:10px}
+  .top h1{font-size:19px}
+  .top p{font-size:14px}
+  .tabs{display:flex;gap:6px;padding:0 16px 8px}
+  .tabs button{flex:1;border:1px solid var(--line);background:var(--chip);border-radius:10px;padding:8px}
+  .tabs button.on{border-color:var(--accent);color:var(--accent);font-weight:600}
+  .phones{padding:0 0 0;gap:0}
+  .phone{width:100%;display:none}
+  .phone.on{display:flex}
+  .label{display:none}
+  .screen{border-radius:0;border:0;max-height:none;box-shadow:none}
+  .rep{right:-28px}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div>
+    <h1 id="title">WhatsApp-бот кафе</h1>
+    <p>Слева гость кафе, справа телефон администратора. Нажимайте кнопки как в WhatsApp. Чтобы ответить гостю от администратора, нажмите ↩ у сообщения.</p>
+    <p class="note" id="note" hidden></p>
+  </div>
+  <div class="actions">
+    <button id="admin" type="button">Заказы и брони</button>
+    <button id="reset" type="button">Начать заново</button>
+  </div>
+</header>
+<nav class="tabs" aria-label="Телефоны">
+  <button type="button" data-tab="customer" class="on">Гость <span class="badge" hidden></span></button>
+  <button type="button" data-tab="owner">Администратор <span class="badge" hidden></span></button>
+</nav>
+<main class="phones" id="phones"></main>
+
+<script>window.SIM_LOCAL = {"app":"./app/","data":"data/","media":"media","note":"Демо: бот работает прямо в браузере, сообщения никуда не отправляются. В настоящем WhatsApp всё выглядит так же."}</script>
+<script type="module">
+const $ = (sel, root = document) => root.querySelector(sel)
+const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e }
+const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c])
+function fmt(text) {
+  let s = esc(text)
+  s = s.replace(/```([\s\S]+?)```/g, '<code>$1</code>')
+  s = s.replace(/\*([^*\n]+)\*/g, '<b>$1</b>')
+  s = s.replace(/(^|[\s(>])_([^_\n]+)_(?=[\s).,!?<]|$)/g, '$1<i>$2</i>')
+  s = s.replace(/~([^~\n]+)~/g, '<s>$1</s>')
+  s = s.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>')
+  return s.replace(/\n/g, '<br>')
+}
+const hhmm = (ts) => new Date(ts).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })
+const plain = (msg) => {
+  if (!msg) return ''
+  if (msg.type === 'text') return msg.text.body
+  if (msg.type === 'interactive') return msg.interactive.body?.text || msg.interactive.button_reply?.title || msg.interactive.list_reply?.title || ''
+  if (msg.type === 'location') return '📍 Геолокация'
+  if (msg.type === 'image') return '📷 ' + (msg.image.caption || 'Фото')
+  return msg.type
+}
+
+// Two modes: served by the bot server (/sim/api/*) or a static demo page
+// where the real bot code runs right in the browser (window.SIM_LOCAL is set by the demo build).
+const LOCAL = window.SIM_LOCAL || null
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
+function serverApi() {
+  const json = (r) => r.json()
+  return {
+    state: () => fetch('/sim/api/state').then(json),
+    log: (after) => fetch(`/sim/api/log?after=${after}`).then(json),
+    send: (body) => fetch('/sim/api/send', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) }),
+    reset: () => fetch('/sim/api/reset', { method: 'POST' }),
+    admin: () => window.open('/sim/admin', '_blank'),
+  }
+}
+async function localApi(cfg) {
+  const app = cfg.app || './app/'
+  const [{ createSim }, { buildClient }, { adminPage }] = await Promise.all([
+    import(app + 'sim.js'), import(app + 'catalog.js'), import(app + 'admin.js'),
+  ])
+  const [cafe, menu] = await Promise.all(['cafe.json', 'menu.json'].map((f) => fetch((cfg.data || 'data/') + f).then((r) => r.json())))
+  const client = buildClient(cafe, menu)
+  const sim = createSim(client, { mediaBase: cfg.media || 'media' })
+  return {
+    state: async () => sim.state(),
+    log: async (after) => sim.log(after),
+    send: (body) => sim.send(body),
+    reset: async () => sim.reset(),
+    admin: () => {
+      const html = adminPage(client, sim.store, { sim: true, refresh: false })
+      window.open(URL.createObjectURL(new Blob([html], { type: 'text/html' })), '_blank')
+    },
+  }
+}
+
+let api, state, after = 0, epoch = 0, busy = false, tab = 'customer'
+const P = {}            // phone ui by role
+const byId = new Map()  // wamid → { row, msg }
+const roleOf = (num) => (num === state.ids.owner ? 'owner' : 'customer')
+
+function buildPhone(role) {
+  const sec = el('section', 'phone' + (role === tab ? ' on' : ''))
+  const label = role === 'customer'
+    ? `<b>Гость</b> · Айгерим, +7 701 000 00 01`
+    : `<b>Администратор кафе</b> · +7 701 000 00 00`
+  sec.innerHTML = `<div class="label">${label}</div>
+    <div class="screen">
+      <div class="bar"><div class="ava">${esc(state.cafe.name[0] || 'B')}</div>
+        <div class="who"><b>${esc(state.cafe.name)}</b><small class="sub">бизнес-аккаунт</small></div></div>
+      <div class="chat" role="log" aria-live="polite"></div>
+      <div class="quote" hidden><div class="qtext"></div><button type="button" aria-label="Не отвечать">×</button></div>
+      <form class="composer">
+        <button type="button" class="geo" title="Отправить тестовую геолокацию" aria-label="Геолокация">📍</button>
+        <input placeholder="Сообщение" autocomplete="off" aria-label="Сообщение">
+        <button class="send" aria-label="Отправить">➤</button>
+      </form>
+      <div class="sheet" hidden><div class="sheet-card" role="dialog" aria-modal="true">
+        <div class="sheet-head"><button type="button" aria-label="Закрыть">×</button><b class="sheet-title"></b></div>
+        <div class="sheet-body"></div></div></div>
+    </div>`
+  const ui = { role, sec, chat: $('.chat', sec), input: $('input', sec), quote: null, sub: $('.sub', sec), unread: 0 }
+  $('.composer', sec).addEventListener('submit', (e) => {
+    e.preventDefault()
+    const text = ui.input.value.trim()
+    if (!text) return
+    ui.input.value = ''
+    send(role, { type: 'text', text })
+  })
+  $('.geo', sec).addEventListener('click', () => sendGeo(role))
+  $('.quote button', sec).addEventListener('click', () => setQuote(role, null))
+  $('.sheet', sec).addEventListener('click', (e) => { if (e.target.classList.contains('sheet')) closeSheet(role) })
+  $('.sheet-head button', sec).addEventListener('click', () => closeSheet(role))
+  P[role] = ui
+  emptyHint(role)
+  return sec
+}
+
+function emptyHint(role) {
+  const ui = P[role]
+  ui.chat.innerHTML = ''
+  if (role === 'customer') {
+    ui.chat.append(el('div', 'sys', 'Так гость видит бота кафе в WhatsApp. Напишите сообщение или начните с подсказки:'))
+    const chips = el('div', 'chips')
+    for (const t of state.hints) {
+      const b = el('button', '', esc(t)); b.type = 'button'
+      b.onclick = () => send('customer', { type: 'text', text: t })
+      chips.append(b)
+    }
+    ui.chat.append(chips)
+  } else {
+    ui.chat.append(el('div', 'sys', 'Сюда администратору приходят новые заказы, брони и вопросы гостей. Напишите «привет», чтобы увидеть команды.'))
+  }
+}
+
+function scrollDown(ui, force) {
+  const c = ui.chat
+  if (force || c.scrollHeight - c.scrollTop - c.clientHeight < 160) c.scrollTop = c.scrollHeight
+}
+
+function setQuote(role, id) {
+  const ui = P[role]
+  ui.quote = id
+  const box = $('.quote', ui.sec)
+  if (!id) { box.hidden = true; return }
+  $('.qtext', box).textContent = plain(byId.get(id)?.msg).slice(0, 120)
+  box.hidden = false
+  ui.input.focus()
+}
+
+async function send(role, payload) {
+  const ui = P[role]
+  const context = ui.quote
+  setQuote(role, null)
+  ui.sub.textContent = 'печатает…'; ui.sub.classList.add('typing')
+  const t0 = Date.now()
+  try {
+    await api.send({ as: role, context, ...payload })
+    if (LOCAL) await sleep(450 - (Date.now() - t0)) // the in-browser bot answers instantly; a short pause feels like a real chat
+  } finally {
+    ui.sub.textContent = 'бизнес-аккаунт'; ui.sub.classList.remove('typing')
+    poll()
+  }
+}
+const sendGeo = (role) => send(role, { type: 'location', location: { latitude: 43.2381, longitude: 76.9452, name: 'Тестовая геолокация', address: 'Алматы' } })
+const reply = (role, kind, id, title) => send(role, { type: 'interactive', reply: { kind, id, title } })
+
+function openSheet(role, it) {
+  const ui = P[role]
+  const sheet = $('.sheet', ui.sec)
+  $('.sheet-title', sheet).textContent = it.action.button
+  const body = $('.sheet-body', sheet)
+  body.innerHTML = ''
+  for (const s of it.action.sections) {
+    if (s.title) body.append(el('div', 'sec', esc(s.title)))
+    for (const r of s.rows) {
+      const b = el('button', 'opt', `<span class="r"></span><span><b>${esc(r.title)}</b>${r.description ? `<small>${esc(r.description)}</small>` : ''}</span>`)
+      b.type = 'button'
+      b.onclick = () => { closeSheet(role); reply(role, 'list', r.id, r.title) }
+      body.append(b)
+    }
+  }
+  sheet.hidden = false
+  $('.opt', body)?.focus()
+}
+const closeSheet = (role) => { $('.sheet', P[role].sec).hidden = true }
+
+function botRow(role, ev) {
+  const { msg } = ev
+  if (msg.type === 'reaction') {
+    const t = byId.get(msg.reaction.message_id)
+    if (t) { t.row.classList.add('has-react'); $('.react', t.row)?.remove(); t.row.append(el('span', 'react', esc(msg.reaction.emoji))) }
+    return null
+  }
+  const row = el('div', 'row left')
+  const b = el('div', 'bubble')
+  row.append(b)
+  const acts = el('div', 'acts')
+  const btn = (label, fn, cls = 'act') => { const x = el('button', cls, label); x.type = 'button'; x.onclick = fn; acts.append(x) }
+  if (msg.type === 'text') b.innerHTML = fmt(msg.text.body)
+  else if (msg.type === 'image') b.innerHTML = `<img src="${esc(msg.image.link)}" alt="">${msg.image.caption ? fmt(msg.image.caption) : ''}`
+  else if (msg.type === 'location') {
+    const l = msg.location
+    b.innerHTML = `<div class="loc">📍 <b>${esc(l.name || 'Локация')}</b><small>${esc(l.address || '')}</small><a href="https://maps.google.com/?q=${l.latitude},${l.longitude}" target="_blank" rel="noopener">Открыть карту</a></div>`
+  } else if (msg.type === 'template') {
+    const params = msg.template.components?.[0]?.parameters?.map((p) => p.text).join(', ') || ''
+    b.innerHTML = `<span class="tpl">шаблон «${esc(msg.template.name)}»</span><br>${esc(params)}`
+  } else if (msg.type === 'interactive') {
+    const it = msg.interactive
+    let h = ''
+    if (it.header?.type === 'image') h += `<img src="${esc(it.header.image.link)}" alt="" loading="lazy">`
+    else if (it.header?.type === 'text') h += `<div class="hdr">${esc(it.header.text)}</div>`
+    h += fmt(it.body?.text || '')
+    if (it.footer) h += `<div class="ft">${esc(it.footer.text)}</div>`
+    b.innerHTML = h
+    if (it.type === 'button') for (const x of it.action.buttons) btn(esc(x.reply.title), () => reply(role, 'button', x.reply.id, x.reply.title))
+    if (it.type === 'list') btn('☰ ' + esc(it.action.button), () => openSheet(role, it))
+    if (it.type === 'cta_url') {
+      const a = el('a', 'act', '↗ ' + esc(it.action.parameters.display_text))
+      a.href = it.action.parameters.url; a.target = '_blank'; a.rel = 'noopener'
+      acts.append(a)
+    }
+    if (it.type === 'location_request_message') btn('📍 Отправить местоположение', () => sendGeo(role))
+  } else b.textContent = `[${msg.type}]`
+  b.append(el('div', 'meta', hhmm(ev.ts)))
+  if (acts.children.length) row.append(acts)
+  const r = el('button', 'rep', '↩'); r.type = 'button'; r.title = 'Ответить'; r.setAttribute('aria-label', 'Ответить на сообщение')
+  r.onclick = () => setQuote(role, ev.id)
+  row.append(r)
+  return row
+}
+
+function userRow(ev) {
+  const { msg } = ev
+  const row = el('div', 'row right')
+  const b = el('div', 'bubble')
+  let h = ''
+  if (msg.context?.id && byId.get(msg.context.id)) h += `<div class="quoted">${esc(plain(byId.get(msg.context.id).msg).slice(0, 140))}</div>`
+  if (msg.type === 'text') h += fmt(msg.text.body)
+  else if (msg.type === 'interactive') h += esc(msg.interactive.button_reply?.title || msg.interactive.list_reply?.title)
+  else if (msg.type === 'location') h += `📍 <b>${esc(msg.location.name)}</b><br><small>${esc(msg.location.address)}</small>`
+  b.innerHTML = h
+  b.append(el('div', 'meta', `${hhmm(ev.ts)} <span class="ticks">✓✓</span>`))
+  row.append(b)
+  return row
+}
+
+function add(ev) {
+  const role = ev.dir === 'out' ? roleOf(ev.to) : roleOf(ev.from)
+  const ui = P[role]
+  if (!ui.chat.dataset.started) { ui.chat.innerHTML = ''; ui.chat.dataset.started = '1' }
+  const row = ev.dir === 'out' ? botRow(role, ev) : userRow(ev)
+  if (!row) return
+  byId.set(ev.id, { row, msg: ev.msg })
+  const c = ui.chat
+  const stick = ev.dir === 'in' || c.scrollHeight - c.scrollTop - c.clientHeight < 160
+  c.append(row)
+  if (stick) {
+    c.scrollTop = c.scrollHeight
+    row.querySelectorAll('img').forEach((img) => img.addEventListener('load', () => { c.scrollTop = c.scrollHeight }, { once: true }))
+  }
+  if (ev.dir === 'out' && window.matchMedia('(max-width:860px)').matches && role !== tab) {
+    ui.unread++
+    const badge = $(`.tabs [data-tab="${role}"] .badge`)
+    badge.textContent = ui.unread; badge.hidden = false
+  }
+}
+
+async function poll() {
+  if (busy) return
+  busy = true
+  try {
+    const r = await api.log(after)
+    if (r.epoch !== epoch) {
+      epoch = r.epoch; after = 0; byId.clear()
+      for (const role of ['customer', 'owner']) { P[role].chat.dataset.started = ''; emptyHint(role) }
+      busy = false
+      return poll()
+    }
+    for (const ev of r.events) { add(ev); after = ev.seq }
+  } catch {} finally { busy = false }
+}
+
+function showTab(role) {
+  tab = role
+  document.querySelectorAll('.tabs button').forEach((b) => b.classList.toggle('on', b.dataset.tab === role))
+  for (const r of ['customer', 'owner']) P[r].sec.classList.toggle('on', r === role)
+  P[role].unread = 0
+  $(`.tabs [data-tab="${role}"] .badge`).hidden = true
+  scrollDown(P[role], true)
+}
+
+async function init() {
+  api = LOCAL ? await localApi(LOCAL) : serverApi()
+  state = await api.state()
+  if (LOCAL?.note) { $('#note').textContent = LOCAL.note; $('#note').hidden = false }
+  epoch = state.epoch
+  if (!LOCAL) document.title = `${state.cafe.name}: симулятор бота`
+  $('#title').textContent = `${state.cafe.name}: WhatsApp-бот`
+  const phones = $('#phones')
+  phones.append(buildPhone('customer'), buildPhone('owner'))
+  document.querySelectorAll('.tabs button').forEach((b) => b.addEventListener('click', () => showTab(b.dataset.tab)))
+  $('#reset').addEventListener('click', async () => { await api.reset(); poll() })
+  $('#admin').addEventListener('click', () => api.admin())
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeSheet('customer'); closeSheet('owner') } })
+  await poll()
+  setInterval(poll, 1000)
+}
+init()
+</script>
+</body>
+</html>
