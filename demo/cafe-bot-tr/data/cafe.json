@@ -1,0 +1,68 @@
+{
+  "name": "Demo Cafe",
+  "tagline": "işletmeniz için örnek bot",
+  "lang": "tr",
+  "currency": "₺",
+  "timezone": "Europe/Istanbul",
+
+  "branches": [
+    {
+      "id": "merkez",
+      "title": "Örnek Cad. No 1",
+      "place": "şehir merkezi",
+      "open": "08:00",
+      "close": "23:30",
+      "phone": "+90 500 000 00 00",
+      "instagram": "@demo.cafe"
+    }
+  ],
+
+  "order": {
+    "enabled": true,
+    "delivery": true,
+    "pickup": true,
+    "minDelivery": 300,
+    "deliveryNote": "Teslimat ücretsiz, minimum sipariş 300 ₺.",
+    "payments": ["Nakit", "Kredi kartı", "Online ödeme"]
+  },
+
+  "booking": {
+    "enabled": true,
+    "maxGuests": 30,
+    "seats": ["Salon", "Bahçe", "Teras", "Cam kenarı"]
+  },
+
+  "demo": {
+    "title": "Kafe ve restoranlar için WhatsApp botu (demo)",
+    "description": "Fotoğraflı menü, sipariş ve masa rezervasyonu doğrudan WhatsApp’ta. Açın ve deneyin: solda misafir, sağda işletme yetkilisi.",
+    "note": "Bu bir örnektir. Sizin işletmeniz için bot kendi menünüz, fotoğraflarınız, adresiniz ve WhatsApp numaranızla çalışır. Burada bot tarayıcıda çalışır, hiçbir mesaj gönderilmez.",
+    "hints": ["Merhaba", "Menü", "Masa ayırtmak istiyorum", "Lahmacun ne kadar?", "Paket servis var mı?"]
+  },
+
+  "faq": [
+    {
+      "keywords": ["paket", "eve servis", "teslimat", "getirir"],
+      "answer": "Evet, adrese teslim yapıyoruz 🚗 Minimum sipariş 300 ₺, teslimat ücretsiz. «Menü ve sipariş» üzerinden sipariş verebilirsiniz."
+    },
+    {
+      "keywords": ["otopark", "park yeri", "araba"],
+      "answer": "Evet, hemen girişte ücretsiz otoparkımız var 🚗"
+    },
+    {
+      "keywords": ["wifi", "wi fi", "internet"],
+      "answer": "Evet, ücretsiz Wi-Fi var 📶 Şifreyi garsonlarımız söyler."
+    },
+    {
+      "keywords": ["çocuk", "bebek", "mama sandalye"],
+      "answer": "Evet, çocuk menümüz ve mama sandalyemiz var 👶"
+    },
+    {
+      "keywords": ["vegan", "vejetaryen", "etsiz"],
+      "answer": "Vejetaryen seçeneklerimiz var: mercimek çorbası, menemen, kaşarlı pide ve salatalar 🥗"
+    },
+    {
+      "keywords": ["alkol", "bira", "şarap"],
+      "answer": "Alkollü içecek servisimiz yok; taze limonata ve ayranımızı deneyin 🍋"
+    }
+  ]
+}

@@ -2,12 +2,13 @@
 // Used by the server (/sim) and directly in the browser (static demo page).
 import { createBot } from './bot.js'
 import { createStore } from './store.js'
-
-export const SIM = { customer: '77010000001', owner: '77010000000' }
-const NAMES = { [SIM.customer]: 'Айгерим', [SIM.owner]: 'Администратор' }
-const DEFAULT_HINTS = ['Привет', 'Меню', 'Хочу забронировать столик']
+import { textsFor } from './texts/index.js'
+import { phoneFmt } from './util.js'
 
 export function createSim(client, { mediaBase = '/media', log = console } = {}) {
+  const T = textsFor(client.cafe.lang)
+  const ids = { customer: T.sim.guest.phone, owner: T.sim.owner.phone }
+  const names = { [ids.customer]: T.sim.guest.name, [ids.owner]: T.sim.owner.name }
   let events = []
   let seq = 0
   let out = 0
@@ -17,7 +18,7 @@ export function createSim(client, { mediaBase = '/media', log = console } = {}) 
   const bot = createBot({
     client,
     store,
-    owners: [SIM.owner],
+    owners: [ids.owner],
     mediaBase,
     log,
     transport: {
@@ -34,14 +35,17 @@ export function createSim(client, { mediaBase = '/media', log = console } = {}) 
     store,
     state: () => ({
       cafe: { name: client.cafe.name, tagline: client.cafe.tagline || '' },
-      ids: SIM,
-      hints: client.cafe.demo?.hints || DEFAULT_HINTS,
+      ids,
+      guest: { name: T.sim.guest.name, phone: phoneFmt(ids.customer) },
+      owner: { name: T.sim.owner.name, phone: phoneFmt(ids.owner) },
+      hints: client.cafe.demo?.hints || T.sim.hints,
+      ui: T.sim.ui,
       epoch,
     }),
     log: (after = 0) => ({ epoch, events: events.filter((e) => e.seq > after) }),
     // body: { as: customer|owner, type: text|interactive|location, text, reply:{kind,id,title}, location, context }
     async send({ as, type, text, reply, location, context } = {}) {
-      const from = SIM[as]
+      const from = ids[as]
       if (!from) throw new Error('as = customer | owner')
       const m = { from, id: `wamid.IN${++inn}`, timestamp: String(Math.floor(Date.now() / 1000)), type }
       if (type === 'text') m.text = { body: String(text || '').slice(0, 4096) }
@@ -52,7 +56,7 @@ export function createSim(client, { mediaBase = '/media', log = console } = {}) 
       else throw new Error('type = text | interactive | location')
       if (context) m.context = { id: String(context) }
       events.push({ seq: ++seq, ts: Date.now(), dir: 'in', from, id: m.id, msg: m })
-      await bot.handleIncoming({ from, name: NAMES[from], message: m })
+      await bot.handleIncoming({ from, name: names[from], message: m })
     },
     reset() {
       store.reset()

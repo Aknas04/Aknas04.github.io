@@ -5,11 +5,15 @@ export const cut = (s, n) => {
   return s.length <= n ? s : s.slice(0, n - 1).trimEnd() + '…'
 }
 
-// lower case, ё→е, punctuation → spaces
+// Text for matching: lower case, ё→е, Turkish letters folded (ç→c, ş→s, ğ→g, ı/İ→i, ö→o, ü→u)
+// so "çocuk" and "cocuk" match; punctuation → spaces. Keywords go through the same function.
+const FOLD = { ı: 'i', ş: 's', ğ: 'g', ç: 'c', ö: 'o', ü: 'u', â: 'a', î: 'i', û: 'u' }
 export const norm = (s) =>
   String(s ?? '')
+    .replace(/İ/g, 'i')
     .toLowerCase()
     .replace(/ё/g, 'е')
+    .replace(/[ışğçöüâîû]/g, (c) => FOLD[c])
     .replace(/[^\p{L}\p{N}\s]/gu, ' ')
     .replace(/\s+/g, ' ')
     .trim()
@@ -69,7 +73,7 @@ export function parseTime(text) {
   if (m) { h = +m[1]; mi = +m[2] }
   else if ((m = t.match(/\b(\d{1,2})\b/))) { h = +m[1]; mi = 0 }
   else return null
-  if (/вечер|дня|pm|akşam/.test(t) && h < 12) h += 12
+  if (/вечер|дня|pm|akşam|aksam|öğleden sonra|ogleden sonra/.test(t) && h < 12) h += 12
   if (h === 24 && mi === 0) h = 0
   if (h > 23 || mi > 59) return null
   return h * 60 + mi
@@ -88,21 +92,28 @@ export const daysBetween = (a, b) => {
   return Math.round((f(b) - f(a)) / 864e5)
 }
 
-const MONTHS = ['янв', 'фев', 'мар', 'апр', 'ма', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек']
+// Words for relative days and month stems come from the language file (texts/*.js → dateWords).
+const RU_DATES = {
+  plus2: ['послезавтра', 'бүрсігүні'],
+  plus1: ['завтра', 'ертең'],
+  today: ['сегодня', 'бүгін'],
+  months: ['янв', 'фев', 'мар', 'апр', 'ма', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'],
+}
 
-// "сегодня", "завтра", "28.11", "28/11/2026", "28 ноября" → YYYY-MM-DD (null if not a date)
-export function parseDate(text, today) {
+// "сегодня", "завтра", "28.11", "28/11/2026", "28 ноября", "yarın", "28 Kasım" → YYYY-MM-DD (null if not a date)
+export function parseDate(text, today, words = RU_DATES) {
   const t = norm(text)
-  if (/послезавтра|бүрсігүні/.test(t)) return addDays(today, 2)
-  if (/завтра|ертең/.test(t)) return addDays(today, 1)
-  if (/сегодня|бүгін/.test(t)) return today
+  const has = (list) => (list || []).some((w) => t.includes(norm(w)))
+  if (has(words.plus2)) return addDays(today, 2) // checked first: "послезавтра" contains "завтра"
+  if (has(words.plus1)) return addDays(today, 1)
+  if (has(words.today)) return today
   const ty = +today.slice(0, 4)
   let d, mo, y = null, m
   if ((m = String(text).match(/(\d{1,2})[./-](\d{1,2})(?:[./-](\d{2,4}))?/))) {
     d = +m[1]; mo = +m[2]; y = m[3] ? +m[3] : null
-  } else if ((m = t.match(/(\d{1,2}) ?([а-я]{2,})/))) {
+  } else if ((m = t.match(/(\d{1,2}) ?(\p{L}{2,})/u))) {
     d = +m[1]
-    mo = MONTHS.findIndex((st) => m[2].startsWith(st)) + 1
+    mo = (words.months || []).findIndex((st) => m[2].startsWith(norm(st))) + 1
     if (!mo) return null
   } else return null
   if (y !== null && y < 100) y += 2000

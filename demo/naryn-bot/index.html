@@ -98,6 +98,10 @@ button{font:inherit;color:inherit;cursor:pointer}
 .badge{display:inline-block;min-width:18px;padding:0 5px;border-radius:9px;background:var(--accent);color:#fff;font-size:12px;line-height:18px;margin-left:4px}
 .badge[hidden]{display:none}
 .typing{font-size:12px;color:#8fd3b8}
+.credits{max-width:1080px;margin:0 auto;padding:0 16px 18px;font-size:12px;color:var(--mute)}
+.credits summary{cursor:pointer}
+.credits ul{margin:6px 0 0;padding-left:18px}
+.credits a{color:inherit}
 
 @media (max-width:860px){
   .top{padding:14px 16px 8px;align-items:flex-start;flex-direction:column;gap:10px}
@@ -118,18 +122,18 @@ button{font:inherit;color:inherit;cursor:pointer}
 <body>
 <header class="top">
   <div>
-    <h1 id="title">WhatsApp-бот кафе</h1>
-    <p>Слева гость кафе, справа телефон администратора. Нажимайте кнопки как в WhatsApp. Чтобы ответить гостю от администратора, нажмите ↩ у сообщения.</p>
+    <h1 id="title">&nbsp;</h1>
+    <p id="desc"></p>
     <p class="note" id="note" hidden></p>
   </div>
   <div class="actions">
-    <button id="admin" type="button">Заказы и брони</button>
-    <button id="reset" type="button">Начать заново</button>
+    <button id="admin" type="button"></button>
+    <button id="reset" type="button"></button>
   </div>
 </header>
-<nav class="tabs" aria-label="Телефоны">
-  <button type="button" data-tab="customer" class="on">Гость <span class="badge" hidden></span></button>
-  <button type="button" data-tab="owner">Администратор <span class="badge" hidden></span></button>
+<nav class="tabs">
+  <button type="button" data-tab="customer" class="on"><span class="tl"></span> <span class="badge" hidden></span></button>
+  <button type="button" data-tab="owner"><span class="tl"></span> <span class="badge" hidden></span></button>
 </nav>
 <main class="phones" id="phones"></main>
 
@@ -147,13 +151,14 @@ function fmt(text) {
   s = s.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>')
   return s.replace(/\n/g, '<br>')
 }
-const hhmm = (ts) => new Date(ts).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })
+let U = {} // interface strings from the language file (state.ui)
+const hhmm = (ts) => new Date(ts).toLocaleTimeString(U.locale || 'ru-RU', { hour: '2-digit', minute: '2-digit' })
 const plain = (msg) => {
   if (!msg) return ''
   if (msg.type === 'text') return msg.text.body
   if (msg.type === 'interactive') return msg.interactive.body?.text || msg.interactive.button_reply?.title || msg.interactive.list_reply?.title || ''
-  if (msg.type === 'location') return '📍 Геолокация'
-  if (msg.type === 'image') return '📷 ' + (msg.image.caption || 'Фото')
+  if (msg.type === 'location') return U.geolocation
+  if (msg.type === 'image') return '📷 ' + (msg.image.caption || U.photo)
   return msg.type
 }
 
@@ -199,21 +204,21 @@ const roleOf = (num) => (num === state.ids.owner ? 'owner' : 'customer')
 function buildPhone(role) {
   const sec = el('section', 'phone' + (role === tab ? ' on' : ''))
   const label = role === 'customer'
-    ? `<b>Гость</b> · Айгерим, +7 701 000 00 01`
-    : `<b>Администратор кафе</b> · +7 701 000 00 00`
+    ? `<b>${esc(U.labelGuest)}</b> · ${esc(state.guest.name)}, ${esc(state.guest.phone)}`
+    : `<b>${esc(U.labelOwner)}</b> · ${esc(state.owner.phone)}`
   sec.innerHTML = `<div class="label">${label}</div>
     <div class="screen">
       <div class="bar"><div class="ava">${esc(state.cafe.name[0] || 'B')}</div>
-        <div class="who"><b>${esc(state.cafe.name)}</b><small class="sub">бизнес-аккаунт</small></div></div>
+        <div class="who"><b>${esc(state.cafe.name)}</b><small class="sub">${esc(U.business)}</small></div></div>
       <div class="chat" role="log" aria-live="polite"></div>
-      <div class="quote" hidden><div class="qtext"></div><button type="button" aria-label="Не отвечать">×</button></div>
+      <div class="quote" hidden><div class="qtext"></div><button type="button" aria-label="${esc(U.noReply)}">×</button></div>
       <form class="composer">
-        <button type="button" class="geo" title="Отправить тестовую геолокацию" aria-label="Геолокация">📍</button>
-        <input placeholder="Сообщение" autocomplete="off" aria-label="Сообщение">
-        <button class="send" aria-label="Отправить">➤</button>
+        <button type="button" class="geo" title="${esc(U.geo)}" aria-label="${esc(U.geo)}">📍</button>
+        <input placeholder="${esc(U.placeholder)}" autocomplete="off" aria-label="${esc(U.placeholder)}">
+        <button class="send" aria-label="${esc(U.send)}">➤</button>
       </form>
       <div class="sheet" hidden><div class="sheet-card" role="dialog" aria-modal="true">
-        <div class="sheet-head"><button type="button" aria-label="Закрыть">×</button><b class="sheet-title"></b></div>
+        <div class="sheet-head"><button type="button" aria-label="${esc(U.close)}">×</button><b class="sheet-title"></b></div>
         <div class="sheet-body"></div></div></div>
     </div>`
   const ui = { role, sec, chat: $('.chat', sec), input: $('input', sec), quote: null, sub: $('.sub', sec), unread: 0 }
@@ -237,7 +242,7 @@ function emptyHint(role) {
   const ui = P[role]
   ui.chat.innerHTML = ''
   if (role === 'customer') {
-    ui.chat.append(el('div', 'sys', 'Так гость видит бота кафе в WhatsApp. Напишите сообщение или начните с подсказки:'))
+    ui.chat.append(el('div', 'sys', esc(U.guestHint)))
     const chips = el('div', 'chips')
     for (const t of state.hints) {
       const b = el('button', '', esc(t)); b.type = 'button'
@@ -246,7 +251,7 @@ function emptyHint(role) {
     }
     ui.chat.append(chips)
   } else {
-    ui.chat.append(el('div', 'sys', 'Сюда администратору приходят новые заказы, брони и вопросы гостей. Напишите «привет», чтобы увидеть команды.'))
+    ui.chat.append(el('div', 'sys', esc(U.ownerHint)))
   }
 }
 
@@ -269,17 +274,17 @@ async function send(role, payload) {
   const ui = P[role]
   const context = ui.quote
   setQuote(role, null)
-  ui.sub.textContent = 'печатает…'; ui.sub.classList.add('typing')
+  ui.sub.textContent = U.typing; ui.sub.classList.add('typing')
   const t0 = Date.now()
   try {
     await api.send({ as: role, context, ...payload })
     if (LOCAL) await sleep(450 - (Date.now() - t0)) // the in-browser bot answers instantly; a short pause feels like a real chat
   } finally {
-    ui.sub.textContent = 'бизнес-аккаунт'; ui.sub.classList.remove('typing')
+    ui.sub.textContent = U.business; ui.sub.classList.remove('typing')
     poll()
   }
 }
-const sendGeo = (role) => send(role, { type: 'location', location: { latitude: 43.2381, longitude: 76.9452, name: 'Тестовая геолокация', address: 'Алматы' } })
+const sendGeo = (role) => send(role, { type: 'location', location: U.geoPoint })
 const reply = (role, kind, id, title) => send(role, { type: 'interactive', reply: { kind, id, title } })
 
 function openSheet(role, it) {
@@ -318,10 +323,10 @@ function botRow(role, ev) {
   else if (msg.type === 'image') b.innerHTML = `<img src="${esc(msg.image.link)}" alt="">${msg.image.caption ? fmt(msg.image.caption) : ''}`
   else if (msg.type === 'location') {
     const l = msg.location
-    b.innerHTML = `<div class="loc">📍 <b>${esc(l.name || 'Локация')}</b><small>${esc(l.address || '')}</small><a href="https://maps.google.com/?q=${l.latitude},${l.longitude}" target="_blank" rel="noopener">Открыть карту</a></div>`
+    b.innerHTML = `<div class="loc">📍 <b>${esc(l.name || U.location)}</b><small>${esc(l.address || '')}</small><a href="https://maps.google.com/?q=${l.latitude},${l.longitude}" target="_blank" rel="noopener">${esc(U.openMap)}</a></div>`
   } else if (msg.type === 'template') {
     const params = msg.template.components?.[0]?.parameters?.map((p) => p.text).join(', ') || ''
-    b.innerHTML = `<span class="tpl">шаблон «${esc(msg.template.name)}»</span><br>${esc(params)}`
+    b.innerHTML = `<span class="tpl">${esc(U.template)} «${esc(msg.template.name)}»</span><br>${esc(params)}`
   } else if (msg.type === 'interactive') {
     const it = msg.interactive
     let h = ''
@@ -337,11 +342,11 @@ function botRow(role, ev) {
       a.href = it.action.parameters.url; a.target = '_blank'; a.rel = 'noopener'
       acts.append(a)
     }
-    if (it.type === 'location_request_message') btn('📍 Отправить местоположение', () => sendGeo(role))
+    if (it.type === 'location_request_message') btn(esc(U.sendLocation), () => sendGeo(role))
   } else b.textContent = `[${msg.type}]`
   b.append(el('div', 'meta', hhmm(ev.ts)))
   if (acts.children.length) row.append(acts)
-  const r = el('button', 'rep', '↩'); r.type = 'button'; r.title = 'Ответить'; r.setAttribute('aria-label', 'Ответить на сообщение')
+  const r = el('button', 'rep', '↩'); r.type = 'button'; r.title = U.reply; r.setAttribute('aria-label', U.reply)
   r.onclick = () => setQuote(role, ev.id)
   row.append(r)
   return row
@@ -410,10 +415,18 @@ function showTab(role) {
 async function init() {
   api = LOCAL ? await localApi(LOCAL) : serverApi()
   state = await api.state()
+  U = state.ui
+  document.documentElement.lang = (U.locale || 'ru').slice(0, 2)
+  $('#desc').textContent = U.desc
+  $('#admin').textContent = U.admin
+  $('#reset').textContent = U.reset
+  $('.tabs').setAttribute('aria-label', U.phones)
+  $('.tabs [data-tab="customer"] .tl').textContent = U.tabGuest
+  $('.tabs [data-tab="owner"] .tl').textContent = U.tabOwner
   if (LOCAL?.note) { $('#note').textContent = LOCAL.note; $('#note').hidden = false }
   epoch = state.epoch
-  if (!LOCAL) document.title = `${state.cafe.name}: симулятор бота`
-  $('#title').textContent = `${state.cafe.name}: WhatsApp-бот`
+  if (!LOCAL) document.title = `${state.cafe.name}: ${U.simTitle}`
+  $('#title').textContent = `${state.cafe.name}: ${U.heading}`
   const phones = $('#phones')
   phones.append(buildPhone('customer'), buildPhone('owner'))
   document.querySelectorAll('.tabs button').forEach((b) => b.addEventListener('click', () => showTab(b.dataset.tab)))

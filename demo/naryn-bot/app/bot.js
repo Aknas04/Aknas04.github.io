@@ -5,9 +5,7 @@ import {
   cut, norm, money, phoneFmt, localNow, hm, fmtHM, isOpenAt, canBookAt, lastBooking,
   parseTime, parseDate, addDays, daysBetween,
 } from './util.js'
-import ru from './texts/ru.js'
-
-const LANGS = { ru }
+import { textsFor } from './texts/index.js'
 const PAGE = 8 // list rows per page (+ up to 2 navigation rows = 10, the WhatsApp limit)
 const HOUR = 3600e3
 const HANDOFF_MS = 2 * HOUR // how long the bot stays silent after "call the admin"
@@ -18,7 +16,9 @@ const BOOK_DAYS_AHEAD = 60
 
 export function createBot({ client, store, transport, owners = [], mediaBase = null, ownerTemplate = null, log = console }) {
   const { cafe, cats, items, catById } = client
-  const T = LANGS[cafe.lang] || ru
+  const T = textsFor(cafe.lang)
+  // word lists from the language file, normalised once (so "Menü" == "menu", "çocuk" == "cocuk")
+  const WORDS = Object.fromEntries(Object.entries(T.words).map(([k, v]) => [k, v.map(norm)]))
   const $ = (n) => money(n, cafe.currency || '₸')
   const tz = cafe.timezone || 'UTC'
   const branches = cafe.branches || []
@@ -115,7 +115,7 @@ export function createBot({ client, store, transport, owners = [], mediaBase = n
       const os = store.session(from)
       if (input.kind === 'action' && /^(ord|bk|chat):/.test(input.id)) return ownerAction(from, input.id)
       if (!os.asCustomer) return ownerFlow(from, input, os)
-      if (input.kind === 'text' && T.words.admin.includes(norm(input.text))) {
+      if (input.kind === 'text' && WORDS.admin.includes(norm(input.text))) {
         os.asCustomer = false
         store.save()
         return send(from, W.text(T.owner.backToAdmin))
@@ -168,7 +168,7 @@ export function createBot({ client, store, transport, owners = [], mediaBase = n
 
   async function route(from, s, input) {
     if (s.handoff) {
-      const exit = input.kind === 'action' || (input.kind === 'text' && T.words.exitHandoff.includes(norm(input.text)))
+      const exit = input.kind === 'action' || (input.kind === 'text' && WORDS.exitHandoff.includes(norm(input.text)))
       if (Date.now() > s.handoff.until || exit) s.handoff = null
       else {
         s.handoff.until = Date.now() + HANDOFF_MS
@@ -291,8 +291,8 @@ export function createBot({ client, store, transport, owners = [], mediaBase = n
       return n ? addToCart(s, n) : [W.text(T.badQty(MAX_QTY))]
     },
     ship: (from, s, raw, t) => {
-      if (/достав|привез/.test(t)) s.draft.order.ship = 'delivery'
-      else if (/самовывоз|забер|сам/.test(t)) s.draft.order.ship = 'pickup'
+      if (T.shipWords.delivery.test(t)) s.draft.order.ship = 'delivery'
+      else if (T.shipWords.pickup.test(t)) s.draft.order.ship = 'pickup'
       else return [W.text(T.useButtons), ...askShip(s)]
       return orderNext(from, s)
     },
@@ -319,7 +319,7 @@ export function createBot({ client, store, transport, owners = [], mediaBase = n
       return orderNext(from, s)
     },
     confirm: (from, s, raw, t) => {
-      if (T.words.yes.includes(t)) return confirmOrder(from, s)
+      if (WORDS.yes.includes(t)) return confirmOrder(from, s)
       s.draft.order.comment = cut(raw, 200)
       return orderNext(from, s)
     },
@@ -329,7 +329,7 @@ export function createBot({ client, store, transport, owners = [], mediaBase = n
       return s.draft.after === 'book' ? bookNext(from, s) : orderNext(from, s)
     },
     book_date: (from, s, raw) => {
-      const d = parseDate(raw, now().date)
+      const d = parseDate(raw, now().date, T.dateWords)
       return d ? setDate(from, s, d) : [W.text(T.badDate)]
     },
     book_time: (from, s, raw) => setTime(from, s, parseTime(raw)),
@@ -343,7 +343,7 @@ export function createBot({ client, store, transport, owners = [], mediaBase = n
       return bookNext(from, s)
     },
     book_confirm: (from, s, raw, t) => {
-      if (T.words.yes.includes(t)) return confirmBooking(from, s)
+      if (WORDS.yes.includes(t)) return confirmBooking(from, s)
       s.draft.book.comment = cut(raw, 200)
       return bookNext(from, s)
     },
@@ -353,14 +353,14 @@ export function createBot({ client, store, transport, owners = [], mediaBase = n
 
   async function onText(from, s, raw) {
     const t = norm(raw)
-    if (T.words.menu.includes(t)) { reset(s); return categories(0) }
-    if (T.words.home.includes(t)) { reset(s); return home(s, true) }
-    if (T.words.cancel.includes(t)) {
+    if (WORDS.menu.includes(t)) { reset(s); return categories(0) }
+    if (WORDS.home.includes(t)) { reset(s); return home(s, true) }
+    if (WORDS.cancel.includes(t)) {
       const had = s.step !== 'idle'
       reset(s)
       return [W.text(had ? T.cancelled : T.nothingToCancel), ...home(s, false)]
     }
-    if (T.words.cart.includes(t)) { reset(s); return cart(s) }
+    if (WORDS.cart.includes(t)) { reset(s); return cart(s) }
 
     // the step's draft may be gone (old session) — then treat as free text
     const draftOk =
@@ -415,7 +415,7 @@ export function createBot({ client, store, transport, owners = [], mediaBase = n
   }
 
   function search(t) {
-    const toks = t.split(' ').filter((w) => w.length >= 3 && !T.words.stop.includes(w))
+    const toks = t.split(' ').filter((w) => w.length >= 3 && !WORDS.stop.includes(w))
     if (!toks.length) return []
     const stems = toks.map((w) => (w.length >= 6 ? w.slice(0, -2) : w.length >= 4 ? w.slice(0, -1) : w))
     let best = 0
@@ -987,9 +987,9 @@ export function createBot({ client, store, transport, owners = [], mediaBase = n
     if (rec?.customer) return relay(from, rec.customer, input)
     if (input.kind === 'text') {
       const t = norm(input.text)
-      if (T.words.ownerOrders.includes(t)) return send(from, W.text(ordersReport()))
-      if (T.words.ownerBookings.includes(t)) return send(from, W.text(bookingsReport()))
-      if (T.words.asCustomer.includes(t)) {
+      if (WORDS.ownerOrders.includes(t)) return send(from, W.text(ordersReport()))
+      if (WORDS.ownerBookings.includes(t)) return send(from, W.text(bookingsReport()))
+      if (WORDS.asCustomer.includes(t)) {
         os.asCustomer = true
         store.save()
         return send(from, W.text(T.owner.asCustomer))

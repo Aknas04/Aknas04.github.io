@@ -1,0 +1,73 @@
+[
+ {
+  "id": "kahvalti",
+  "title": "Kahvaltı",
+  "items": [
+   { "name": "Serpme kahvaltı, 2 kişi", "desc": "peynirler, zeytin, bal-kaymak, sucuk, yumurta, simit", "price": 950, "photo": "kahvalti.jpg" },
+   { "name": "Menemen", "desc": "domates, biber, yumurta", "price": 220, "photo": "menemen.jpg" },
+   { "name": "Sucuklu yumurta", "desc": "sahanda, kasap sucuk", "price": 260 },
+   { "name": "Simit tabağı", "desc": "simit, beyaz peynir, domates, salatalık", "price": 180 }
+  ]
+ },
+ {
+  "id": "corba",
+  "title": "Çorbalar",
+  "items": [
+   { "name": "Mercimek çorbası", "desc": "limon ve kıtır ekmekle", "price": 140, "photo": "mercimek.jpg" },
+   { "name": "Ezogelin", "desc": "kırmızı mercimek, bulgur, nane", "price": 140 },
+   { "name": "Tavuk suyu çorba", "desc": "şehriyeli", "price": 160 }
+  ]
+ },
+ {
+  "id": "izgara",
+  "title": "Izgaralar",
+  "items": [
+   { "name": "Adana kebap", "desc": "acılı; közlenmiş domates ve biber, lavaş", "price": 480, "photo": "adana.jpg" },
+   { "name": "Urfa kebap", "desc": "acısız; közlenmiş domates ve biber, lavaş", "price": 480 },
+   { "name": "İskender", "desc": "döner, tereyağı, domates sosu, yoğurt", "price": 520, "photo": "iskender.jpg" },
+   { "name": "Tavuk şiş", "desc": "bulgur pilavı ve salata ile", "price": 380 },
+   { "name": "Izgara köfte", "desc": "10 adet, piyaz ile", "price": 420 },
+   { "name": "Karışık ızgara", "desc": "adana, şiş, köfte, pirzola", "price": 750 }
+  ]
+ },
+ {
+  "id": "pide",
+  "title": "Pide ve lahmacun",
+  "items": [
+   { "name": "Lahmacun", "desc": "maydanoz, soğan ve limonla", "price": 140, "photo": "lahmacun.jpg" },
+   { "name": "Kaşarlı pide", "desc": "", "price": 290, "photo": "pide.jpg" },
+   { "name": "Kıymalı pide", "desc": "", "price": 320 },
+   { "name": "Karışık pide", "desc": "kıyma, kaşar, sucuk, yumurta", "price": 360 }
+  ]
+ },
+ {
+  "id": "salata",
+  "title": "Salatalar",
+  "items": [
+   { "name": "Çoban salata", "desc": "domates, salatalık, biber, soğan", "price": 160 },
+   { "name": "Gavurdağı salata", "desc": "ceviz, nar ekşisi", "price": 190 },
+   { "name": "Sezar salata", "desc": "tavuk, parmesan, kruton", "price": 280 }
+  ]
+ },
+ {
+  "id": "tatli",
+  "title": "Tatlılar",
+  "items": [
+   { "name": "Künefe", "desc": "Hatay peyniri, Antep fıstığı", "price": 260, "photo": "kunefe.jpg" },
+   { "name": "Fıstıklı baklava, 4 adet", "desc": "", "price": 240, "photo": "baklava.jpg" },
+   { "name": "Fırın sütlaç", "desc": "", "price": 150 }
+  ]
+ },
+ {
+  "id": "icecek",
+  "title": "İçecekler",
+  "items": [
+   { "name": "Çay", "desc": "taze demlenmiş", "variants": [{ "name": "Bardak", "price": 30 }, { "name": "Fincan", "price": 45 }], "photo": "cay.jpg" },
+   { "name": "Türk kahvesi", "desc": "lokum ile", "price": 90 },
+   { "name": "Ayran", "desc": "", "variants": [{ "name": "Küçük", "price": 40 }, { "name": "Büyük", "price": 60 }] },
+   { "name": "Taze portakal suyu", "desc": "", "price": 120 },
+   { "name": "Ev yapımı limonata", "desc": "", "variants": [{ "name": "0,4 L", "price": 110 }, { "name": "1 L", "price": 220 }] },
+   { "name": "Kola", "desc": "", "price": 70 }
+  ]
+ }
+]
