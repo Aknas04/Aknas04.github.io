@@ -231,6 +231,9 @@
       .vcard .tel:hover { color: var(--gold); }
       .vcard .route { margin-top: 10px; font-size: var(--step-small); }
       .vcard .btn { margin: 24px -28px 0; }
+      .vcard .btn + .btn { margin-top: 2px; }
+      .btn.ghost { background: var(--surface-2); color: var(--ink); }
+      .btn.ghost:hover { background: #312b24; }
 
       /* Подвал */
       .foot { display: grid; grid-template-columns: 1fr 1fr; min-height: 100svh; background: var(--bg); }
@@ -725,6 +728,7 @@
           <div class="menu-foot">
             <p>Цены в&nbsp;тенге, по&nbsp;меню кафе. Блюда без описания можно уточнить у&nbsp;официанта.</p>
             <a class="btn" href="#bron">Забронировать стол<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 7h11.2L8 2.8 9.4 1.4 16 8l-6.6 6.6L8 13.2 12.2 9H1z" fill="currentColor" /></svg></a>
+            <a class="link" href="zakaz/">Заказать с&nbsp;собой или доставку</a>
           </div>
         </div>
       </section>
@@ -840,7 +844,8 @@
             </dl>
             <a class="tel" href="tel:+77084004014">+7 708 400 40 14</a>
             <a class="link route" href="https://2gis.kz/almaty/firm/70000001099760957" target="_blank" rel="noopener">Маршрут в 2ГИС</a>
-            <a class="btn" href="https://wa.me/77084004014" target="_blank" rel="noopener">Написать в WhatsApp</a>
+            <a class="btn" href="zakaz/?b=tole">Заказать еду<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 7h11.2L8 2.8 9.4 1.4 16 8l-6.6 6.6L8 13.2 12.2 9H1z" fill="currentColor" /></svg></a>
+            <a class="btn ghost" href="https://wa.me/77084004014" target="_blank" rel="noopener">Написать в WhatsApp</a>
           </article>
           <article class="vcard" data-r>
             <h3>Бухар жырау, 33</h3>
@@ -851,7 +856,8 @@
             </dl>
             <a class="tel" href="tel:+77023641030">+7 702 364 10 30</a>
             <a class="link route" href="https://2gis.kz/almaty/firm/70000001114687713" target="_blank" rel="noopener">Маршрут в 2ГИС</a>
-            <a class="btn" href="https://wa.me/77023641030" target="_blank" rel="noopener">Написать в WhatsApp</a>
+            <a class="btn" href="zakaz/?b=bukhar">Заказать еду<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 7h11.2L8 2.8 9.4 1.4 16 8l-6.6 6.6L8 13.2 12.2 9H1z" fill="currentColor" /></svg></a>
+            <a class="btn ghost" href="https://wa.me/77023641030" target="_blank" rel="noopener">Написать в WhatsApp</a>
           </article>
         </div>
       </section>
@@ -868,6 +874,7 @@
           <a href="#family">Всей семьёй</a>
           <a href="#reviews">Отзывы</a>
           <a href="#bron">Бронь стола</a>
+          <a href="zakaz/">Заказ еды</a>
           <a href="#address">Адреса</a>
         </nav>
         <div class="foot-info">

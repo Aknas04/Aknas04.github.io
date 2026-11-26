@@ -1,0 +1,845 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Заказ еды, Naryn (демо)</title>
+    <meta name="description" content="Заказ с собой и доставка из кафе Naryn в Алматы: Толе би, 273/4 и Бухар жырау, 33. Соберите корзину и отправьте заказ в WhatsApp." />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#12100e" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2312100e'/%3E%3Cpath d='M9 24V8h3l8 11V8h3v16h-3l-8-11v11z' fill='%23c9a46a'/%3E%3C/svg%3E" />
+    <link rel="preload" href="../fonts/onest-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="../fonts/unbounded-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link href="../fonts/fonts.css" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #12100e;
+        --surface: #1c1916;
+        --surface-2: #26221d;
+        --line: #2c2721;
+        --ink: #ebebe9;
+        --muted: #b3a999;
+        --gold: #c9a46a;
+        --gold-hi: #dbb983;
+        --gold-ink: #15120f;
+        --err: #ee8f78;
+        --step-small: clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem);
+        --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+        --step-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+        --step-head: clamp(1.5rem, 1.1rem + 1.4vw, 2.25rem);
+        --step-display: clamp(1.75rem, 0.9rem + 2.6vw, 3.25rem);
+        --m: clamp(16px, 2.2vw, 32px);
+        --ease: cubic-bezier(0.16, 1, 0.3, 1);
+        --display: "Unbounded", "Onest", system-ui, sans-serif;
+      }
+      * { box-sizing: border-box; margin: 0; }
+      html { scroll-behavior: smooth; scroll-padding-top: var(--sticky, 150px); color-scheme: dark; }
+      body { font-family: "Onest", system-ui, sans-serif; font-size: var(--step-body); line-height: 1.5; letter-spacing: -0.005em; color: var(--ink); background: var(--bg); overflow-x: clip; -webkit-font-smoothing: antialiased; }
+      body.lock { overflow: hidden; }
+      a { color: inherit; }
+      button, input, textarea { font: inherit; color: inherit; }
+      button { cursor: pointer; }
+      fieldset { border: 0; padding: 0; min-width: 0; }
+      :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+      ::selection { background: var(--gold); color: var(--gold-ink); }
+      h1, h2 { font-family: var(--display); font-weight: 500; letter-spacing: -0.02em; text-wrap: balance; }
+      p { text-wrap: pretty; }
+      .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+      .wrap { max-width: 1180px; margin: 0 auto; padding: 0 var(--m); }
+
+      .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 54px; padding: 0 28px; border: 0; background: var(--gold); color: var(--gold-ink); font: 600 var(--step-body) / 1 "Onest", sans-serif; text-decoration: none; cursor: pointer; transition: background-color 180ms ease, transform 160ms var(--ease); }
+      .btn:hover { background: var(--gold-hi); }
+      .btn:active { transform: scale(0.97); }
+      .link { font-weight: 500; text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 1.5px; text-underline-offset: 6px; transition: text-underline-offset 200ms var(--ease), color 200ms ease; }
+      .link:hover { color: var(--gold-hi); text-underline-offset: 9px; }
+
+      /* Шапка */
+      .bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: var(--m); }
+      .wordmark { font-family: var(--display); font-size: var(--step-lead); font-weight: 600; letter-spacing: 0.12em; text-decoration: none; }
+      .intro { padding: clamp(40px, 6vw, 88px) 0 clamp(24px, 3vw, 40px); }
+      .intro h1 { font-size: var(--step-display); font-weight: 600; line-height: 1.1; max-width: 14em; }
+      .intro p { margin-top: 20px; max-width: 46ch; color: var(--muted); }
+      .top { position: sticky; top: 0; z-index: 20; background: var(--bg); border-bottom: 1px solid var(--line); }
+      .top-in { max-width: 1180px; margin: 0 auto; padding: 12px var(--m) 0; }
+      .search { position: relative; }
+      .search svg { position: absolute; left: 14px; top: 50%; width: 20px; height: 20px; transform: translateY(-50%); stroke: var(--gold); pointer-events: none; }
+      .search input { width: 100%; min-height: 50px; padding: 0 14px 0 46px; border: 0; border-radius: 0; background: var(--surface); appearance: none; -webkit-appearance: none; }
+      .search input::placeholder { color: var(--muted); }
+      .search input:focus { outline: 2px solid var(--gold); outline-offset: 2px; }
+      .cats { display: flex; gap: 6px; overflow-x: auto; margin: 0 calc(-1 * var(--m)); padding: 10px var(--m) 12px; scrollbar-width: none; }
+      .cats::-webkit-scrollbar { display: none; }
+      .cats a { flex: 0 0 auto; display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; background: var(--surface-2); text-decoration: none; font-size: var(--step-small); font-weight: 500; white-space: nowrap; transition: background-color 180ms ease, color 180ms ease; }
+      .cats a:hover { background: #312b24; }
+      .cats a.on { background: var(--gold); color: var(--gold-ink); }
+
+      /* Меню */
+      main { max-width: 1180px; margin: 0 auto; padding: 0 var(--m) 140px; }
+      section.cat { padding-top: 48px; }
+      section.cat h2 { font-size: var(--step-head); line-height: 1.15; margin-bottom: 20px; }
+      .grid { display: grid; grid-template-columns: 1fr; gap: 2px; }
+      @media (min-width: 760px) { .grid { grid-template-columns: 1fr 1fr; } }
+      .item { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; padding: 16px; background: var(--surface); }
+      .item.has-pic { grid-template-columns: 72px minmax(0, 1fr); }
+      .item img { width: 72px; height: 54px; object-fit: contain; }
+      .txt { display: flex; flex-direction: column; min-width: 0; }
+      .item h3 { font-size: var(--step-body); font-weight: 500; line-height: 1.3; }
+      .item p { margin-top: 4px; font-size: var(--step-small); color: var(--muted); line-height: 1.4; }
+      .opts { margin-top: auto; padding-top: 12px; display: grid; gap: 6px; }
+      .optrow { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; }
+      .optrow .p { color: var(--gold); font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
+      .optrow .sz { color: var(--muted); font-weight: 400; margin-right: 10px; }
+      .add { width: 44px; height: 44px; border: 0; background: var(--gold); color: var(--gold-ink); display: inline-grid; place-items: center; transition: background-color 180ms ease, transform 140ms var(--ease); }
+      .add:hover { background: var(--gold-hi); }
+      .add:active { transform: scale(0.94); }
+      .add svg { width: 18px; height: 18px; }
+      .qty { display: inline-flex; align-items: center; }
+      .qty button { width: 44px; height: 44px; border: 0; background: var(--surface-2); color: var(--gold); display: inline-grid; place-items: center; transition: background-color 180ms ease, transform 140ms var(--ease); }
+      .qty svg { width: 16px; height: 16px; }
+      .qty button:hover { background: #312b24; }
+      .qty button:active { transform: scale(0.94); }
+      .qty .q { min-width: 40px; text-align: center; font-weight: 600; font-variant-numeric: tabular-nums; }
+      .empty { display: none; padding: 48px 0; color: var(--muted); }
+      .foot { max-width: 1180px; margin: 0 auto; padding: 0 var(--m) 48px; font-size: var(--step-small); color: var(--muted); }
+      .foot p + p { margin-top: 6px; }
+
+      /* Кнопка корзины */
+      .cartbar { position: fixed; left: var(--m); right: var(--m); bottom: calc(12px + env(safe-area-inset-bottom)); z-index: 30; max-width: 560px; margin: 0 auto; transform: translateY(160%); visibility: hidden; transition: transform 380ms var(--ease), visibility 0s 380ms; }
+      .cartbar.show { transform: none; visibility: visible; transition: transform 420ms var(--ease); }
+      .cartbar button { width: 100%; min-height: 58px; border: 0; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--gold); color: var(--gold-ink); font-weight: 600; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5); transition: background-color 180ms ease, transform 140ms var(--ease); }
+      .cartbar button:hover { background: var(--gold-hi); }
+      .cartbar button:active { transform: scale(0.98); }
+      .badge { display: inline-grid; place-items: center; min-width: 28px; height: 28px; padding: 0 8px; margin-right: 12px; background: var(--gold-ink); color: var(--gold); font-variant-numeric: tabular-nums; }
+      .cartbar .sum { font-variant-numeric: tabular-nums; }
+
+      /* Корзина */
+      .overlay { position: fixed; inset: 0; z-index: 40; background: rgba(8, 7, 6, 0.66); opacity: 0; visibility: hidden; transition: opacity 260ms ease, visibility 0s 260ms; }
+      .sheet { position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; display: flex; flex-direction: column; max-height: 92svh; max-width: 640px; margin: 0 auto; background: var(--bg); border-top: 1px solid var(--line); transform: translateY(100%); visibility: hidden; transition: transform 360ms var(--ease), visibility 0s 360ms; }
+      @media (min-width: 760px) {
+        .sheet { left: auto; top: 0; width: 480px; max-width: none; max-height: none; border-top: 0; border-left: 1px solid var(--line); transform: translateX(100%); }
+      }
+      .open .overlay { opacity: 1; visibility: visible; transition: opacity 260ms ease; }
+      .open .sheet { transform: none; visibility: visible; transition: transform 420ms var(--ease); }
+      .sh-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 20px; border-bottom: 1px solid var(--line); }
+      .sh-head h2 { font-size: var(--step-lead); }
+      .x { width: 44px; height: 44px; border: 0; background: var(--surface-2); display: grid; place-items: center; transition: background-color 180ms ease; }
+      .x:hover { background: #312b24; }
+      .x svg { width: 18px; height: 18px; stroke: var(--ink); }
+      .sh-body { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 4px 20px 28px; }
+      .line { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 8px 14px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line); }
+      .line .n { font-weight: 500; line-height: 1.3; }
+      .line .n small { display: block; margin-top: 2px; font-size: var(--step-small); font-weight: 400; color: var(--muted); }
+      .line .s { min-width: 84px; text-align: right; color: var(--gold); font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
+      @media (max-width: 440px) {
+        .line { grid-template-columns: minmax(0, 1fr) auto; }
+        .line .qty { grid-row: 2; grid-column: 1; justify-self: start; }
+        .line .s { grid-row: 1; grid-column: 2; }
+      }
+      .cart-empty { padding: 32px 0; color: var(--muted); }
+      .total { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 20px 0 4px; font-size: var(--step-lead); font-weight: 600; }
+      .total span:last-child { color: var(--gold); font-variant-numeric: tabular-nums; }
+      .note { font-size: var(--step-small); color: var(--muted); }
+      .lbl { display: block; padding: 0; font-size: var(--step-small); color: var(--muted); margin-bottom: 8px; }
+      .form > * + * { margin-top: 22px; }
+      .form { margin-top: 24px; }
+      .seg { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+      .opt { position: relative; display: block; cursor: pointer; }
+      .opt input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+      .opt-box { display: block; height: 100%; padding: 14px 16px; background: var(--surface); transition: background-color 180ms ease, color 180ms ease, transform 140ms var(--ease); }
+      .opt:hover .opt-box { background: var(--surface-2); }
+      .opt:active .opt-box { transform: scale(0.99); }
+      .opt input:checked + .opt-box { background: var(--gold); color: var(--gold-ink); }
+      .opt input:focus-visible + .opt-box { outline: 2px solid var(--gold); outline-offset: 3px; }
+      .opt-name { display: block; font-weight: 600; }
+      .opt-meta { display: block; margin-top: 4px; font-size: var(--step-small); opacity: 0.85; }
+      .f input, .f textarea { width: 100%; min-height: 52px; padding: 13px 14px; border: 0; border-radius: 0; background: var(--surface); appearance: none; -webkit-appearance: none; }
+      .f textarea { min-height: 84px; resize: vertical; }
+      .f input::placeholder, .f textarea::placeholder { color: var(--muted); }
+      .f input:focus, .f textarea:focus { outline: 2px solid var(--gold); outline-offset: 2px; }
+      .err { display: none; margin-top: 8px; font-size: var(--step-small); font-weight: 500; color: var(--err); }
+      .f.bad .err { display: block; }
+      .f.bad input { outline: 2px solid var(--err); outline-offset: 2px; }
+      .sh-foot { padding: 14px 20px calc(16px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); }
+      .sh-foot .btn { width: 100%; }
+      .sh-foot .btn svg { width: 20px; height: 20px; fill: currentColor; }
+      .sent { display: none; margin-top: 10px; font-size: var(--step-small); color: var(--muted); }
+      .sent.on { display: block; }
+      .clear { display: block; margin: 6px auto 0; min-height: 44px; padding: 0 12px; border: 0; background: none; color: var(--muted); font-size: var(--step-small); text-decoration: underline; text-underline-offset: 4px; }
+      .clear:hover { color: var(--ink); }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        .cartbar, .cartbar.show, .overlay, .open .overlay, .sheet, .open .sheet { transition: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="bar">
+        <a class="wordmark" href="../">NARYN</a>
+        <a class="link" href="../#address">Адреса и часы</a>
+      </div>
+      <div class="intro">
+        <h1>Заказ с&nbsp;собой и&nbsp;доставка</h1>
+        <p>Выберите блюда, нажмите «Корзина» внизу и&nbsp;отправьте заказ нам в&nbsp;WhatsApp. Мы перезвоним для подтверждения.</p>
+      </div>
+    </div>
+
+    <header class="top" id="top">
+      <div class="top-in">
+        <div class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" /></svg>
+          <label for="q" class="sr">Поиск по меню</label>
+          <input id="q" type="search" placeholder="Найти блюдо, например «плов»" autocomplete="off" />
+        </div>
+        <nav class="cats" id="cats" aria-label="Разделы меню"></nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <div id="menu"></div>
+      <p class="empty" id="empty">Ничего не нашлось. Попробуйте другое слово, например «манты» или «лагман».</p>
+    </main>
+
+    <footer class="foot" id="foot">
+      <p>Цены в&nbsp;тенге. В&nbsp;зале действует плата за&nbsp;обслуживание 10%.</p>
+      <p>Демо-версия сайта для кафе Naryn. <a class="link" href="../">Вернуться на&nbsp;сайт</a></p>
+    </footer>
+
+    <div class="cartbar" id="cartbar">
+      <button type="button" id="openCart"><span><span class="badge" id="cnt">0</span>Корзина</span><span class="sum" id="sum">0 ₸</span></button>
+    </div>
+    <p class="sr" aria-live="polite" id="live"></p>
+
+    <div id="cartwrap">
+      <div class="overlay" id="overlay"></div>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="cartTitle" id="sheet">
+        <div class="sh-head">
+          <h2 id="cartTitle">Ваш заказ</h2>
+          <button class="x" type="button" id="closeCart" aria-label="Закрыть корзину"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
+        </div>
+        <div class="sh-body">
+          <div id="lines"></div>
+          <div id="formBox">
+            <div class="total"><span>Итого</span><span id="total">0 ₸</span></div>
+            <p class="note" id="feeNote">Заберёте заказ сами в&nbsp;кафе.</p>
+
+            <div class="form">
+              <fieldset>
+                <legend class="lbl">Из какого кафе</legend>
+                <div class="seg" id="branches"></div>
+              </fieldset>
+
+              <fieldset>
+                <legend class="lbl">Как получить заказ</legend>
+                <div class="seg">
+                  <label class="opt"><input type="radio" name="mode" value="pickup" checked /><span class="opt-box"><span class="opt-name">Самовывоз</span></span></label>
+                  <label class="opt"><input type="radio" name="mode" value="delivery" /><span class="opt-box"><span class="opt-name">Доставка</span></span></label>
+                </div>
+              </fieldset>
+
+              <div class="f" id="fName">
+                <label class="lbl" for="name">Ваше имя</label>
+                <input id="name" autocomplete="given-name" placeholder="Например, Айгерим" />
+                <span class="err">Укажите имя</span>
+              </div>
+              <div class="f" id="fPhone">
+                <label class="lbl" for="phone">Номер телефона</label>
+                <input id="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 7__ ___ __ __" />
+                <span class="err">Укажите номер, чтобы мы могли связаться</span>
+              </div>
+              <div class="f" id="fAddr">
+                <label class="lbl" for="addr">Адрес доставки</label>
+                <input id="addr" autocomplete="street-address" placeholder="Улица, дом, квартира, подъезд" />
+                <span class="err">Укажите адрес доставки</span>
+              </div>
+              <div class="f">
+                <label class="lbl" for="time" id="timeLbl">К какому времени забрать</label>
+                <input id="time" placeholder="Например, к 19:30 или как можно скорее" />
+              </div>
+              <div class="f">
+                <label class="lbl" for="comment">Комментарий</label>
+                <textarea id="comment" placeholder="Без лука, острее, приборы на 3 человек..."></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sh-foot" id="shFoot">
+          <button class="btn" type="button" id="send">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.6.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.6 11.6 0 0 0 4.4 3.9c1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2s.2-1.1.2-1.2-.2-.2-.5-.3z" /></svg>
+            Отправить заказ в&nbsp;WhatsApp
+          </button>
+          <p class="sent" id="sent" role="status">WhatsApp открыт с&nbsp;готовым сообщением. Осталось нажать там «Отправить».</p>
+          <button class="clear" type="button" id="clear">Очистить корзину</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      /* ======= НАСТРОЙКА: кафе и их WhatsApp, номер только цифрами с кодом страны ======= */
+      const BRANCHES = {
+        tole: { name: "Толе би, 273/4", place: "ЖК Жайлы", hours: "09:00–23:00", num: "77084004014" },
+        bukhar: { name: "Бухар жырау, 33", place: "БЦ Jenis", hours: "08:00–23:00", num: "77023641030" }
+      };
+      /* ================================================================================= */
+
+      // Формат позиции: [название, цена, состав]  или  [название, {"400 мл":1390,"1 л":2490}, состав]
+      const MENU = [
+       ["Завтраки",[
+        ["Деревенский завтрак",3190,"Яйца, микс салата, черри, говяжьи колбаски, чёрный хлеб, картофель, шампиньоны, брокколи, соус тартар"],
+        ["Завтрак чемпион",3690,"Яйцо, черри, говяжьи колбаски, тосты, кукуруза, картофель, ветчина, огурцы, фасоль"],
+        ["Французский завтрак с ветчиной индейки",3590,"Яйцо, копчёная индейка, черри, круассан, моцарелла"],
+        ["Английский завтрак",3490,"Яйцо, фасоль, черри, колбаски, тосты"],
+        ["Омлет с грибами",2590,"Яйца, тостерный хлеб, шампиньоны, черри"],
+        ["Омлет с сыром и ветчиной",3290,"Яйца, тосты, шампиньоны, черри, ветчина"],
+        ["Хашбраун",3290,"Картофель, яйца, филе сёмги, огурцы, горчица, черри, сметана"],
+        ["Круассан с сёмгой",3890,"Круассан, филе сёмги, огурцы, помидоры, микс салата"],
+        ["Круассан с курицей",3190,"Круассан, огурцы, помидоры, куриное филе, соус цезарь"],
+        ["Тост с авокадо и слабосолёной сёмгой",3690,"Авокадо, яйца, сёмга, сыр креметте, микс салата"],
+        ["Шакшука",3190,"Яйцо, перец, микрозелень, помидоры, лук, хлеб"],
+        ["Сырники в вишнёвом компоте",3790],
+        ["Сырники с солёной карамелью",3790],
+        ["Фитнес боул с курицей",3590,"Яйца, авокадо, кукуруза, куриное филе, брокколи, огурцы, черри, греческий йогурт"],
+        ["Фитнес боул с сёмгой",4390,"Черри, киноа, брокколи, филе сёмги, кунжут, соус терияки, гуакамоле"],
+        ["Панкейк",3790],
+        ["Венские вафли",3790],
+        ["Блины классические",2390],
+        ["Блины с творогом",2590],
+        ["Овсяная каша",1690],
+        ["Рисовая каша",1590]
+       ]],
+       ["Салаты",[
+        ["Буррата с персиком",4390,"Буррата, персик, черри, шпинат, руккола, кедровые орехи, пармезан, авокадо, песто"],
+        ["Тёплый салат с медальонами",4590,"Мякоть говядины, микс салата, перепелиное яйцо, черри, песто с пармезаном"],
+        ["Руккола с креветками",3590,"Руккола, креветки, черри, пармезан, авокадо, цитрусовая заправка"],
+        ["Капрезе классический",3490,"Моцарелла, помидоры, песто, базилик, бальзамик, пармезан"],
+        ["Цезарь с сёмгой",3490,"Айсберг, пармезан, перепелиные яйца, соус цезарь, багет, сёмга"],
+        ["Цезарь с курицей",2390,"Айсберг, пармезан, перепелиные яйца, соус цезарь, багет, куриное филе"],
+        ["Салат с сёмгой",2990,"Сёмга, микс салата, ананасовая сальса, кабачки, огурцы, миндаль, ореховый соус"],
+        ["Запечённая свёкла с апельсином",2990],
+        ["Салат Алматинский",2990,"Огурцы, помидоры, перец, лист салата, говядина, лимон, оливковое масло"],
+        ["Оливье",2790,"Картофель, морковь, яйца, солёные огурцы, горошек, говядина, майонез"],
+        ["Греческий салат",2790],
+        ["Хрустящие баклажаны",2790],
+        ["Малибу",2590,"Огурцы, помидоры, сыр гауда, индейка, сухарики, майонез"],
+        ["Салат Мулен Руж",2590,"Брокколи, цветная капуста, черри, горошек, свит-чили, маслины, филе судака"],
+        ["Свежий салат",1890,"Помидоры, огурцы, редиска, зелень, перец, мятный соус"],
+        ["Чабан салат",1790,"Помидоры, курт, кинза, базилик, лимонный концентрат"],
+        ["Салат Ачичук",1790,"Помидоры, красный лук, полугорький перец"]
+       ]],
+       ["Закуски",[
+        ["Кавказская нарезка",3390,"Помидоры, огурцы, перец, брынза, маслины, оливки, зелень"],
+        ["Рыбное ассорти",7590,"Сёмга, эсколар, скумбрия"],
+        ["Мясное ассорти",7290,"Казы, жая, говяжий язык"],
+        ["Фруктовая нарезка",3990]
+       ]],
+       ["Горячие закуски",[
+        ["Сырные палочки",2590],
+        ["Наггетсы с картошкой фри",2790],
+        ["Попкорн из креветок с соусом васаби",4390],
+        ["Крылышки BBQ",3590],
+        ["Казы в кляре",3590]
+       ]],
+       ["Выпечка",[
+        ["Хачапури по-мегрельски",3790],
+        ["Хачапури по-аджарски",3590],
+        ["Самса бухарская",3390],
+        ["Гош нан",3190],
+        ["Хычины",2390],
+        ["Мини чебуреки с мясом, 6 шт",1790],
+        ["Самса с мясом, 1 шт",690],
+        ["Бауырсаки",1290],
+        ["Таба нан",990],
+        ["Лепёшки",590],
+        ["Хлебная корзина",1490],
+        ["Хлеб чесночный",1290],
+        ["Багет французский",1290]
+       ]],
+       ["Фастфуд и пицца",[
+        ["Бургер говяжий",2990],
+        ["Бургер куриный",2690],
+        ["Клаб сэндвич",2990],
+        ["Пицца Пепперони",3690],
+        ["Пицца Маргарита",3090],
+        ["Пицца Цезарь",3590],
+        ["Пицца с сёмгой",4290],
+        ["Пицца Мексиканская",3590],
+        ["Пицца грибная",3490]
+       ]],
+       ["Первые блюда",[
+        ["Том Ям",3890],
+        ["Уха из сёмги",2590],
+        ["Сорпа из говядины",2490],
+        ["Сорпа из баранины",2390],
+        ["Рамен с говядиной",2390],
+        ["Рамен с курицей",2190],
+        ["Солянка",2290],
+        ["Кукси (сезонное)",2090],
+        ["Пельмени",1990],
+        ["Окрошка (сезонное)",1890],
+        ["Бозбаш",1790,"Бараньи голяшки, картофель, перец, нут, помидоры"],
+        ["Борщ",1790],
+        ["Суп-лапша по-домашнему",1790],
+        ["Суп с фрикадельками",1790],
+        ["Чечевичный крем-суп",1690],
+        ["Грибной крем-суп",1690]
+       ]],
+       ["Восточные супы",[
+        ["Манпар (острый)",2490,"Говядина, тесто, кинза, полугорький перец"],
+        ["Захутан (острый)",2590,"Говядина, древесные грибы, вешенки, фунчоза, специи"],
+        ["Сантан ру",2490,"Фунчоза, говядина, вешенки, полугорький перец"]
+       ]],
+       ["Национальная кухня",[
+        ["Бешбармак",4390,"Казы, жая, картофель, морковь, лук, тесто"],
+        ["Нарын",3590,"Конина, казы, тесто"],
+        ["Куырдак из баранины",4290,"Баранина, картофель, лук, зелень"],
+        ["Тай куырдак",3790,"Конина, картофель, зелёный лук"],
+        ["Плов Праздничный",3090,"Говядина, рис лазер, морковь, зира, нут, кишмиш, перепелиное яйцо, казы"],
+        ["Плов Ташкентский",2790,"Говядина, рис лазер, морковь, зира, нут, кишмиш, перепелиное яйцо"],
+        ["Хошан, 5 шт",2990,"Жареные манты"],
+        ["Манты из говядины, 5 шт",2690,"Говядина, лук"],
+        ["Манты из говядины с тыквой, 5 шт",2590,"Говядина, тыква, лук"],
+        ["Манты из говядины с джусаем, 5 шт",2590,"Говядина, джусай, лук"],
+        ["Казан кебаб",4290,"Жареная говядина с луком"]
+       ]],
+       ["Восточные горячие блюда",[
+        ["Хомян Хоу Ру",4990,"Говядина, лапша, специи, лук, помидоры, огурцы"],
+        ["Ганбян джи",4590,"Хрустящая курица с арахисом, перец, специи"],
+        ["Тебян ян пай",4290,"Бараньи рёбрышки, полугорький перец, специи"],
+        ["Тебян ру (говядина)",4090,"Полугорький перец, специи"],
+        ["Тебян джи (курица)",3790,"Полугорький перец, специи"],
+        ["Бассяй фунтанру",4090,"Фунчоза, пекинская капуста, говядина"],
+        ["Ганго Туту пияр",4090,"Говядина, картофель, полугорький перец, лук, специи"],
+        ["Пачак сяй",3990,"Говяжьи лытки, обжаренные с перцем"],
+        ["Керин сяй",3990,"Требуха с полугорьким перцем"],
+        ["Лазру сяй",3890,"Говядина, полугорький перец"],
+        ["Ачык сяй",3790,"Говядина, древесные грибы, острый перец"],
+        ["Могу ру сяй",3790,"Говядина, вешенки, полугорький перец"],
+        ["Чин сяй ру",3790,"Говядина, красный полугорький перец, сельдерей"],
+        ["Мошуру",3690,"Говядина, перец, древесные грибы, яйца"],
+        ["Сунбауру",3690,"Говядина, лук-порей"],
+        ["Жареные вешенки",3690],
+        ["Лаз жи",3490,"Курица на косточке, полугорький перец"],
+        ["Жачан дуфу",3490,"Тофу, говядина, полугорький перец, древесные грибы, специи"],
+        ["Ганбян чайзи",3390,"Остро-сладкие хрустящие баклажаны с полугорьким перцем"],
+        ["Фри с мясом",3290,"Картофель фри, говядина, полугорький перец, лук"],
+        ["Ян Ю Сыр",3190,"Полусырой картофель с мясом, полугорький перец"],
+        ["Мала дофу",2790,"Тофу, острый соус, специи"],
+        ["Брокколи с грибами",2790,"Брокколи, грибы, полугорький перец, специи"],
+        ["Сёмга на жаровне",6190,"Сёмга, брокколи, цветная капуста, полугорький перец, специи"]
+       ]],
+       ["Лагманы",[
+        ["Мошуру лагман / ганфан",2990],
+        ["Гуйру лагман / ганфан",2890],
+        ["Суйру лагман / ганфан",2890],
+        ["Могуру лагман / ганфан",2890],
+        ["Гуйру цомян",2890],
+        ["Ганбян цомян",2890],
+        ["Дин дин цомян",2890],
+        ["Лагман по-домашнему",2890]
+       ]],
+       ["Вторые блюда",[
+        ["Лосось под икорным соусом с брокколи",7190,"Лосось, молодая брокколи, сливки, икра лосося, микрозелень"],
+        ["Каре ягнёнка с хумусом",4990],
+        ["Дорадо в соусе кимчи",4890],
+        ["Телячьи щёчки с пюре из сельдерея",4790],
+        ["Судак с овощами в тайском стиле",4790],
+        ["Цыплёнок терияки с лимоном",4790],
+        ["Форель в пекинском стиле",4590],
+        ["Сибас с овощами и пюре из цветной капусты",4490],
+        ["Томлёные рёбра телёнка",4290],
+        ["Бефстроганов",3790,"Говядина, грибы, лук, сливки, гарнир на выбор"],
+        ["Фрикасе",3490,"Куриное филе, грибы, лук, сливки, гарнир на выбор"],
+        ["Бифштекс",3190,"Говяжья котлета, яйца, гарнир на выбор"],
+        ["Котлета по-киевски",2990]
+       ]],
+       ["На гриле",[
+        ["Рибай",6490,"Прожарку укажите в комментарии"],
+        ["Тибон",6290,"Прожарку укажите в комментарии"],
+        ["Медальоны",5490,"Прожарку укажите в комментарии"],
+        ["Стейк из сёмги",6290],
+        ["Сибас на гриле",4990],
+        ["Дорадо на гриле",4890],
+        ["Форель на гриле",4590]
+       ]],
+       ["Жареная рыба",[
+        ["Нежность Нептуна",17990,"Сёмга, овощи на гриле, сазан, судак"],
+        ["Рыбное изобилие",17790,"Форель, креветки, сазан, луковые кольца"],
+        ["Удачный клёв",11890,"Сазан, судак, картофельные дольки, луковые кольца"],
+        ["Золотая рыбка",9990,"Сазан, судак, луковые кольца, картофельные шарики"],
+        ["Судак по-домашнему на двоих",9790],
+        ["Сазан по-домашнему на двоих",8690],
+        ["Судак жареный",4290],
+        ["Сазан жареный",3790]
+       ]],
+       ["Паста",[
+        ["Паста с морепродуктами",3690],
+        ["Феттучини с сёмгой",3590],
+        ["Альфредо",3190]
+       ]],
+       ["Блюда на компанию",[
+        ["Мясной микс",39990],
+        ["Рыбный микс",39990],
+        ["Куриный микс",28990],
+        ["Бешбармак на компанию",21990],
+        ["Нарын на компанию",20990],
+        ["Садж на компанию",20990],
+        ["Куырдак из баранины на компанию",19990],
+        ["Тай куырдак на компанию",18990],
+        ["Плов на компанию",17990],
+        ["Манты на компанию",17990],
+        ["Дапян джи",12990],
+        ["Хоншау Юкур",8490],
+        ["Ганза Ю",8490]
+       ]],
+       ["Чай",[
+        ["Облепиха апельсин",{"400 мл":1390,"1 л":2490}],
+        ["Ташкентский",{"400 мл":1390,"1 л":2490}],
+        ["Марокканский",{"400 мл":1390,"1 л":2490}],
+        ["Ягодный",{"400 мл":1390,"1 л":2490}],
+        ["Малина имбирь",{"400 мл":1390,"1 л":2490}],
+        ["Чай с тары",{"400 мл":990,"1 л":1990}],
+        ["Чай по-казахски",{"400 мл":990,"1 л":1990}],
+        ["Японская липа, 1 л",1990],
+        ["Молочный улун, 1 л",1990],
+        ["Английский завтрак, 1 л",1490],
+        ["Сенча, 1 л",1490],
+        ["Ромашка, 1 л",1490],
+        ["Эрл грей, 1 л",1490],
+        ["Жасмин, 1 л",1490],
+        ["Чайный сет Нарын, 1 л",3290],
+        ["Чайный сет Восточный, 1 л",3290]
+       ]],
+       ["Кофе",[
+        ["Эспрессо, 50 мл",1090],
+        ["Американо, 0.3",1090],
+        ["Американо с молоком, 0.3",1090],
+        ["Флэт уайт, 0.2",1390],
+        ["Капучино, 0.3",1290],
+        ["Латте, 0.3",1290],
+        ["Латте карамельный, 0.2",1590],
+        ["Раф лавандовый, 0.2",1890],
+        ["Раф ванильный, 0.2",1890],
+        ["Аффогато, 0.2",2090],
+        ["Фраппучино карамель, 0.3",2290],
+        ["Фраппучино кокос, 0.3",2290],
+        ["Айс американо, 0.4",1090],
+        ["Айс американо с молоком, 0.4",1190],
+        ["Айс капучино, 0.4",1290],
+        ["Айс латте, 0.4",1290],
+        ["Бамбл кофе, 0.4",2090],
+        ["Эспрессо тоник, 0.4",2190],
+        ["Малина эспрессо тоник, 0.4",2290]
+       ]],
+       ["Не кофе",[
+        ["Какао с маршмеллоу, 0.3",1690],
+        ["Горячий шоколад, 0.3",1490],
+        ["Матча латте",1590],
+        ["Айс матча латте",1590],
+        ["Айс матча тоник",2090],
+        ["Айс ти классик",990],
+        ["Компот",{"0.3":790,"1 л":1790}],
+        ["Морс",{"0.3":990,"1 л":2090}],
+        ["Кымыз",{"0.3":890,"1 л":2290}]
+       ]],
+       ["Лимонады, смузи, фреши",[
+        ["Лимонад Манго маракуйя",{"400 мл":1390,"1 л":2490}],
+        ["Лимонад Мохито",{"400 мл":1390,"1 л":2490}],
+        ["Лимонад Ягодный",{"400 мл":1390,"1 л":2490}],
+        ["Лимонад Киви яблоко",{"400 мл":1390,"1 л":2490}],
+        ["Лимонад Щавель маракуйя",{"400 мл":1390,"1 л":2490}],
+        ["Лимонад Яблоко лайм",{"400 мл":1390,"1 л":2490}],
+        ["Смузи Манго апельсин, 0.3",2090],
+        ["Смузи Ягодный, 0.3",2090],
+        ["Смузи Малина яблоко, 0.3",2090],
+        ["Фреш апельсин",1790],
+        ["Фреш яблоко",1790],
+        ["Фреш морковь",1390]
+       ]],
+       ["Напитки",[
+        ["Вода Самал",{"0.5":890,"1 л":1090}],
+        ["Coca-Cola",{"0.2":990,"0.5":990,"1 л":1390}],
+        ["Fanta",{"0.2":990,"0.5":990,"1 л":1390}],
+        ["Sprite",{"0.2":990,"0.5":990,"1 л":1390}],
+        ["Fuse Tea",{"0.5":990,"1 л":1390}],
+        ["Piko",{"0.2":790,"1 л":1490}],
+        ["Borjomi",{"0.3":1190,"0.5":1590}]
+       ]],
+       ["Добавки",[
+        ["Альтернативное молоко, 0.3",800],
+        ["Лимон, 30 г",590],
+        ["Мёд, 50 г",590],
+        ["Молоко, 100 мл",390],
+        ["Мята",200],
+        ["Сироп, 20 мл",190]
+       ]]
+      ];
+
+      // Фото блюд из папки ../dishes (название блюда -> файл)
+      const PICS = {
+        "Завтрак чемпион": "champion", "Шакшука": "shakshuka", "Панкейк": "pancake",
+        "Буррата с персиком": "burrata", "Крылышки BBQ": "wings",
+        "Хачапури по-мегрельски": "hachapuri", "Мини чебуреки с мясом, 6 шт": "chebureki", "Самса с мясом, 1 шт": "samsa",
+        "Пицца Пепперони": "pepperoni", "Захутан (острый)": "zahutan",
+        "Нарын": "naryn", "Хошан, 5 шт": "hoshan", "Манты из говядины, 5 шт": "manty", "Казан кебаб": "kazan-kebab",
+        "Ганбян джи": "ganbyan-dzhi", "Тебян ру (говядина)": "tebyan", "Ганго Туту пияр": "kazan-gotovo", "Могу ру сяй": "mogu-ru",
+        "Фри с мясом": "fri-myaso", "Мала дофу": "mala-dofu", "Сёмга на жаровне": "semga-zharovnya",
+        "Гуйру лагман / ганфан": "lagman", "Рибай": "ribeye", "Феттучини с сёмгой": "fettuccine"
+      };
+
+      // ---------- логика ----------
+      const $ = id => document.getElementById(id);
+      const fmt = n => n.toLocaleString("ru-RU") + " ₸";
+      const norm = s => s.toLowerCase().replace(/ё/g, "е");
+      const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+      const PLUS = '<svg viewBox="0 0 18 18" aria-hidden="true"><path d="M8 1h2v7h7v2h-7v7H8v-7H1V8h7z" fill="currentColor"/></svg>';
+      const MINUS = '<svg viewBox="0 0 18 18" aria-hidden="true"><path d="M1 8h16v2H1z" fill="currentColor"/></svg>';
+      const STORE = "naryn_order_v1";
+      const items = {};   // id -> {name, size, price, key}
+      const byKey = {};   // "название|размер" -> id
+      const cart = {};    // id -> кол-во
+      let uid = 0;
+
+      const menuEl = $("menu"), catsEl = $("cats");
+      MENU.forEach(([cat, list]) => {
+        const cid = "c" + (++uid);
+        const a = document.createElement("a");
+        a.href = "#" + cid; a.textContent = cat; a.dataset.c = cid;
+        catsEl.appendChild(a);
+        const sec = document.createElement("section");
+        sec.className = "cat"; sec.id = cid;
+        sec.innerHTML = `<h2>${esc(cat)}</h2><div class="grid"></div>`;
+        const grid = sec.querySelector(".grid");
+        list.forEach(([name, price, desc]) => {
+          const pic = PICS[name];
+          const sizes = typeof price === "number" ? [["", price]] : Object.entries(price);
+          const rows = sizes.map(([size, p]) => {
+            const id = "i" + (++uid), key = name + "|" + size;
+            items[id] = { name, size, price: p, key };
+            byKey[key] = id;
+            return `<div class="optrow" data-id="${id}"><span class="p">${size ? `<span class="sz">${esc(size)}</span>` : ""}${fmt(p)}</span><span class="ctl"></span></div>`;
+          }).join("");
+          const el = document.createElement("article");
+          el.className = "item" + (pic ? " has-pic" : "");
+          el.dataset.search = norm(name + " " + (desc || "") + " " + cat);
+          el.innerHTML = (pic ? `<img src="../dishes/${pic}.webp" alt="" width="72" height="54" loading="lazy" decoding="async">` : "")
+            + `<div class="txt"><h3>${esc(name)}</h3>${desc ? `<p>${esc(desc)}</p>` : ""}<div class="opts">${rows}</div></div>`;
+          grid.appendChild(el);
+        });
+        menuEl.appendChild(sec);
+      });
+
+      function label(id) { const it = items[id]; return it.name + (it.size ? ", " + it.size : ""); }
+      function qtyHTML(id) {
+        const l = esc(label(id));
+        return `<span class="qty"><button type="button" data-a="dec" data-id="${id}" aria-label="Убрать одну: ${l}">${MINUS}</button><span class="q">${cart[id]}</span><button type="button" data-a="inc" data-id="${id}" aria-label="Добавить ещё: ${l}">${PLUS}</button></span>`;
+      }
+      function renderRow(row) {
+        const id = row.dataset.id;
+        row.querySelector(".ctl").innerHTML = cart[id]
+          ? qtyHTML(id)
+          : `<button class="add" type="button" data-a="inc" data-id="${id}" aria-label="В корзину: ${esc(label(id))}">${PLUS}</button>`;
+      }
+      function renderAllRows() { document.querySelectorAll(".optrow").forEach(renderRow); }
+
+      function totals() {
+        let n = 0, s = 0;
+        for (const id in cart) { n += cart[id]; s += cart[id] * items[id].price; }
+        return { n, s };
+      }
+      function save() {
+        const out = {};
+        for (const id in cart) out[items[id].key] = cart[id];
+        try { localStorage.setItem(STORE, JSON.stringify(out)); } catch (e) {}
+      }
+      function renderCart() {
+        const { n, s } = totals();
+        const ids = Object.keys(cart);
+        $("cnt").textContent = n;
+        $("sum").textContent = fmt(s);
+        $("total").textContent = fmt(s);
+        $("cartbar").classList.toggle("show", n > 0);
+        $("formBox").hidden = !ids.length;
+        $("shFoot").hidden = !ids.length;
+        $("lines").innerHTML = ids.length
+          ? ids.map(id => {
+              const it = items[id];
+              return `<div class="line"><div class="n">${esc(it.name)}${it.size ? `<small>${esc(it.size)}</small>` : ""}</div>${qtyHTML(id)}<div class="s">${fmt(it.price * cart[id])}</div></div>`;
+            }).join("")
+          : `<p class="cart-empty">Корзина пуста. Добавьте блюда из&nbsp;меню.</p>`;
+        save();
+      }
+      function change(id, d) {
+        cart[id] = (cart[id] || 0) + d;
+        if (cart[id] <= 0) delete cart[id];
+        document.querySelectorAll(`.optrow[data-id="${id}"]`).forEach(renderRow);
+        renderCart();
+        $("live").textContent = `${label(id)}: ${cart[id] || 0} шт. В корзине на ${fmt(totals().s)}`;
+      }
+      document.addEventListener("click", e => {
+        const b = e.target.closest("button[data-a]");
+        if (!b) return;
+        const id = b.dataset.id, inSheet = !!b.closest(".sheet");
+        change(id, b.dataset.a === "inc" ? 1 : -1);
+        // кнопка перерисовалась: возвращаем фокус на её замену
+        if (document.contains(b)) return;
+        let next;
+        if (inSheet) {
+          next = $("lines").querySelector(`button[data-a="${b.dataset.a}"][data-id="${id}"]`) || $("lines").querySelector("button") || $("closeCart");
+        } else {
+          const row = document.querySelector(`.optrow[data-id="${id}"]`);
+          next = row.querySelector(`button[data-a="${b.dataset.a}"]`) || row.querySelector("button");
+        }
+        if (next) next.focus();
+      });
+
+      // восстановить корзину
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORE) || "{}");
+        for (const k in saved) if (byKey[k] && saved[k] > 0) cart[byKey[k]] = saved[k];
+      } catch (e) {}
+      renderAllRows();
+      renderCart();
+
+      // кафе: из ссылки ?b=tole или ?b=bukhar, иначе Толе би
+      const pre = new URLSearchParams(location.search).get("b");
+      const first = BRANCHES[pre] ? pre : Object.keys(BRANCHES)[0];
+      $("branches").innerHTML = Object.entries(BRANCHES).map(([k, b]) =>
+        `<label class="opt"><input type="radio" name="branch" value="${k}"${k === first ? " checked" : ""} /><span class="opt-box"><span class="opt-name">${esc(b.name)}</span><span class="opt-meta">${esc(b.place)}<br>${esc(b.hours)}</span></span></label>`
+      ).join("");
+      const branch = () => BRANCHES[document.querySelector('input[name="branch"]:checked').value];
+
+      // открыть / закрыть корзину
+      const wrap = $("cartwrap");
+      const behind = [$("top"), $("main"), $("foot"), $("cartbar"), document.querySelector(".wrap")];
+      function openCart() {
+        wrap.classList.add("open");
+        document.body.classList.add("lock");
+        behind.forEach(el => { el.inert = true; });
+        $("sent").classList.remove("on");
+        $("closeCart").focus();
+      }
+      function closeCart() {
+        if (!wrap.classList.contains("open")) return;
+        wrap.classList.remove("open");
+        document.body.classList.remove("lock");
+        behind.forEach(el => { el.inert = false; });
+        if (totals().n) $("openCart").focus({ preventScroll: true });
+      }
+      $("openCart").onclick = openCart;
+      $("closeCart").onclick = closeCart;
+      $("overlay").onclick = closeCart;
+      document.addEventListener("keydown", e => { if (e.key === "Escape") closeCart(); });
+      $("clear").onclick = () => {
+        for (const k in cart) delete cart[k];
+        renderAllRows(); renderCart();
+        $("live").textContent = "Корзина очищена";
+        $("closeCart").focus();
+      };
+
+      // способ получения
+      const mode = () => document.querySelector('input[name="mode"]:checked').value;
+      function syncMode() {
+        const del = mode() === "delivery";
+        $("fAddr").hidden = !del;
+        $("timeLbl").textContent = del ? "К какому времени доставить" : "К какому времени забрать";
+        $("feeNote").textContent = del ? "Стоимость доставки уточним при подтверждении." : "Заберёте заказ сами в кафе.";
+      }
+      document.querySelectorAll('input[name="mode"]').forEach(r => { r.onchange = syncMode; });
+      syncMode();
+
+      // проверка полей: ошибка после ухода из поля, исчезает при вводе
+      const checks = {
+        name: v => v.trim().length > 0,
+        phone: v => v.replace(/\D/g, "").length >= 10,
+        addr: v => v.trim().length > 0
+      };
+      Object.keys(checks).forEach(id => {
+        const el = $(id);
+        el.addEventListener("input", () => { el.dataset.dirty = 1; el.closest(".f").classList.remove("bad"); });
+        el.addEventListener("blur", () => { if (el.dataset.dirty && !checks[id](el.value)) el.closest(".f").classList.add("bad"); });
+      });
+
+      // отправка
+      $("send").onclick = () => {
+        const v = id => $(id).value.trim();
+        const del = mode() === "delivery";
+        const need = ["name", "phone"].concat(del ? ["addr"] : []);
+        const bad = need.filter(id => !checks[id]($(id).value));
+        need.forEach(id => $(id).closest(".f").classList.toggle("bad", bad.includes(id)));
+        if (bad.length) { $(bad[0]).focus(); return; }
+
+        const b = branch(), { s } = totals();
+        let msg = `*Новый заказ в Naryn, ${b.name}*\n\n`;
+        Object.keys(cart).forEach(id => {
+          const it = items[id];
+          msg += `• ${it.name}${it.size ? " (" + it.size + ")" : ""} × ${cart[id]} = ${fmt(it.price * cart[id])}\n`;
+        });
+        msg += `\n*Итого: ${fmt(s)}*\n\n`;
+        msg += `Способ: ${del ? "Доставка" : "Самовывоз"}\n`;
+        msg += `Имя: ${v("name")}\nТелефон: ${v("phone")}\n`;
+        if (del) msg += `Адрес: ${v("addr")}\n`;
+        if (v("time")) msg += `Время: ${v("time")}\n`;
+        if (v("comment")) msg += `Комментарий: ${v("comment")}\n`;
+
+        const a = document.createElement("a");
+        a.href = `https://wa.me/${b.num}?text=${encodeURIComponent(msg)}`;
+        a.target = "_blank"; a.rel = "noopener";
+        a.click();
+        $("sent").classList.add("on");
+      };
+
+      // поиск
+      const q = $("q");
+      q.addEventListener("input", () => {
+        const v = norm(q.value.trim());
+        let any = false;
+        document.querySelectorAll("section.cat").forEach(sec => {
+          let vis = 0;
+          sec.querySelectorAll(".item").forEach(it => {
+            const ok = !v || it.dataset.search.includes(v);
+            it.style.display = ok ? "" : "none";
+            if (ok) vis++;
+          });
+          sec.style.display = vis ? "" : "none";
+          catsEl.querySelector(`a[data-c="${sec.id}"]`).style.display = vis ? "" : "none";
+          if (vis) any = true;
+        });
+        $("empty").style.display = any ? "none" : "block";
+      });
+
+      // липкая шапка: отступ для якорей и подсветка текущего раздела
+      const stickyEl = $("top");
+      const setSticky = () => document.documentElement.style.setProperty("--sticky", stickyEl.offsetHeight + 8 + "px");
+      setSticky();
+      window.addEventListener("resize", setSticky);
+      const links = [...catsEl.querySelectorAll("a")];
+      function markCat(cid) {
+        links.forEach(l => l.classList.toggle("on", l.dataset.c === cid));
+        const on = catsEl.querySelector(".on");
+        if (on) catsEl.scrollTo({ left: on.offsetLeft - (catsEl.clientWidth - on.offsetWidth) / 2, behavior: "smooth" });
+      }
+      // переход к разделу: сами крутим страницу, чтобы второе быстрое нажатие перебивало первое
+      const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      let jumping = 0, jumpTimer = 0;
+      const endJump = () => { jumping = 0; clearTimeout(jumpTimer); };
+      window.addEventListener("scrollend", endJump);
+      links.forEach(l => l.addEventListener("click", e => {
+        e.preventDefault();
+        const sec = $(l.dataset.c);
+        markCat(l.dataset.c);
+        jumping = 1; clearTimeout(jumpTimer); jumpTimer = setTimeout(endJump, 1500);
+        window.scrollTo({ top: sec.getBoundingClientRect().top + scrollY - stickyEl.offsetHeight - 8, behavior: reduce ? "auto" : "smooth" });
+        history.replaceState(null, "", "#" + l.dataset.c);
+      }));
+      // колесо мыши листает ряд разделов вбок
+      catsEl.addEventListener("wheel", e => {
+        if (Math.abs(e.deltaY) <= Math.abs(e.deltaX) || catsEl.scrollWidth <= catsEl.clientWidth) return;
+        e.preventDefault();
+        catsEl.scrollLeft += e.deltaY;
+      }, { passive: false });
+      const obs = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting && !jumping) markCat(en.target.id); }),
+        { rootMargin: `-${stickyEl.offsetHeight + 10}px 0px -65% 0px` });
+      document.querySelectorAll("section.cat").forEach(s => obs.observe(s));
+    </script>
+  </body>
+</html>
