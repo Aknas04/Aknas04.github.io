@@ -108,7 +108,6 @@
     route: ["Directions in 2GIS", "2ГИС-те бағыт", "2GIS导航"],
     orderFood: ["Order food", "Тағамға тапсырыс беру", "点餐"],
 
-    altNeon: ["NARYN neon sign above the entrance", "Кіреберіс үстіндегі NARYN неон жазуы", "入口上方的NARYN霓虹招牌"],
     footNav: ["Sections", "Бөлімдер", "栏目"],
     flAtmo: ["Atmosphere", "Атмосфера", "环境"],
     flHits: ["What to order", "Не алуға болады", "推荐菜"],

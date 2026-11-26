@@ -319,20 +319,18 @@
       }
 
       /* Подвал */
-      .foot { display: grid; grid-template-columns: 1fr 1fr; min-height: 100svh; background: var(--bg); }
-      .foot-pic { position: relative; overflow: hidden; background: var(--surface-2); }
-      .foot-pic img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 30% 50%; }
-      .foot-menu { padding: 80px var(--m) 32px clamp(24px, 6vw, 96px); display: flex; flex-direction: column; }
-      .foot-logo { width: clamp(150px, 15vw, 210px); height: auto; }
-      .foot-links { margin-top: 48px; display: grid; gap: 22px; }
+      .foot { background: var(--bg); }
+      .foot-menu { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; padding: clamp(72px, 8vw, 128px) var(--m) 96px; }
+      .foot-logo { grid-column: 1 / 4; width: clamp(150px, 15vw, 210px); height: auto; }
+      .foot-links { grid-column: 5 / 10; display: grid; gap: 22px; align-content: start; }
       .foot-links a { display: inline-block; font-family: var(--display); font-size: var(--step-head); font-weight: 500; line-height: 1.05; text-decoration: none; transition: transform 220ms var(--ease), color 200ms ease; }
       .foot-links:hover a { color: var(--muted); }
       .foot-links a:hover, .foot-links a:focus-visible { color: var(--gold-text); transform: translateX(12px); }
-      .foot-info { margin-top: 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; font-size: var(--step-small); line-height: 1.5; }
+      .foot-info { grid-column: 10 / 13; display: grid; gap: 32px; align-content: start; font-size: var(--step-small); line-height: 1.5; }
       .foot-info a { text-decoration: none; }
       .foot-info a:hover { color: var(--gold-text); }
       .foot-info p:first-child { color: var(--muted); margin-bottom: 6px; }
-      .foot-legal { margin-top: auto; padding-top: 48px; font-size: var(--step-small); color: var(--muted); max-width: 60ch; }
+      .foot-legal { grid-column: 1 / -1; margin-top: clamp(64px, 7vw, 112px); padding-top: 24px; border-top: 1px solid #e3d2b4; font-size: var(--step-small); color: var(--muted); }
       .foot-legal a { color: var(--ink); text-decoration-color: var(--gold-text); }
 
       /* Появление */
@@ -394,12 +392,10 @@
         .visit { min-height: 0; padding-bottom: 0; }
         .visit-cards { grid-template-columns: 1fr; margin-top: 32px; }
         .visit { padding-bottom: 32px; }
-        .foot { display: flex; flex-direction: column; min-height: 0; }
-        .foot-pic { height: 50svh; }
-        .foot-pic img { width: 190%; left: -50%; bottom: -40%; }
-        .foot-menu { padding: 48px var(--m) 28px; }
-        .foot-links { margin-top: 28px; gap: 20px; }
-        .foot-info { grid-template-columns: 1fr; margin-top: 48px; }
+        .foot-menu { display: flex; flex-direction: column; padding: 56px var(--m) 96px; }
+        .foot-links { margin-top: 40px; gap: 20px; }
+        .foot-info { grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 48px; }
+        .foot-legal { margin-top: 48px; }
       }
       @media (max-width: 520px) {
         .pair-f { grid-template-columns: 1fr; }
@@ -1004,7 +1000,6 @@
     </main>
 
     <footer class="foot">
-      <div class="foot-pic"><img src="../naryn/photos/neon.jpg" width="1290" height="573" alt="Неоновая вывеска NARYN над входом" data-ia="alt:altNeon" loading="lazy" decoding="async" /></div>
       <div class="foot-menu">
         <img class="foot-logo" src="../naryn/logo/naryn-color.webp" width="560" height="727" alt="Naryn, otbasylyq dämhana. Jyly köñildiñ mekeni!" loading="lazy" decoding="async" />
         <nav class="foot-links" aria-label="Разделы" data-ia="aria-label:footNav">
