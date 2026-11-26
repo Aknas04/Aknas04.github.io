@@ -7,7 +7,8 @@
     <meta name="description" content="Naryn — семейное халал-кафе в Алматы на Толе би, 273/4 и Бухар жырау, 33. Нарын, манты, лагман и ещё 200 блюд с ценами. Детская комната, намазхана, кабинки. Бронь стола в WhatsApp." />
     <meta name="robots" content="noindex" />
     <meta name="theme-color" content="#12100e" />
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2312100e'/%3E%3Cpath d='M9 24V8h3l8 11V8h3v16h-3l-8-11v11z' fill='%23c9a46a'/%3E%3C/svg%3E" />
+    <link rel="icon" type="image/png" href="logo/favicon.png" />
+    <link rel="apple-touch-icon" href="logo/apple-touch-icon.png" />
     <link rel="preload" href="fonts/onest-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="fonts/unbounded-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="photos/hero.jpg" as="image" media="(min-width: 900px)" />
@@ -63,7 +64,9 @@
       /* Первый экран */
       .hero { position: relative; min-height: max(100svh, 700px); overflow: hidden; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: auto 1fr auto; column-gap: 24px; padding: 0 var(--m); }
       .bar { grid-column: 1 / -1; position: relative; z-index: 3; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: var(--m); }
-      .wordmark { font-family: var(--display); font-size: var(--step-lead); font-weight: 600; letter-spacing: 0.12em; text-decoration: none; }
+      .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
+      .brand-emblem { width: auto; height: 56px; }
+      .brand-word { width: auto; height: 20px; }
       .bar-right { display: flex; align-items: center; gap: 28px; }
       .bar-right .link { font-size: var(--step-body); }
       .hero-copy { grid-column: 1 / 7; grid-row: 2; position: relative; z-index: 2; align-self: center; padding: 48px 0; }
@@ -313,7 +316,7 @@
       .foot-pic { position: relative; overflow: hidden; background: var(--surface-2); }
       .foot-pic img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 30% 50%; }
       .foot-menu { padding: 80px var(--m) 32px clamp(24px, 6vw, 96px); display: flex; flex-direction: column; }
-      .foot-mark { font-family: var(--display); font-size: var(--step-lead); font-weight: 600; letter-spacing: 0.12em; color: var(--gold); }
+      .foot-logo { width: clamp(150px, 15vw, 210px); height: auto; }
       .foot-links { margin-top: 48px; display: grid; gap: 22px; }
       .foot-links a { display: inline-block; font-family: var(--display); font-size: var(--step-head); font-weight: 500; line-height: 1.05; text-decoration: none; transition: transform 220ms var(--ease), color 200ms ease; }
       .foot-links:hover a { color: var(--muted); }
@@ -340,6 +343,9 @@
       }
       @media (max-width: 899px) {
         .bar-right .link { display: none; }
+        .brand { gap: 10px; }
+        .brand-emblem { height: 46px; }
+        .brand-word { height: 16px; }
         .bar .btn { min-height: 44px; padding: 0 16px; font-size: var(--step-small); }
         .hero { display: flex; flex-direction: column; min-height: 100svh; }
         .bar { order: 0; }
@@ -408,7 +414,7 @@
     <main>
       <header class="hero" id="top">
         <div class="bar">
-          <a class="wordmark" href="#top">NARYN</a>
+          <a class="brand" href="#top"><img class="brand-emblem" src="logo/emblem.webp" width="129" height="160" alt="" /><img class="brand-word" src="logo/wordmark.webp" width="275" height="60" alt="Naryn" /></a>
           <div class="bar-right">
             <a class="link" href="#menu">Меню</a>
             <a class="btn" href="#bron">Забронировать стол</a>
@@ -944,7 +950,7 @@
     <footer class="foot">
       <div class="foot-pic"><img src="photos/neon.jpg" width="1290" height="573" alt="Неоновая вывеска NARYN над входом" loading="lazy" decoding="async" /></div>
       <div class="foot-menu">
-        <p class="foot-mark">NARYN</p>
+        <img class="foot-logo" src="logo/naryn-light.webp" width="560" height="727" alt="Naryn, otbasylyq dämhana. Jyly köñildiñ mekeni!" loading="lazy" decoding="async" />
         <nav class="foot-links" aria-label="Разделы">
           <a href="#atmo">Атмосфера</a>
           <a href="#hits">Что заказать</a>
