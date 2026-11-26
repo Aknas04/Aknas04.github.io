@@ -4,14 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Naryn, семейное халал-кафе в Алматы (демо, светлая версия)</title>
-    <meta name="description" content="Naryn — семейное халал-кафе в Алматы на Толе би, 273/4 и Бухар жырау, 33. Нарын, манты, лагман и ещё 200 блюд с ценами. Детская комната, намазхана, кабинки. Бронь стола в WhatsApp." />
+    <meta name="description" content="Naryn — семейное халал-кафе в Алматы на Бухар жырау, 33. Нарын, манты, лагман и ещё 200 блюд с ценами. Детская комната, намазхана, кабинки. Бронь стола в WhatsApp. Сайт на русском, казахском, английском и китайском." />
     <meta name="robots" content="noindex" />
     <meta name="theme-color" content="#fbf6ec" />
     <link rel="icon" type="image/png" href="../naryn/logo/favicon.png?v=2" />
     <link rel="apple-touch-icon" href="../naryn/logo/apple-touch-icon.png?v=2" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Naryn, семейное халал-кафе в Алматы" />
-    <meta property="og:description" content="Меню с ценами, заказ с собой и доставка через WhatsApp, бронь стола. Толе би, 273/4 и Бухар жырау, 33." />
+    <meta property="og:description" content="Меню с ценами, заказ с собой и доставка через WhatsApp, бронь стола. Бухар жырау, 33." />
     <meta property="og:url" content="https://aknas04.github.io/demo/naryn-light/" />
     <meta property="og:image" content="https://aknas04.github.io/demo/naryn/logo/og.jpg" />
     <meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" />
@@ -104,17 +104,15 @@
       .about-text p { max-width: 40ch; }
       .about-text p + p { margin-top: 1em; }
       .about-text p:first-of-type { font-size: var(--step-lead); line-height: 1.35; }
-      .facts { grid-column: 8 / 13; align-self: end; display: grid; gap: 30px; }
-      .facts li { display: grid; grid-template-columns: 15rem minmax(0, 1fr); gap: 20px; align-items: baseline; }
-      .facts b { font-family: var(--display); font-size: var(--step-head); font-weight: 500; color: var(--gold-text); line-height: 1; white-space: nowrap; }
-      .facts span { color: var(--muted); line-height: 1.35; }
+      .about-more { grid-column: 8 / 12; align-self: end; }
+      .about-more p { max-width: 40ch; }
+      .about-more p + p { margin-top: 1em; }
 
       /* Атмосфера */
       .atmo { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: auto auto auto; gap: 16px 24px; padding: var(--gap) var(--m) 0; }
       .atmo figure { position: relative; overflow: hidden; background: var(--surface); }
       .atmo img { width: 100%; height: 100%; object-fit: cover; transition: transform 1200ms var(--ease); }
       .atmo figure:hover img { transform: scale(1.04); }
-      .atmo figcaption { position: absolute; left: 0; bottom: 0; padding: 10px 14px; background: var(--bg); font-size: var(--step-small); }
       .atmo-head { grid-column: 1 / 6; grid-row: 1; align-self: end; padding-bottom: 24px; }
       .atmo-head p { margin-top: 20px; max-width: 38ch; color: var(--muted); }
       .a1 { grid-column: 1 / 6; grid-row: 2 / 4; aspect-ratio: 4 / 5; }
@@ -232,7 +230,7 @@
       .visit h2 { grid-column: 1 / 6; position: relative; z-index: 2; font-size: var(--step-display); font-weight: 600; line-height: 1.1; }
       .visit-bg { position: absolute; inset: 0; z-index: 0; }
       .visit-bg img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; filter: brightness(0.42); }
-      .visit-cards { grid-column: 7 / 13; position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-self: start; }
+      .visit-cards { grid-column: 8 / 13; position: relative; z-index: 2; display: grid; grid-template-columns: 1fr; gap: 16px; align-self: start; }
       .vcard { background: var(--bg); padding: 28px 28px 0; display: flex; flex-direction: column; }
       .vcard p { margin-top: 10px; color: var(--muted); }
       .vcard dl { margin: 22px 0 0; display: grid; gap: 8px; font-size: var(--step-small); }
@@ -344,11 +342,11 @@
       @media (max-width: 1100px) {
         .hero-copy { grid-column: 1 / 8; }
         .about-text { grid-column: 1 / 7; }
-        .facts { grid-column: 8 / 13; }
+        .about-more { grid-column: 8 / 13; }
         .hits-list { grid-column: 7 / 13; }
         .menu-side { grid-column: 1 / 5; }
         .dishes { grid-template-columns: 1fr; }
-        .visit-cards { grid-column: 1 / -1; margin-top: 48px; }
+        .visit-cards { grid-column: 7 / -1; }
       }
       @media (max-width: 899px) {
         .bar-right .link { display: none; }
@@ -373,7 +371,7 @@
         .a1 { grid-column: 1 / -1; aspect-ratio: 4 / 3; }
         .a3, .a4 { grid-column: auto; }
         .atmo .a2 { order: 0; }
-        .facts { margin-top: 48px; }
+        .about-more { margin-top: 1em; }
         .hits-photo { position: relative; top: auto; height: 42svh; aspect-ratio: auto; margin: 0 calc(-1 * var(--m)); }
         .hits-photo img { padding: 12px var(--m); }
         .hits-list h2 { margin: 32px 0 16px; }
@@ -405,7 +403,6 @@
       }
       @media (max-width: 520px) {
         .pair-f { grid-template-columns: 1fr; }
-        .facts li { grid-template-columns: 1fr; gap: 6px; }
       }
       @media (prefers-reduced-motion: reduce) {
         html { scroll-behavior: auto; }
@@ -437,6 +434,48 @@
         .hero-bg::before, .hero-bg::after { display: none; }
         .hero-copy { order: 2; margin-top: 0; padding: 32px 0; }
       }
+      /* Языки */
+      .lang { position: relative; display: none; }
+      .js .lang { display: block; }
+      .lang-btn { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 12px; border: 1px solid #dcc8a6; background: transparent; color: var(--ink); font: 600 var(--step-small) / 1 "Onest", sans-serif; letter-spacing: 0.03em; cursor: pointer; transition: background-color 180ms ease, border-color 180ms ease, transform 140ms var(--ease); }
+      .lang-btn:hover { background: var(--surface); }
+      .lang-btn:active { transform: scale(0.97); }
+      .lang-btn svg { width: 10px; height: 6px; transition: transform 200ms var(--ease); }
+      .lang-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+      .lang-list { position: absolute; right: 0; top: calc(100% + 8px); z-index: 20; min-width: 172px; padding: 6px; background: var(--bg); box-shadow: 0 14px 36px rgba(58, 28, 16, 0.18), 0 0 0 1px #e3d2b4; transform-origin: top right; animation: pop 160ms var(--ease) both; }
+      @keyframes pop { from { opacity: 0; transform: translateY(-4px) scale(0.98); } to { opacity: 1; transform: none; } }
+      .lang-list button { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 44px; padding: 0 12px; border: 0; background: none; color: var(--ink); font-size: var(--step-small); font-weight: 500; text-align: left; cursor: pointer; transition: background-color 160ms ease; }
+      .lang-list button:hover { background: var(--surface); }
+      .lang-list button[aria-current="true"] { font-weight: 700; }
+      .lang-list button[aria-current="true"]::after { content: ""; width: 7px; height: 7px; background: var(--gold); }
+      .bar .btn .short { display: none; }
+      @media (min-width: 900px) {
+        .lang-btn { color: #fff8ee; border-color: rgba(255, 248, 238, 0.55); }
+        .lang-btn:hover { background: rgba(255, 248, 238, 0.14); }
+      }
+      @media (max-width: 899px) {
+        .bar-right { gap: 8px; }
+        .about-more p { max-width: none; }
+      }
+      @media (max-width: 520px) {
+        .bar .btn .long { display: none; }
+        .bar .btn .short { display: inline; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .lang-list { animation: none; }
+      }
+      /* Казахский: в Onest и Unbounded нет букв ә ғ қ ң ө ұ ү һ, поэтому Montserrat (SIL OFL). Файлы грузятся только на казахском */
+      @font-face { font-family: "Montserrat"; font-style: normal; font-display: swap; font-weight: 400 800; src: url(fonts/montserrat-cyrillic-ext.woff2) format("woff2"); unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
+      @font-face { font-family: "Montserrat"; font-style: normal; font-display: swap; font-weight: 400 800; src: url(fonts/montserrat-cyrillic.woff2) format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+      @font-face { font-family: "Montserrat"; font-style: normal; font-display: swap; font-weight: 400 800; src: url(fonts/montserrat-latin-ext.woff2) format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+      @font-face { font-family: "Montserrat"; font-style: normal; font-display: swap; font-weight: 400 800; src: url(fonts/montserrat-latin.woff2) format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+      html:lang(kk) { --display: "Montserrat", system-ui, sans-serif; }
+      html:lang(kk) body, html:lang(kk) .btn, html:lang(kk) .lang-btn, html:lang(kk) .field input, html:lang(kk) .field select, html:lang(kk) .field textarea { font-family: "Montserrat", system-ui, sans-serif; }
+      html:lang(kk) h1, html:lang(kk) h2, html:lang(kk) h3 { font-weight: 700; letter-spacing: -0.015em; }
+      /* Китайский: шрифты сайта без иероглифов, берём системные */
+      html:lang(zh) { --display: "Onest", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif; }
+      html:lang(zh) body { font-family: "Onest", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", system-ui, sans-serif; letter-spacing: 0; }
+      html:lang(zh) h1, html:lang(zh) h2, html:lang(zh) h3, html:lang(zh) .hit-row, html:lang(zh) .steps li { letter-spacing: 0; }
 </style>
   </head>
   <body>
@@ -445,8 +484,17 @@
         <div class="bar">
           <a class="brand" href="#top"><img class="brand-emblem" src="../naryn/logo/emblem.webp" width="129" height="160" alt="" /><img class="brand-word" src="../naryn/logo/wordmark-brown.webp" width="275" height="60" alt="Naryn" /></a>
           <div class="bar-right">
-            <a class="link" href="#menu">Меню</a>
-            <a class="btn" href="#bron">Забронировать стол</a>
+            <a class="link" href="#menu" data-i="navMenu">Меню</a>
+            <div class="lang" id="lang">
+              <button type="button" class="lang-btn" id="lang-btn" aria-expanded="false" aria-controls="lang-list"><span class="sr" data-i="langLabel">Язык сайта:</span> <span id="lang-cur">РУС</span><svg viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" /></svg></button>
+              <ul class="lang-list" id="lang-list" hidden>
+                <li><button type="button" data-lang="ru" lang="ru">Русский</button></li>
+                <li><button type="button" data-lang="kk" lang="kk">Қазақша</button></li>
+                <li><button type="button" data-lang="en" lang="en">English</button></li>
+                <li><button type="button" data-lang="zh" lang="zh">中文</button></li>
+              </ul>
+            </div>
+            <a class="btn" href="#bron"><span class="long" data-i="book">Забронировать стол</span><span class="short" data-i="bookShort">Бронь</span></a>
           </div>
         </div>
         <div class="hero-bg" aria-hidden="true">
@@ -456,46 +504,42 @@
           </picture>
         </div>
         <div class="hero-copy">
-          <h1 data-r>Семейное <span class="nw">халал-кафе</span> <span class="gold">в&nbsp;Алматы</span></h1>
-          <p class="lede" data-r>Нарын, манты, лагман и&nbsp;ещё 200 блюд. Детская комната, намазхана и&nbsp;кабинки на&nbsp;Толе&nbsp;би и&nbsp;Бухар жырау.</p>
+          <h1 data-r data-i="h1">Семейное <span class="nw">халал-кафе</span> <span class="gold">в&nbsp;Алматы</span></h1>
+          <p class="lede" data-r data-i="lede">Нарын, манты, лагман и&nbsp;ещё 200 блюд. Детская комната, намазхана и&nbsp;кабинки на&nbsp;Бухар жырау.</p>
           <p class="now" id="now" aria-live="polite" data-r>Открыто до&nbsp;23:00. Завтраки с&nbsp;08:00 до&nbsp;12:00, бизнес-ланч с&nbsp;12:00 до&nbsp;16:00.</p>
           <div class="hero-actions" data-r>
-            <a class="btn" href="#bron">Забронировать стол<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 7h11.2L8 2.8 9.4 1.4 16 8l-6.6 6.6L8 13.2 12.2 9H1z" fill="currentColor" /></svg></a>
-            <a class="link" href="#menu">Меню с ценами</a>
+            <a class="btn" href="#bron"><span data-i="book">Забронировать стол</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 7h11.2L8 2.8 9.4 1.4 16 8l-6.6 6.6L8 13.2 12.2 9H1z" fill="currentColor" /></svg></a>
+            <a class="link" href="#menu" data-i="menuPrices">Меню с ценами</a>
           </div>
         </div>
-        <p class="hero-cap">Главный зал на Бухар жырау, 33</p>
+        <p class="hero-cap" data-i="heroCap">Главный зал на Бухар жырау, 33</p>
         <div class="strip">
-          <a href="https://2gis.kz/almaty/firm/70000001099760957/tab/reviews" target="_blank" rel="noopener"><b><span class="gold">4,9</span> в 2ГИС</b><span>7&nbsp;867 оценок гостей</span></a>
-          <a href="#address"><b>Толе би, 273/4</b><span>ЖК Жайлы, 09:00–23:00</span></a>
-          <a href="#address"><b>Бухар жырау, 33</b><span>БЦ Jenis, 08:00–23:00</span></a>
+          <a href="#address"><b data-i="addr">Бухар жырау, 33</b><span data-i="place">БЦ Jenis, 1&nbsp;этаж</span></a>
+          <div><b>08:00–23:00</b><span data-i="stripHours">Завтраки до&nbsp;12:00, бизнес-ланч до&nbsp;16:00</span></div>
+          <a href="tel:+77023641030"><b class="nw">+7 702 364 10 30</b><span data-i="stripTel">Звонок и&nbsp;WhatsApp</span></a>
         </div>
       </header>
 
       <section class="about" id="about" aria-labelledby="about-h">
         <div class="about-text">
-          <h2 id="about-h" data-r>Кафе, названное в&nbsp;честь нарына</h2>
-          <p data-r>Нарын — блюдо из&nbsp;тонко нарезанного теста, конины и&nbsp;казы. К&nbsp;нему подают горячую сорпу, а&nbsp;на&nbsp;большую компанию — целое блюдо на&nbsp;стол.</p>
-          <p data-r>В&nbsp;меню казахская, уйгурская и&nbsp;европейская кухня: от&nbsp;бешбармака и&nbsp;лагмана до&nbsp;сырников и&nbsp;стейка рибай. Всё халяль.</p>
-          <p data-r>Кафе задумано для семей. Пока взрослые обедают, дети играют в&nbsp;детской комнате. Есть молельная комната, кабинки и&nbsp;VIP-зал.</p>
+          <h2 id="about-h" data-r data-i="aboutH">Кафе, названное в&nbsp;честь нарына</h2>
+          <p data-r data-i="aboutP1">Нарын — блюдо из&nbsp;тонко нарезанного теста, конины и&nbsp;казы. К&nbsp;нему подают горячую сорпу, а&nbsp;на&nbsp;большую компанию — целое блюдо на&nbsp;стол.</p>
         </div>
-        <ul class="facts">
-          <li data-r><b>4,9</b><span>рейтинг в&nbsp;2ГИС, 7&nbsp;867 оценок</span></li>
-          <li data-r><b>215</b><span>блюд и&nbsp;напитков в&nbsp;меню</span></li>
-          <li data-r><b>до 23:00</b><span>работают оба кафе, завтраки с&nbsp;8:00</span></li>
-          <li data-r><b>6&nbsp;000&nbsp;₸</b><span>средний чек, обслуживание 10%</span></li>
-        </ul>
+        <div class="about-more">
+          <p data-r data-i="aboutP2">В&nbsp;меню казахская, уйгурская и&nbsp;европейская кухня: от&nbsp;бешбармака и&nbsp;лагмана до&nbsp;сырников и&nbsp;стейка рибай. Всё халяль.</p>
+          <p data-r data-i="aboutP3">Кафе задумано для семей. Пока взрослые обедают, дети играют в&nbsp;детской комнате. Есть молельная комната, кабинки и&nbsp;VIP-зал.</p>
+        </div>
       </section>
 
       <section class="atmo" id="atmo" aria-labelledby="atmo-h">
         <div class="atmo-head">
-          <h2 id="atmo-h" data-r>Зал, где хочется остаться</h2>
-          <p data-r>Деревянный потолок, оливковые деревья, тёплый свет и&nbsp;мягкие диваны. Отдельно — бар, лаунж-зона, кабинки и&nbsp;VIP-комнаты с&nbsp;караоке.</p>
+          <h2 id="atmo-h" data-r data-i="atmoH">Зал, где хочется остаться</h2>
+          <p data-r data-i="atmoP">Деревянный потолок, оливковые деревья, тёплый свет и&nbsp;мягкие диваны. Отдельно — бар, лаунж-зона, кабинки и&nbsp;VIP-комнаты с&nbsp;караоке.</p>
         </div>
-        <figure class="a1" data-r><img src="../naryn/photos/olive.jpg" width="1000" height="1174" alt="Зал с оливковым деревом и подвесными лампами" loading="lazy" decoding="async" /><figcaption>Зал с оливковыми деревьями</figcaption></figure>
-        <figure class="a2" data-r><img src="../naryn/photos/bar.jpg" width="1397" height="1026" alt="Зал с барной стойкой и зеленью над баром" loading="lazy" decoding="async" /><figcaption>Бар</figcaption></figure>
-        <figure class="a3" data-r><img src="../naryn/photos/lounge.jpg" width="900" height="1216" alt="Лаунж-зона с креслами и золотой аркой" loading="lazy" decoding="async" /><figcaption>Лаунж</figcaption></figure>
-        <figure class="a4" data-r><img src="../naryn/photos/drinks.jpg" width="900" height="1280" alt="Стена с подсветкой и напитками" loading="lazy" decoding="async" /><figcaption>Витрина с напитками</figcaption></figure>
+        <figure class="a1" data-r><img src="../naryn/photos/olive.jpg" width="1000" height="1174" alt="Зал с деревьями и подвесными лампами" data-ia="alt:altOlive" loading="lazy" decoding="async" /></figure>
+        <figure class="a2" data-r><img src="../naryn/photos/bar.jpg" width="1397" height="1026" alt="Зал с зеленью и тёплым светом" data-ia="alt:altBar" loading="lazy" decoding="async" /></figure>
+        <figure class="a3" data-r><img src="../naryn/photos/lounge.jpg" width="900" height="1216" alt="Кресла у золотой арки" data-ia="alt:altLounge" loading="lazy" decoding="async" /></figure>
+        <figure class="a4" data-r><img src="../naryn/photos/drinks.jpg" width="900" height="1280" alt="Стена с подсветкой" data-ia="alt:altDrinks" loading="lazy" decoding="async" /></figure>
       </section>
 
       <section class="hits" id="hits" aria-labelledby="hits-h">
@@ -511,27 +555,27 @@
           <img src="../naryn/dishes/ribeye.webp" width="414" height="450" alt="" loading="lazy" />
         </div>
         <div class="hits-list">
-          <h2 id="hits-h" data-r>Что заказать в&nbsp;первый раз</h2>
+          <h2 id="hits-h" data-r data-i="hitsH">Что заказать в&nbsp;первый раз</h2>
           <ul>
-            <li class="hit on" data-r><button class="hit-row" type="button" aria-expanded="true"><span>Нарын</span><span>3 590 ₸</span></button><p class="hit-desc">Тонко нарезанное тесто с&nbsp;кониной и&nbsp;казы, к&nbsp;нему сорпа. Блюдо, в&nbsp;честь которого назвали кафе.</p></li>
-            <li class="hit" data-r><button class="hit-row" type="button" aria-expanded="false"><span>Манты, 5 шт</span><span>2 690 ₸</span></button><p class="hit-desc">Говядина с&nbsp;луком. Есть с&nbsp;тыквой и&nbsp;с&nbsp;джусаем, по&nbsp;2&nbsp;590&nbsp;₸.</p></li>
-            <li class="hit" data-r><button class="hit-row" type="button" aria-expanded="false"><span>Хошан, 5 шт</span><span>2 990 ₸</span></button><p class="hit-desc">Те&nbsp;же манты, только обжаренные.</p></li>
-            <li class="hit" data-r><button class="hit-row" type="button" aria-expanded="false"><span>Лагман</span><span>2 890 ₸</span></button><p class="hit-desc">Восемь видов лагмана и&nbsp;цомяна. Почти любой можно взять ганфаном, с&nbsp;рисом вместо лапши.</p></li>
-            <li class="hit" data-r><button class="hit-row" type="button" aria-expanded="false"><span>Самса с мясом</span><span>690 ₸</span></button><p class="hit-desc">К&nbsp;чаю или к&nbsp;супу. Бухарская самса стоит 3&nbsp;390&nbsp;₸.</p></li>
-            <li class="hit" data-r><button class="hit-row" type="button" aria-expanded="false"><span>Казан кебаб</span><span>4 290 ₸</span></button><p class="hit-desc">Жареная говядина с&nbsp;луком.</p></li>
-            <li class="hit" data-r><button class="hit-row" type="button" aria-expanded="false"><span>Тебян ру</span><span>4 090 ₸</span></button><p class="hit-desc">Говядина на&nbsp;горячей сковороде с&nbsp;полугорьким перцем и&nbsp;специями. С&nbsp;курицей стоит 3&nbsp;790&nbsp;₸.</p></li>
-            <li class="hit" data-r><button class="hit-row" type="button" aria-expanded="false"><span>Ганбян джи</span><span>4 590 ₸</span></button><p class="hit-desc">Хрустящая курица с&nbsp;арахисом, перцем и&nbsp;специями.</p></li>
-            <li class="hit" data-r><button class="hit-row" type="button" aria-expanded="false"><span>Рибай</span><span>6 490 ₸</span></button><p class="hit-desc">Стейк с&nbsp;прожаркой на&nbsp;выбор, от&nbsp;blue rare до&nbsp;well done.</p></li>
+            <li class="hit on" data-r><button class="hit-row" type="button" aria-expanded="true"><span data-i="hit1">Нарын</span><span>3 590 ₸</span></button><p class="hit-desc" data-i="hit1d">Тонко нарезанное тесто с&nbsp;кониной и&nbsp;казы, к&nbsp;нему сорпа. Блюдо, в&nbsp;честь которого назвали кафе.</p></li>
+            <li class="hit" data-r><button class="hit-row" type="button" aria-expanded="false"><span data-i="hit2">Манты, 5 шт</span><span>2 690 ₸</span></button><p class="hit-desc" data-i="hit2d">Говядина с&nbsp;луком. Есть с&nbsp;тыквой и&nbsp;с&nbsp;джусаем, по&nbsp;2&nbsp;590&nbsp;₸.</p></li>
+            <li class="hit" data-r><button class="hit-row" type="button" aria-expanded="false"><span data-i="hit3">Хошан, 5 шт</span><span>2 990 ₸</span></button><p class="hit-desc" data-i="hit3d">Те&nbsp;же манты, только обжаренные.</p></li>
+            <li class="hit" data-r><button class="hit-row" type="button" aria-expanded="false"><span data-i="hit4">Лагман</span><span>2 890 ₸</span></button><p class="hit-desc" data-i="hit4d">Восемь видов лагмана и&nbsp;цомяна. Почти любой можно взять ганфаном, с&nbsp;рисом вместо лапши.</p></li>
+            <li class="hit" data-r><button class="hit-row" type="button" aria-expanded="false"><span data-i="hit5">Самса с мясом</span><span>690 ₸</span></button><p class="hit-desc" data-i="hit5d">К&nbsp;чаю или к&nbsp;супу. Бухарская самса стоит 3&nbsp;390&nbsp;₸.</p></li>
+            <li class="hit" data-r><button class="hit-row" type="button" aria-expanded="false"><span data-i="hit6">Казан кебаб</span><span>4 290 ₸</span></button><p class="hit-desc" data-i="hit6d">Жареная говядина с&nbsp;луком.</p></li>
+            <li class="hit" data-r><button class="hit-row" type="button" aria-expanded="false"><span data-i="hit7">Тебян ру</span><span>4 090 ₸</span></button><p class="hit-desc" data-i="hit7d">Говядина на&nbsp;горячей сковороде с&nbsp;полугорьким перцем и&nbsp;специями. С&nbsp;курицей стоит 3&nbsp;790&nbsp;₸.</p></li>
+            <li class="hit" data-r><button class="hit-row" type="button" aria-expanded="false"><span data-i="hit8">Ганбян джи</span><span>4 590 ₸</span></button><p class="hit-desc" data-i="hit8d">Хрустящая курица с&nbsp;арахисом, перцем и&nbsp;специями.</p></li>
+            <li class="hit" data-r><button class="hit-row" type="button" aria-expanded="false"><span data-i="hit9">Рибай</span><span>6 490 ₸</span></button><p class="hit-desc" data-i="hit9d">Стейк с&nbsp;прожаркой на&nbsp;выбор, от&nbsp;blue rare до&nbsp;well done.</p></li>
           </ul>
         </div>
       </section>
 
       <section class="menu" id="menu" aria-labelledby="menu-h">
         <div class="menu-side">
-          <h2 id="menu-h" data-r>Меню</h2>
-          <p data-r>215 блюд и&nbsp;напитков с&nbsp;ценами. Всё халяль, обслуживание 10%.</p>
-          <p class="order-hint" data-r>Нажмите&nbsp;+, чтобы заказать с&nbsp;собой или с&nbsp;доставкой. Заказ уйдёт в&nbsp;WhatsApp кафе.</p>
-          <div class="chips" role="group" aria-label="Разделы меню" data-r>
+          <h2 id="menu-h" data-r data-i="navMenu">Меню</h2>
+          <p data-r data-i="menuP">215 блюд и&nbsp;напитков с&nbsp;ценами. Всё халяль, обслуживание 10%.</p>
+          <p class="order-hint" data-r data-i="orderHint">Нажмите&nbsp;+, чтобы заказать с&nbsp;собой или с&nbsp;доставкой. Заказ уйдёт в&nbsp;WhatsApp кафе.</p>
+          <div class="chips" role="group" aria-label="Разделы меню" data-ia="aria-label:chipsLabel" data-r>
             <button type="button" class="chip" data-cat="all" aria-pressed="false">Всё</button>
             <button type="button" class="chip" data-cat="national" aria-pressed="false">Национальная кухня</button>
             <button type="button" class="chip" data-cat="lagman" aria-pressed="false">Лагманы</button>
@@ -842,8 +886,8 @@
             </ul>
           </section>
           <div class="menu-foot">
-            <p>Цены в&nbsp;тенге, по&nbsp;меню кафе. Блюда без описания можно уточнить у&nbsp;официанта.</p>
-            <a class="btn" href="#bron">Забронировать стол<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 7h11.2L8 2.8 9.4 1.4 16 8l-6.6 6.6L8 13.2 12.2 9H1z" fill="currentColor" /></svg></a>
+            <p data-i="menuFoot">Цены в&nbsp;тенге, по&nbsp;меню кафе. Блюда без описания можно уточнить у&nbsp;официанта.</p>
+            <a class="btn" href="#bron"><span data-i="book">Забронировать стол</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 7h11.2L8 2.8 9.4 1.4 16 8l-6.6 6.6L8 13.2 12.2 9H1z" fill="currentColor" /></svg></a>
           </div>
         </div>
       </section>
@@ -851,13 +895,13 @@
       <section class="fam" id="family" aria-labelledby="family-h">
         <div class="fam-stage">
           <ul class="steps">
-            <li class="on"><h2 id="family-h">Всей семьёй</h2></li>
-            <li>Детская комната с&nbsp;игровой зоной</li>
-            <li>Молельная комната для намаза</li>
-            <li>Кабинки с&nbsp;караоке и&nbsp;VIP-зал</li>
-            <li>Банкеты и&nbsp;блюда на&nbsp;компанию</li>
-            <li>Летняя веранда и&nbsp;топчан</li>
-            <li>Доставка, навынос и&nbsp;парковка</li>
+            <li class="on"><h2 id="family-h" data-i="famH">Всей семьёй</h2></li>
+            <li data-i="fam1">Детская комната с&nbsp;игровой зоной</li>
+            <li data-i="fam2">Молельная комната для намаза</li>
+            <li data-i="fam3">Кабинки с&nbsp;караоке и&nbsp;VIP-зал</li>
+            <li data-i="fam4">Банкеты и&nbsp;блюда на&nbsp;компанию</li>
+            <li data-i="fam5">Летняя веранда</li>
+            <li data-i="fam6">Доставка, навынос и&nbsp;парковка</li>
           </ul>
           <div class="pair" aria-hidden="true">
             <img class="l on" data-step="0" src="../naryn/photos/lamps.jpg" width="900" height="1200" alt="" style="top: 46svh" />
@@ -879,134 +923,116 @@
       </section>
 
       <section class="reviews" id="reviews" aria-labelledby="reviews-h">
-        <figure class="portrait" data-r><img src="../naryn/photos/lagman.jpg" width="1000" height="1174" alt="Лагман с говядиной и перцем на столе в Naryn" loading="lazy" decoding="async" /></figure>
+        <figure class="portrait" data-r><img src="../naryn/photos/lagman.jpg" width="1000" height="1174" alt="Лагман с говядиной и перцем на столе в Naryn" data-ia="alt:altLagman" loading="lazy" decoding="async" /></figure>
         <div class="quote">
-          <h2 id="reviews-h" data-r>Что пишут гости</h2>
+          <h2 id="reviews-h" data-r data-i="revH">Что пишут гости</h2>
           <blockquote data-r>
-            <p>Еда вкусная и&nbsp;свежая, подача красивая, зал приятный, а&nbsp;официанты отзывчивые.</p>
-            <p>Отдельно хвалят бухарскую самсу, борщ, бефстроганов, чай с&nbsp;компотом и&nbsp;детскую комнату.</p>
+            <p data-i="rev1">Еда вкусная и&nbsp;свежая, подача красивая, зал приятный, а&nbsp;официанты отзывчивые.</p>
+            <p data-i="rev2">Отдельно хвалят бухарскую самсу, борщ, бефстроганов, чай с&nbsp;компотом и&nbsp;детскую комнату.</p>
           </blockquote>
           <div class="who" data-r>
-            <p>Пересказ отзывов в&nbsp;2ГИС</p>
-            <p class="muted">4&nbsp;509 отзывов на&nbsp;Толе би и&nbsp;126 на&nbsp;Бухар жырау</p>
-            <a class="link" href="https://2gis.kz/almaty/firm/70000001099760957/tab/reviews" target="_blank" rel="noopener">Читать в&nbsp;2ГИС</a>
+            <p data-i="revWho">Пересказ отзывов в&nbsp;2ГИС</p>
+            <a class="link" href="https://2gis.kz/almaty/firm/70000001114687713/tab/reviews" target="_blank" rel="noopener" data-i="revLink">Читать в&nbsp;2ГИС</a>
           </div>
-          <figure class="quote-pic" data-r><img src="../naryn/photos/khachapuri.jpg" width="900" height="1056" alt="Хачапури по-мегрельски" loading="lazy" decoding="async" /></figure>
+          <figure class="quote-pic" data-r><img src="../naryn/photos/khachapuri.jpg" width="900" height="1056" alt="Хачапури по-мегрельски" data-ia="alt:altKhach" loading="lazy" decoding="async" /></figure>
         </div>
       </section>
 
       <section class="book" id="bron" aria-labelledby="bron-h">
         <div class="book-side">
-          <h2 id="bron-h" data-r>Забронировать стол</h2>
-          <p class="lede" data-r>Выберите кафе, время и&nbsp;место в&nbsp;зале. Сайт соберёт сообщение, а&nbsp;отправите его вы, в&nbsp;WhatsApp этого кафе.</p>
-          <p data-r>Банкет или день рождения можно обсудить там&nbsp;же: напишите повод и&nbsp;сколько будет гостей.</p>
+          <h2 id="bron-h" data-r data-i="book">Забронировать стол</h2>
+          <p class="lede" data-r data-i="bookLede">Выберите время и&nbsp;место в&nbsp;зале. Сайт соберёт сообщение, а&nbsp;отправите его вы, в&nbsp;WhatsApp кафе.</p>
+          <p data-r data-i="bookP2">Банкет или день рождения можно обсудить там&nbsp;же: напишите повод и&nbsp;сколько будет гостей.</p>
         </div>
-        <form class="book-form" id="book" action="https://wa.me/77084004014" method="get" target="_blank" data-r>
-          <fieldset>
-            <legend class="lbl">Кафе</legend>
-            <div class="branches">
-              <label class="opt"><input type="radio" name="branch" value="tole" checked /><span class="opt-box"><span class="opt-name">Толе би, 273/4</span><span class="opt-meta">ЖК Жайлы, 09:00–23:00</span><span class="opt-state" data-state="tole"></span></span></label>
-              <label class="opt"><input type="radio" name="branch" value="bukhar" /><span class="opt-box"><span class="opt-name">Бухар жырау, 33</span><span class="opt-meta">БЦ Jenis, 08:00–23:00</span><span class="opt-state" data-state="bukhar"></span></span></label>
-            </div>
-          </fieldset>
+        <form class="book-form" id="book" action="https://wa.me/77023641030" method="get" target="_blank" data-r>
           <div class="pair-f">
-            <label class="field"><span class="lbl">Дата</span><input type="date" name="date" id="f-date" required /></label>
-            <label class="field"><span class="lbl">Время</span>
+            <label class="field"><span class="lbl" data-i="fDate">Дата</span><input type="date" name="date" id="f-date" required /></label>
+            <label class="field"><span class="lbl" data-i="fTime">Время</span>
               <select name="time" id="f-time"><option>19:00</option></select>
             </label>
           </div>
           <div>
-            <span class="lbl" id="guests-l">Гостей</span>
+            <span class="lbl" id="guests-l" data-i="fGuests">Гостей</span>
             <div class="stepper" role="group" aria-labelledby="guests-l">
-              <button type="button" data-step="-1" aria-label="Меньше гостей">−</button>
+              <button type="button" data-step="-1" aria-label="Меньше гостей" data-ia="aria-label:lessGuests">−</button>
               <output id="guests" aria-live="polite">4</output>
-              <button type="button" data-step="1" aria-label="Больше гостей">+</button>
+              <button type="button" data-step="1" aria-label="Больше гостей" data-ia="aria-label:moreGuests">+</button>
             </div>
           </div>
           <fieldset>
-            <legend class="lbl">Где сесть</legend>
+            <legend class="lbl" data-i="fSeat">Где сесть</legend>
             <div class="seats">
-              <label class="opt"><input type="radio" name="seat" value="в зале" checked /><span class="opt-box">В зале</span></label>
-              <label class="opt"><input type="radio" name="seat" value="в кабинке" /><span class="opt-box">Кабинка</span></label>
-              <label class="opt"><input type="radio" name="seat" value="в VIP-зале" /><span class="opt-box">VIP-зал</span></label>
-              <label class="opt"><input type="radio" name="seat" value="рядом с детской" /><span class="opt-box">Рядом с детской</span></label>
-              <label class="opt"><input type="radio" name="seat" value="на веранде" /><span class="opt-box">Веранда</span></label>
+              <label class="opt"><input type="radio" name="seat" value="hall" checked /><span class="opt-box" data-i="seatHall">В зале</span></label>
+              <label class="opt"><input type="radio" name="seat" value="booth" /><span class="opt-box" data-i="seatBooth">Кабинка</span></label>
+              <label class="opt"><input type="radio" name="seat" value="vip" /><span class="opt-box" data-i="seatVip">VIP-зал</span></label>
+              <label class="opt"><input type="radio" name="seat" value="kids" /><span class="opt-box" data-i="seatKids">Рядом с детской</span></label>
+              <label class="opt"><input type="radio" name="seat" value="terrace" /><span class="opt-box" data-i="seatTerrace">Веранда</span></label>
             </div>
           </fieldset>
           <div class="pair-f">
-            <label class="field"><span class="lbl">Повод, если есть</span><input type="text" name="occasion" id="f-occ" placeholder="день рождения" autocomplete="off" /></label>
-            <label class="field"><span class="lbl">Как вас зовут</span><input type="text" name="name" id="f-name" autocomplete="given-name" /></label>
+            <label class="field"><span class="lbl" data-i="fOcc">Повод, если есть</span><input type="text" name="occasion" id="f-occ" placeholder="день рождения" data-ia="placeholder:occPh" autocomplete="off" /></label>
+            <label class="field"><span class="lbl" data-i="fName">Как вас зовут</span><input type="text" name="name" id="f-name" autocomplete="given-name" /></label>
           </div>
           <div class="preview" aria-live="polite">
-            <span class="lbl">Сообщение в&nbsp;WhatsApp</span>
+            <span class="lbl" data-i="pvLabel">Сообщение в&nbsp;WhatsApp</span>
             <p id="pv">Здравствуйте! Хочу забронировать стол в&nbsp;Naryn.</p>
           </div>
-          <a class="btn" id="send" href="https://wa.me/77084004014" target="_blank" rel="noopener">Отправить в&nbsp;WhatsApp</a>
-          <p class="alt">Или позвоните: <a href="tel:+77084004014">Толе би</a>, <a href="tel:+77023641030">Бухар жырау</a></p>
+          <a class="btn" id="send" href="https://wa.me/77023641030" target="_blank" rel="noopener" data-i="sendWa">Отправить в&nbsp;WhatsApp</a>
+          <p class="alt"><span data-i="altCall">Или позвоните:</span> <a href="tel:+77023641030" class="nw">+7 702 364 10 30</a></p>
         </form>
       </section>
 
       <section class="visit" id="address" aria-labelledby="address-h">
-        <h2 id="address-h" data-r>Два адреса в&nbsp;Алматы</h2>
+        <h2 id="address-h" data-r data-i="visitH">Как нас найти</h2>
         <div class="visit-bg" aria-hidden="true"><img src="../naryn/photos/entrance.jpg" width="1200" height="1520" alt="" loading="lazy" decoding="async" /></div>
         <div class="visit-cards">
           <article class="vcard" data-r>
-            <h3>Толе би, 273/4</h3>
-            <p>ЖК Жайлы, Алмалинский район</p>
+            <h3 data-i="addr">Бухар жырау, 33</h3>
+            <p data-i="placeFull">БЦ Jenis, 1&nbsp;этаж, Бостандыкский район</p>
             <dl>
-              <div><dt>Часы</dt><dd>09:00–23:00</dd></div>
-              <div><dt>Сейчас</dt><dd data-state="tole">открыто</dd></div>
-            </dl>
-            <a class="tel" href="tel:+77084004014">+7 708 400 40 14</a>
-            <p class="vlinks"><a class="link" href="https://2gis.kz/almaty/firm/70000001099760957" target="_blank" rel="noopener">Маршрут в 2ГИС</a><a class="link" href="https://wa.me/77084004014" target="_blank" rel="noopener">WhatsApp</a></p>
-            <a class="btn" href="#menu" data-order="tole">Заказать еду<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 7h11.2L8 2.8 9.4 1.4 16 8l-6.6 6.6L8 13.2 12.2 9H1z" fill="currentColor" /></svg></a>
-          </article>
-          <article class="vcard" data-r>
-            <h3>Бухар жырау, 33</h3>
-            <p>БЦ Jenis, 1&nbsp;этаж, Бостандыкский район</p>
-            <dl>
-              <div><dt>Часы</dt><dd>08:00–23:00</dd></div>
-              <div><dt>Сейчас</dt><dd data-state="bukhar">открыто</dd></div>
+              <div><dt data-i="dtHours">Часы</dt><dd>08:00–23:00</dd></div>
+              <div><dt data-i="dtBreakfast">Завтраки</dt><dd>08:00–12:00</dd></div>
+              <div><dt data-i="dtLunch">Бизнес-ланч</dt><dd>12:00–16:00</dd></div>
+              <div><dt data-i="dtNow">Сейчас</dt><dd data-state>открыто</dd></div>
             </dl>
             <a class="tel" href="tel:+77023641030">+7 702 364 10 30</a>
-            <p class="vlinks"><a class="link" href="https://2gis.kz/almaty/firm/70000001114687713" target="_blank" rel="noopener">Маршрут в 2ГИС</a><a class="link" href="https://wa.me/77023641030" target="_blank" rel="noopener">WhatsApp</a></p>
-            <a class="btn" href="#menu" data-order="bukhar">Заказать еду<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 7h11.2L8 2.8 9.4 1.4 16 8l-6.6 6.6L8 13.2 12.2 9H1z" fill="currentColor" /></svg></a>
+            <p class="vlinks"><a class="link" href="https://2gis.kz/almaty/firm/70000001114687713" target="_blank" rel="noopener" data-i="route">Маршрут в&nbsp;2ГИС</a><a class="link" href="https://wa.me/77023641030" target="_blank" rel="noopener">WhatsApp</a><a class="link" href="https://instagram.com/naryn_damhanasy" target="_blank" rel="noopener">Instagram</a></p>
+            <a class="btn" href="#menu"><span data-i="orderFood">Заказать еду</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 7h11.2L8 2.8 9.4 1.4 16 8l-6.6 6.6L8 13.2 12.2 9H1z" fill="currentColor" /></svg></a>
           </article>
         </div>
       </section>
     </main>
 
     <footer class="foot">
-      <div class="foot-pic"><img src="../naryn/photos/neon.jpg" width="1290" height="573" alt="Неоновая вывеска NARYN над входом" loading="lazy" decoding="async" /></div>
+      <div class="foot-pic"><img src="../naryn/photos/neon.jpg" width="1290" height="573" alt="Неоновая вывеска NARYN над входом" data-ia="alt:altNeon" loading="lazy" decoding="async" /></div>
       <div class="foot-menu">
         <img class="foot-logo" src="../naryn/logo/naryn-color.webp" width="560" height="727" alt="Naryn, otbasylyq dämhana. Jyly köñildiñ mekeni!" loading="lazy" decoding="async" />
-        <nav class="foot-links" aria-label="Разделы">
-          <a href="#atmo">Атмосфера</a>
-          <a href="#hits">Что заказать</a>
-          <a href="#menu">Меню</a>
-          <a href="#family">Всей семьёй</a>
-          <a href="#reviews">Отзывы</a>
-          <a href="#bron">Бронь стола</a>
-          <a href="#address">Адреса</a>
+        <nav class="foot-links" aria-label="Разделы" data-ia="aria-label:footNav">
+          <a href="#atmo" data-i="flAtmo">Атмосфера</a>
+          <a href="#hits" data-i="flHits">Что заказать</a>
+          <a href="#menu" data-i="navMenu">Меню</a>
+          <a href="#family" data-i="famH">Всей семьёй</a>
+          <a href="#reviews" data-i="flReviews">Отзывы</a>
+          <a href="#bron" data-i="flBron">Бронь стола</a>
+          <a href="#address" data-i="flAddr">Адрес</a>
         </nav>
         <div class="foot-info">
           <div>
-            <p>Связаться</p>
-            <a href="https://wa.me/77084004014" target="_blank" rel="noopener">WhatsApp Толе би</a><br />
-            <a href="https://wa.me/77023641030" target="_blank" rel="noopener">WhatsApp Бухар жырау</a>
+            <p data-i="fContact">Связаться</p>
+            <a href="https://wa.me/77023641030" target="_blank" rel="noopener">WhatsApp</a><br />
+            <a href="tel:+77023641030">+7 702 364 10 30</a>
           </div>
           <div>
             <p>Instagram</p>
-            <a href="https://instagram.com/naryn.damhana" target="_blank" rel="noopener">@naryn.damhana</a><br />
             <a href="https://instagram.com/naryn_damhanasy" target="_blank" rel="noopener">@naryn_damhanasy</a>
           </div>
         </div>
-        <p class="foot-legal">Демо-версия сайта для кафе Naryn. Цены и&nbsp;фото блюд взяты из&nbsp;меню кафе, фото зала из&nbsp;2ГИС. Сделал <a href="https://aknas04.github.io" target="_blank" rel="noopener">Бекарыс</a>. Есть <a href="../naryn/">тёмная версия</a>.</p>
+        <p class="foot-legal" data-i="footLegal">Демо-версия сайта для кафе Naryn. Цены и&nbsp;фото блюд взяты из&nbsp;меню кафе, фото зала из&nbsp;2ГИС. Сделал <a href="https://aknas04.github.io" target="_blank" rel="noopener">Бекарыс</a>. Есть <a href="../naryn/">тёмная версия</a>.</p>
       </div>
     </footer>
 
     <div class="cartbar" id="cartbar">
-      <button type="button" id="cart-open"><span><span class="badge" id="cart-n">0</span>Корзина</span><span class="sum" id="cart-sum">0 ₸</span></button>
+      <button type="button" id="cart-open"><span><span class="badge" id="cart-n">0</span><span data-i="cart">Корзина</span></span><span class="sum" id="cart-sum">0 ₸</span></button>
     </div>
     <p class="sr" aria-live="polite" id="cart-live"></p>
 
@@ -1014,54 +1040,44 @@
       <div class="overlay" id="cart-overlay"></div>
       <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="cart-h">
         <div class="sh-head">
-          <h2 id="cart-h">Ваш заказ</h2>
-          <button class="x" type="button" id="cart-close" aria-label="Закрыть корзину"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
+          <h2 id="cart-h" data-i="cartH">Ваш заказ</h2>
+          <button class="x" type="button" id="cart-close" aria-label="Закрыть корзину" data-ia="aria-label:cartClose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
         </div>
         <div class="sh-body">
           <div id="cart-lines"></div>
           <div id="cart-form">
-            <div class="total"><span>Итого</span><span id="cart-total">0 ₸</span></div>
+            <div class="total"><span data-i="total">Итого</span><span id="cart-total">0 ₸</span></div>
             <p class="cnote" id="cart-note">Заберёте заказ сами в&nbsp;кафе.</p>
             <div class="cform">
               <fieldset>
-                <legend class="lbl">Кафе</legend>
+                <legend class="lbl" data-i="getLegend">Получение</legend>
                 <div class="seg">
-                  <label class="opt"><input type="radio" name="c-branch" value="tole" checked /><span class="opt-box"><span class="opt-name">Толе би</span><span class="opt-meta">09:00–23:00</span></span></label>
-                  <label class="opt"><input type="radio" name="c-branch" value="bukhar" /><span class="opt-box"><span class="opt-name">Бухар жырау</span><span class="opt-meta">08:00–23:00</span></span></label>
-                </div>
-              </fieldset>
-              <fieldset>
-                <legend class="lbl">Получение</legend>
-                <div class="seg">
-                  <label class="opt"><input type="radio" name="c-mode" value="pickup" checked /><span class="opt-box"><span class="opt-name">Самовывоз</span></span></label>
-                  <label class="opt"><input type="radio" name="c-mode" value="delivery" /><span class="opt-box"><span class="opt-name">Доставка</span></span></label>
+                  <label class="opt"><input type="radio" name="c-mode" value="pickup" checked /><span class="opt-box"><span class="opt-name" data-i="pickup">Самовывоз</span></span></label>
+                  <label class="opt"><input type="radio" name="c-mode" value="delivery" /><span class="opt-box"><span class="opt-name" data-i="delivery">Доставка</span></span></label>
                 </div>
               </fieldset>
               <div class="pair-f">
-                <div class="field" id="c-name-f"><label class="lbl" for="c-name">Имя</label><input id="c-name" autocomplete="given-name" /><span class="err">Укажите имя</span></div>
-                <div class="field" id="c-phone-f"><label class="lbl" for="c-phone">Телефон</label><input id="c-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 7__ ___ __ __" /><span class="err">Нужен номер, чтобы перезвонить</span></div>
+                <div class="field" id="c-name-f"><label class="lbl" for="c-name" data-i="cName">Имя</label><input id="c-name" autocomplete="given-name" /><span class="err" data-i="errName">Укажите имя</span></div>
+                <div class="field" id="c-phone-f"><label class="lbl" for="c-phone" data-i="cPhone">Телефон</label><input id="c-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 7__ ___ __ __" /><span class="err" data-i="errPhone">Нужен номер, чтобы перезвонить</span></div>
               </div>
-              <div class="field" id="c-addr-f" hidden><label class="lbl" for="c-addr">Адрес доставки</label><input id="c-addr" autocomplete="street-address" placeholder="Улица, дом, квартира" /><span class="err">Укажите адрес</span></div>
-              <div class="field"><label class="lbl" for="c-comment">Комментарий</label><textarea id="c-comment" placeholder="К 19:30, без лука, приборы на 3"></textarea></div>
+              <div class="field" id="c-addr-f" hidden><label class="lbl" for="c-addr" data-i="cAddr">Адрес доставки</label><input id="c-addr" autocomplete="street-address" placeholder="Улица, дом, квартира" data-ia="placeholder:addrPh" /><span class="err" data-i="errAddr">Укажите адрес</span></div>
+              <div class="field"><label class="lbl" for="c-comment" data-i="cComment">Комментарий</label><textarea id="c-comment" placeholder="К 19:30, без лука, приборы на 3" data-ia="placeholder:commentPh"></textarea></div>
             </div>
           </div>
         </div>
         <div class="sh-foot" id="cart-foot">
-          <button class="btn" type="button" id="c-send">Отправить в&nbsp;WhatsApp</button>
-          <p class="sent" id="c-sent" role="status">WhatsApp открыт с&nbsp;готовым сообщением. Осталось нажать там «Отправить», и&nbsp;кафе перезвонит.</p>
-          <button class="clear" type="button" id="c-clear">Очистить корзину</button>
+          <button class="btn" type="button" id="c-send" data-i="sendWa">Отправить в&nbsp;WhatsApp</button>
+          <p class="sent" id="c-sent" role="status" data-i="sent">WhatsApp открыт с&nbsp;готовым сообщением. Осталось нажать там «Отправить», и&nbsp;кафе перезвонит.</p>
+          <button class="clear" type="button" id="c-clear" data-i="clear">Очистить корзину</button>
         </div>
       </div>
     </div>
 
+    <script src="i18n.js?v=1"></script>
     <script>
       (function () {
-        var BR = {
-          tole: { name: "Толе би, 273/4", open: 9 * 60, close: 23 * 60, num: "77084004014" },
-          bukhar: { name: "Бухар жырау, 33", open: 8 * 60, close: 23 * 60, num: "77023641030" }
-        };
-        var MONTHS = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"];
-        var DAYS = ["воскресенье", "понедельник", "вторник", "среда", "четверг", "пятница", "суббота"];
+        var NI = window.NI, t = NI.t;
+        var BR = { open: 8 * 60, close: 23 * 60, num: "77023641030" };
         var LAST = 22 * 60;
         var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -1071,29 +1087,33 @@
           return { iso: d.toISOString().slice(0, 10), min: d.getUTCHours() * 60 + d.getUTCMinutes(), d: d };
         }
         function hhmm(m) { return (m / 60 | 0) + ":" + (m % 60 < 10 ? "0" : "") + (m % 60); }
-        function dur(m) { var h = m / 60 | 0, r = m % 60; return (h ? h + " ч" : "") + (h && r ? " " : "") + (r ? r + " мин" : ""); }
+        function dur(m) {
+          var h = m / 60 | 0, r = m % 60, parts = [];
+          if (h) parts.push(t("h", { n: h }));
+          if (r) parts.push(t("m", { n: r }));
+          return parts.join(NI.lang() === "zh" ? "" : " ");
+        }
 
         function nowLine() {
-          var n = almaty(), t = hhmm(n.min), m = n.min;
-          if (m < 8 * 60) return "В Алматы " + t + ". Откроемся в <strong>8:00</strong> на Бухар жырау и в <strong>9:00</strong> на Толе би.";
-          if (m >= 23 * 60) return "В Алматы " + t + ", оба кафе закрыты до утра. Стол на завтра можно забронировать уже сейчас.";
-          if (m < 9 * 60) return "В Алматы " + t + ". На Бухар жырау уже завтракают, Толе би откроется в 9:00.";
-          if (m < 12 * 60) return "В Алматы " + t + ", идут завтраки, <strong>осталось " + dur(12 * 60 - m) + "</strong>.";
-          if (m < 16 * 60) return "В Алматы " + t + ", идёт бизнес-ланч, <strong>осталось " + dur(16 * 60 - m) + "</strong>.";
-          return "В Алматы " + t + ", кухня работает до 23:00, <strong>осталось " + dur(23 * 60 - m) + "</strong>.";
+          var m = almaty().min, now = t("inAlmaty", { t: hhmm(m) });
+          if (m < BR.open) return t("nowBefore", { now: now });
+          if (m >= BR.close) return t("nowClosed", { now: now });
+          if (m < 12 * 60) return t("nowBreakfast", { now: now, d: dur(12 * 60 - m) });
+          if (m < 16 * 60) return t("nowLunch", { now: now, d: dur(16 * 60 - m) });
+          return t("nowKitchen", { now: now, d: dur(BR.close - m) });
         }
-        function state(b) {
-          var m = almaty().min, o = BR[b];
-          if (m >= o.open && m < o.close) return "Открыто до " + hhmm(o.close);
-          if (m < o.open) return "Откроется в " + hhmm(o.open);
-          return "Закрыто, завтра с " + hhmm(o.open);
+        function state() {
+          var m = almaty().min;
+          if (m >= BR.open && m < BR.close) return t("stOpen", { t: hhmm(BR.close) });
+          if (m < BR.open) return t("stBefore", { t: hhmm(BR.open) });
+          return t("stClosed", { t: hhmm(BR.open) });
         }
         function tick() {
           document.getElementById("now").innerHTML = nowLine();
-          document.querySelectorAll("[data-state]").forEach(function (el) { el.textContent = state(el.dataset.state); });
+          document.querySelectorAll("[data-state]").forEach(function (el) { el.textContent = state(); });
         }
 
-        /* Бронь: сообщение в WhatsApp нужного кафе */
+        /* Бронь: сообщение в WhatsApp кафе */
         var form = document.getElementById("book");
         var dateEl = document.getElementById("f-date");
         var timeEl = document.getElementById("f-time");
@@ -1101,13 +1121,12 @@
         var pv = document.getElementById("pv");
         var send = document.getElementById("send");
         var guests = 4;
-        function branch() { return form.querySelector("input[name=branch]:checked").value; }
         function fillTimes() {
-          var b = BR[branch()], n = almaty(), keep = timeEl.value || "19:00", html = "";
+          var n = almaty(), keep = timeEl.value || "19:00", html = "";
           var today = dateEl.value === n.iso;
-          for (var m = b.open; m <= LAST; m += 30) {
-            var t = (m / 60 < 10 ? "0" : "") + hhmm(m);
-            html += "<option" + (today && m < n.min + 30 ? " disabled" : "") + ">" + t + "</option>";
+          for (var m = BR.open; m <= LAST; m += 30) {
+            var tt = (m / 60 < 10 ? "0" : "") + hhmm(m);
+            html += "<option" + (today && m < n.min + 30 ? " disabled" : "") + ">" + tt + "</option>";
           }
           timeEl.innerHTML = html;
           var opts = Array.prototype.filter.call(timeEl.options, function (o) { return !o.disabled; });
@@ -1116,34 +1135,32 @@
         }
         function niceDate(iso) {
           if (!iso) return "";
-          var p = iso.split("-"), d = new Date(Date.UTC(+p[0], +p[1] - 1, +p[2]));
-          var label = d.getUTCDate() + " " + MONTHS[d.getUTCMonth()] + ", " + DAYS[d.getUTCDay()];
-          return iso === almaty().iso ? "сегодня, " + label : label;
+          var p = iso.split("-"), label = NI.date(new Date(Date.UTC(+p[0], +p[1] - 1, +p[2])));
+          return iso === almaty().iso ? t("today", { d: label }) : label;
         }
         function compose() {
-          var b = BR[branch()];
           var seat = form.querySelector("input[name=seat]:checked").value;
           var occ = document.getElementById("f-occ").value.trim();
           var name = document.getElementById("f-name").value.trim();
-          var lines = ["Здравствуйте! Хочу забронировать стол в Naryn на " + b.name + "."];
-          lines.push("Дата: " + niceDate(dateEl.value));
-          if (timeEl.value) lines.push("Время: " + timeEl.value);
-          lines.push("Гостей: " + guests);
-          lines.push("Где сесть: " + seat);
-          if (occ) lines.push("Повод: " + occ);
-          if (name) lines.push("Меня зовут " + name + ".");
+          var lines = [t("bkHello")];
+          lines.push(t("bkDate") + ": " + niceDate(dateEl.value));
+          if (timeEl.value) lines.push(t("bkTime") + ": " + timeEl.value);
+          lines.push(t("bkGuests") + ": " + guests);
+          lines.push(t("bkSeat") + ": " + t("seat_" + seat));
+          if (occ) lines.push(t("bkOcc") + ": " + occ);
+          if (name) lines.push(t("bkName", { n: name }));
           var msg = lines.join("\n");
           pv.textContent = msg;
-          send.href = "https://wa.me/" + b.num + "?text=" + encodeURIComponent(msg);
-          form.action = "https://wa.me/" + b.num;
+          send.href = "https://wa.me/" + BR.num + "?text=" + encodeURIComponent(msg);
         }
         var n0 = almaty();
         dateEl.min = n0.iso;
         dateEl.value = n0.min >= 21 * 60 + 30 ? new Date(n0.d.getTime() + 864e5).toISOString().slice(0, 10) : n0.iso;
         fillTimes(); tick(); compose();
         setInterval(tick, 30000);
+        NI.on(function () { tick(); compose(); });
         form.addEventListener("change", function (e) {
-          if (e.target.name === "branch" || e.target === dateEl) fillTimes();
+          if (e.target === dateEl) fillTimes();
           compose();
         });
         form.addEventListener("input", compose);
@@ -1242,21 +1259,20 @@
       })();
     </script>
     <script>
-      /* Заказ прямо из меню: корзина уходит сообщением в WhatsApp выбранного кафе */
+      /* Заказ прямо из меню: корзина уходит сообщением в WhatsApp кафе */
       (function () {
-        var BR = {
-          tole: { name: "Толе би, 273/4", num: "77084004014" },
-          bukhar: { name: "Бухар жырау, 33", num: "77023641030" }
-        };
-        var STORE = "naryn_cart_v2", STORE_BR = "naryn_branch";
+        var NI = window.NI, t = NI.t;
+        var NUM = "77023641030";
+        var STORE = "naryn_cart_v2";
         var PLUS = '<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M6 0h2v6h6v2H8v6H6V8H0V6h6z" fill="currentColor"/></svg>';
         var MINUS = '<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M0 6h14v2H0z" fill="currentColor"/></svg>';
         function $(id) { return document.getElementById(id); }
-        function fmt(n) { return n.toLocaleString("ru-RU") + " ₸"; }
+        function fmt(n) { return n.toLocaleString("ru-RU") + " ₸"; }
         function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
         function store(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
         function load(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
 
+        // ключи корзины всегда по-русски (как в тёмной версии), на экран идёт перевод
         var items = {}, cart = {}, dishes = [], keyDish = {};
 
         /* Позиции берём из меню на странице. Варианты (объём, вкус) лежат в data-opts="вариант=цена;..." */
@@ -1287,33 +1303,35 @@
         });
         body.classList.add("ordering");
 
-        function label(k) { var it = items[k]; return it.name + (it.opt ? ", " + it.opt : ""); }
+        function dname(it) { return NI.menu(it.name); }
+        function dopt(it) { return it.opt ? NI.words(it.opt) : ""; }
+        function label(k) { var it = items[k]; return dname(it) + (it.opt ? ", " + dopt(it) : ""); }
         function qtyHTML(k) {
           var l = esc(label(k)), kk = esc(k);
-          return '<span class="qty"><button type="button" data-a="dec" data-k="' + kk + '" aria-label="Убрать одну: ' + l + '">' + MINUS + '</button><span class="q">' + cart[k] + '</span><button type="button" data-a="inc" data-k="' + kk + '" aria-label="Добавить ещё: ' + l + '">' + PLUS + "</button></span>";
+          return '<span class="qty"><button type="button" data-a="dec" data-k="' + kk + '" aria-label="' + esc(t("aDec")) + l + '">' + MINUS + '</button><span class="q">' + cart[k] + '</span><button type="button" data-a="inc" data-k="' + kk + '" aria-label="' + esc(t("aInc")) + l + '">' + PLUS + "</button></span>";
         }
         function renderDish(d) {
           if (d.opts.length === 1) {
             var k = d.opts[0].key;
-            d.ctl.innerHTML = cart[k] ? qtyHTML(k) : '<button type="button" class="add" data-a="inc" data-k="' + esc(k) + '" aria-label="В корзину: ' + esc(label(k)) + '">' + PLUS + "</button>";
+            d.ctl.innerHTML = cart[k] ? qtyHTML(k) : '<button type="button" class="add" data-a="inc" data-k="' + esc(k) + '" aria-label="' + esc(t("aAdd") + label(k)) + '">' + PLUS + "</button>";
             return;
           }
-          var n = 0, open = d.li.classList.contains("choosing");
+          var n = 0, open = d.li.classList.contains("choosing"), dn = NI.menu(d.name);
           d.opts.forEach(function (o) { n += cart[o.key] || 0; });
-          d.ctl.innerHTML = '<button type="button" class="add' + (n ? " has" : "") + '" data-a="pick" aria-expanded="' + open + '" aria-label="Выбрать вариант: ' + esc(d.name) + (n ? ", в корзине " + n : "") + '">' + (n ? '<span class="n">' + n + "</span>" : PLUS) + "</button>";
+          d.ctl.innerHTML = '<button type="button" class="add' + (n ? " has" : "") + '" data-a="pick" aria-expanded="' + open + '" aria-label="' + esc(t("aPick") + dn + (n ? t("aInCart") + n : "")) + '">' + (n ? '<span class="n">' + n + "</span>" : PLUS) + "</button>";
           var ch = d.li.querySelector(".choice");
           if (!open) { if (ch) ch.remove(); return; }
           if (!ch) {
             ch = document.createElement("div");
             ch.className = "choice";
             ch.setAttribute("role", "group");
-            ch.setAttribute("aria-label", "Варианты: " + d.name);
             d.li.appendChild(ch);
           }
+          ch.setAttribute("aria-label", t("aVariants") + dn);
           var same = d.opts.every(function (o) { return o.price === d.opts[0].price; });
           ch.innerHTML = d.opts.map(function (o) {
             var c = cart[o.key] || 0;
-            return '<button type="button" data-a="inc" data-k="' + esc(o.key) + '" aria-label="Добавить: ' + esc(label(o.key)) + ", " + fmt(o.price) + (c ? ", в корзине " + c : "") + '">' + esc(o.label) + (same ? "" : '<span class="pr">' + fmt(o.price) + "</span>") + (c ? '<span class="c">' + c + "</span>" : "") + "</button>";
+            return '<button type="button" data-a="inc" data-k="' + esc(o.key) + '" aria-label="' + esc(t("aAddOpt") + label(o.key) + ", " + fmt(o.price) + (c ? t("aInCart") + c : "")) + '">' + esc(NI.words(o.label)) + (same ? "" : '<span class="pr">' + fmt(o.price) + "</span>") + (c ? '<span class="c">' + c + "</span>" : "") + "</button>";
           }).join("");
         }
 
@@ -1323,17 +1341,17 @@
           return { n: n, s: s };
         }
         function renderCart() {
-          var t = totals(), keys = Object.keys(cart);
-          $("cart-n").textContent = t.n;
-          $("cart-sum").textContent = fmt(t.s);
-          $("cart-total").textContent = fmt(t.s);
-          $("cartbar").classList.toggle("show", t.n > 0);
+          var tt = totals(), keys = Object.keys(cart);
+          $("cart-n").textContent = tt.n;
+          $("cart-sum").textContent = fmt(tt.s);
+          $("cart-total").textContent = fmt(tt.s);
+          $("cartbar").classList.toggle("show", tt.n > 0);
           $("cart-form").hidden = !keys.length;
           $("cart-foot").hidden = !keys.length;
           $("cart-lines").innerHTML = keys.length ? keys.map(function (k) {
             var it = items[k];
-            return '<div class="line"><div class="n">' + esc(it.name) + (it.opt ? "<small>" + esc(it.opt) + "</small>" : "") + "</div>" + qtyHTML(k) + '<div class="s">' + fmt(it.price * cart[k]) + "</div></div>";
-          }).join("") : '<p class="cart-empty">Корзина пуста. Добавьте блюда из&nbsp;меню.</p>';
+            return '<div class="line"><div class="n">' + esc(dname(it)) + (it.opt ? "<small>" + esc(dopt(it)) + "</small>" : "") + "</div>" + qtyHTML(k) + '<div class="s">' + fmt(it.price * cart[k]) + "</div></div>";
+          }).join("") : '<p class="cart-empty">' + t("cartEmpty") + "</p>";
           store(STORE, JSON.stringify(cart));
         }
         function change(k, delta) {
@@ -1341,7 +1359,7 @@
           if (cart[k] <= 0) delete cart[k];
           renderDish(dishes[keyDish[k]]);
           renderCart();
-          $("cart-live").textContent = label(k) + ": " + (cart[k] || 0) + " шт. Итого " + fmt(totals().s);
+          $("cart-live").textContent = label(k) + ": " + (cart[k] || 0) + " " + t("pcs") + " " + t("orTotal") + ": " + fmt(totals().s);
         }
 
         // кнопки в меню и в корзине; после перерисовки возвращаем фокус на кнопку-замену
@@ -1362,22 +1380,13 @@
           (next || scope.querySelector("button") || $("cart-close")).focus();
         });
 
-        // сохранённая корзина и кафе
+        // сохранённая корзина (общая с тёмной версией)
         try {
           var saved = JSON.parse(load(STORE) || "{}");
           for (var sk in saved) if (items[sk] && saved[sk] > 0) cart[sk] = saved[sk];
         } catch (e) {}
         dishes.forEach(renderDish);
         renderCart();
-
-        function setBranch(b) {
-          if (!BR[b]) return;
-          document.querySelector('input[name="c-branch"][value="' + b + '"]').checked = true;
-          store(STORE_BR, b);
-        }
-        setBranch(new URLSearchParams(location.search).get("b") || load(STORE_BR) || "tole");
-        document.querySelectorAll("input[name=c-branch]").forEach(function (r) { r.addEventListener("change", function () { store(STORE_BR, r.value); }); });
-        document.querySelectorAll("[data-order]").forEach(function (a) { a.addEventListener("click", function () { setBranch(a.dataset.order); }); });
 
         // открыть / закрыть
         var wrap = $("cartwrap");
@@ -1405,7 +1414,7 @@
           for (var k in cart) delete cart[k];
           touched.forEach(renderDish);
           renderCart();
-          $("cart-live").textContent = "Корзина очищена";
+          $("cart-live").textContent = t("cartCleared");
           $("cart-close").focus();
         });
 
@@ -1413,10 +1422,13 @@
         function delivery() { return document.querySelector("input[name=c-mode]:checked").value === "delivery"; }
         function syncMode() {
           $("c-addr-f").hidden = !delivery();
-          $("cart-note").textContent = delivery() ? "Стоимость доставки кафе назовёт, когда перезвонит." : "Заберёте заказ сами в кафе.";
+          $("cart-note").textContent = t(delivery() ? "noteDelivery" : "notePickup");
         }
         document.querySelectorAll("input[name=c-mode]").forEach(function (r) { r.addEventListener("change", syncMode); });
         syncMode();
+
+        // смена языка: перерисовать кнопки, корзину и подсказку
+        NI.on(function () { dishes.forEach(renderDish); renderCart(); syncMode(); });
 
         // проверка: ошибка после ухода из поля, исчезает при вводе
         var checks = {
@@ -1430,26 +1442,29 @@
           el.addEventListener("blur", function () { if (el.dataset.dirty && !checks[id](el.value)) f.classList.add("bad"); });
         });
 
+        // Сообщение пишется на языке сайта. Если язык не русский, под каждым блюдом идёт русское название для кухни.
         $("c-send").addEventListener("click", function () {
           var need = ["c-name", "c-phone"].concat(delivery() ? ["c-addr"] : []);
           var bad = need.filter(function (id) { return !checks[id]($(id).value); });
           need.forEach(function (id) { $(id + "-f").classList.toggle("bad", bad.indexOf(id) > -1); });
           if (bad.length) { $(bad[0]).focus(); return; }
 
-          var b = BR[document.querySelector("input[name=c-branch]:checked").value];
           var v = function (id) { return $(id).value.trim(); };
-          var msg = "*Заказ в Naryn, " + b.name + "*\n\n";
+          var msg = "*" + t("orHead") + "*\n\n";
           Object.keys(cart).forEach(function (k) {
             var it = items[k];
-            msg += "• " + it.name + (it.opt ? " (" + it.opt + ")" : "") + " × " + cart[k] + " = " + fmt(it.price * cart[k]) + "\n";
+            var shown = dname(it) + (it.opt ? " (" + dopt(it) + ")" : "");
+            var ru = it.name + (it.opt ? " (" + it.opt + ")" : "");
+            msg += "• " + shown + " × " + cart[k] + " = " + fmt(it.price * cart[k]) + "\n";
+            if (shown !== ru) msg += "   " + ru + "\n";
           });
-          msg += "\n*Итого: " + fmt(totals().s) + "*\n\n";
-          msg += delivery() ? "Доставка: " + v("c-addr") + "\n" : "Самовывоз\n";
-          msg += "Имя: " + v("c-name") + "\nТелефон: " + v("c-phone") + "\n";
-          if (v("c-comment")) msg += "Комментарий: " + v("c-comment") + "\n";
+          msg += "\n*" + t("orTotal") + ": " + fmt(totals().s) + "*\n\n";
+          msg += delivery() ? t("orDelivery") + ": " + v("c-addr") + "\n" : t("orPickup") + "\n";
+          msg += t("orName") + ": " + v("c-name") + "\n" + t("orPhone") + ": " + v("c-phone") + "\n";
+          if (v("c-comment")) msg += t("orComment") + ": " + v("c-comment") + "\n";
 
           var a = document.createElement("a");
-          a.href = "https://wa.me/" + b.num + "?text=" + encodeURIComponent(msg);
+          a.href = "https://wa.me/" + NUM + "?text=" + encodeURIComponent(msg);
           a.target = "_blank";
           a.rel = "noopener";
           a.click();
@@ -1457,5 +1472,6 @@
         });
       })();
     </script>
+    <script>window.NI.start();</script>
   </body>
 </html>
