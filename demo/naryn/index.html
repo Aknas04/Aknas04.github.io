@@ -229,11 +229,84 @@
       .vcard dd { margin: 0; font-variant-numeric: tabular-nums; text-align: right; }
       .vcard .tel { display: inline-block; margin-top: 20px; font-size: var(--step-lead); font-weight: 600; text-decoration: none; transition: color 200ms ease; }
       .vcard .tel:hover { color: var(--gold); }
-      .vcard .route { margin-top: 10px; font-size: var(--step-small); }
+      .vcard .vlinks { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: var(--step-small); }
       .vcard .btn { margin: 24px -28px 0; }
-      .vcard .btn + .btn { margin-top: 2px; }
-      .btn.ghost { background: var(--surface-2); color: var(--ink); }
-      .btn.ghost:hover { background: #312b24; }
+
+      /* Заказ прямо из меню */
+      .order-hint { font-size: var(--step-small); }
+      .ordering .dishes li, .ordering .dishes li.has-pic { grid-template-columns: minmax(0, 1fr) auto; gap: 2px 16px; align-items: center; align-content: start; }
+      .ordering .dishes li.has-pic { grid-template-columns: 72px minmax(0, 1fr) auto; }
+      .ordering .dishes li img { grid-column: 1; grid-row: 1 / 3; }
+      .ordering .dish-name { grid-column: -3 / -2; grid-row: 1; align-self: end; }
+      .ordering .dish-price { grid-column: -3 / -2; grid-row: 2; align-self: start; font-size: var(--step-small); }
+      .ctl { grid-column: -2 / -1; grid-row: 1 / 3; display: flex; justify-content: flex-end; }
+      .add { position: relative; width: 36px; height: 36px; padding: 0; border: 1px solid rgba(201, 164, 106, 0.45); background: transparent; color: var(--gold); display: inline-grid; place-items: center; cursor: pointer; transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 140ms var(--ease); }
+      .add::after, .qty button::after { content: ""; position: absolute; inset: -5px; }
+      .add:hover, .add.has, .add[aria-expanded="true"] { background: var(--gold); border-color: var(--gold); color: var(--gold-ink); }
+      .add:active { transform: scale(0.94); }
+      .add svg, .qty svg { width: 14px; height: 14px; }
+      .add .n { font-size: var(--step-small); font-weight: 600; font-variant-numeric: tabular-nums; }
+      .qty { display: inline-flex; align-items: center; border: 1px solid rgba(201, 164, 106, 0.45); }
+      .qty button { position: relative; width: 34px; height: 34px; padding: 0; border: 0; background: none; color: var(--gold); display: inline-grid; place-items: center; cursor: pointer; transition: background-color 180ms ease; }
+      .qty button:hover { background: var(--surface-2); }
+      .qty .q { min-width: 26px; text-align: center; font-size: var(--step-small); font-weight: 600; font-variant-numeric: tabular-nums; }
+      .choice { grid-column: -3 / -1; grid-row: 3; display: flex; flex-wrap: wrap; gap: 6px; padding-top: 10px; animation: rise 300ms var(--ease) both; }
+      .choice button { min-height: 40px; padding: 0 14px; border: 0; background: var(--surface-2); font-size: var(--step-small); font-weight: 500; font-variant-numeric: tabular-nums; cursor: pointer; transition: background-color 180ms ease, transform 140ms var(--ease); }
+      .choice button:hover { background: #312b24; }
+      .choice button:active { transform: scale(0.96); }
+      .choice .pr { margin-left: 8px; color: var(--gold); }
+      .choice .c { margin-left: 8px; padding: 1px 7px; background: var(--gold); color: var(--gold-ink); }
+
+      .cartbar { position: fixed; z-index: 30; left: 50%; bottom: calc(14px + env(safe-area-inset-bottom)); width: min(420px, calc(100% - 2 * var(--m))); transform: translate(-50%, 160%); visibility: hidden; transition: transform 380ms var(--ease), visibility 0s 380ms; }
+      .cartbar.show { transform: translate(-50%, 0); visibility: visible; transition: transform 420ms var(--ease); }
+      .cartbar button { width: 100%; min-height: 54px; padding: 0 18px; border: 0; display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--gold); color: var(--gold-ink); font-weight: 600; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5); cursor: pointer; transition: background-color 180ms ease, transform 140ms var(--ease); }
+      .cartbar button:hover { background: var(--gold-hi); }
+      .cartbar button:active { transform: scale(0.98); }
+      .badge { display: inline-grid; place-items: center; min-width: 26px; height: 26px; padding: 0 7px; margin-right: 10px; background: var(--gold-ink); color: var(--gold); font-variant-numeric: tabular-nums; }
+      .cartbar .sum { font-variant-numeric: tabular-nums; }
+      html.lock { overflow: hidden; }
+      .overlay { position: fixed; inset: 0; z-index: 40; background: rgba(8, 7, 6, 0.66); opacity: 0; visibility: hidden; transition: opacity 260ms ease, visibility 0s 260ms; }
+      .sheet { position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; display: flex; flex-direction: column; max-height: 92svh; max-width: 640px; margin: 0 auto; background: var(--bg); border-top: 1px solid #2c2721; transform: translateY(100%); visibility: hidden; transition: transform 360ms var(--ease), visibility 0s 360ms; }
+      .open .overlay { opacity: 1; visibility: visible; transition: opacity 260ms ease; }
+      .open .sheet { transform: none; visibility: visible; transition: transform 420ms var(--ease); }
+      .sh-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 20px; border-bottom: 1px solid #2c2721; }
+      .sh-head h2 { font-size: var(--step-lead); }
+      .x { width: 44px; height: 44px; border: 0; background: var(--surface-2); color: var(--ink); display: grid; place-items: center; cursor: pointer; transition: background-color 180ms ease; }
+      .x:hover { background: #312b24; }
+      .x svg { width: 18px; height: 18px; }
+      .sh-body { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 4px 20px 28px; }
+      .line { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 8px 14px; align-items: center; padding: 14px 0; border-bottom: 1px solid #2c2721; }
+      .line .n { font-weight: 500; line-height: 1.3; }
+      .line .n small { display: block; margin-top: 2px; font-size: var(--step-small); font-weight: 400; color: var(--muted); }
+      .line .s { min-width: 80px; text-align: right; color: var(--gold); font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
+      .cart-empty { padding: 32px 0; color: var(--muted); }
+      .total { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 20px 0 4px; font-size: var(--step-lead); font-weight: 600; }
+      .total span:last-child { color: var(--gold); font-variant-numeric: tabular-nums; }
+      .cnote { font-size: var(--step-small); color: var(--muted); }
+      .cform { margin-top: 24px; display: grid; gap: 22px; }
+      .seg { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+      .seg .opt-box { padding: 14px 16px; }
+      .field textarea { width: 100%; min-height: 84px; padding: 13px 14px; border: 0; border-radius: 0; background: var(--surface); color: var(--ink); font: 400 var(--step-body) "Onest", sans-serif; resize: vertical; }
+      .field textarea::placeholder { color: var(--muted); }
+      .field textarea:focus { outline: 2px solid var(--gold); outline-offset: 2px; }
+      .err { display: none; margin-top: 8px; font-size: var(--step-small); font-weight: 500; color: #ee8f78; }
+      .field.bad .err { display: block; }
+      .field.bad input { outline: 2px solid #ee8f78; outline-offset: 2px; }
+      .sh-foot { padding: 14px 20px calc(16px + env(safe-area-inset-bottom)); border-top: 1px solid #2c2721; }
+      .sh-foot .btn { width: 100%; }
+      .sent { display: none; margin-top: 10px; font-size: var(--step-small); color: var(--muted); }
+      .sent.on { display: block; }
+      .clear { display: block; margin: 6px auto 0; min-height: 44px; padding: 0 12px; border: 0; background: none; color: var(--muted); font-size: var(--step-small); text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+      .clear:hover { color: var(--ink); }
+      .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+      @media (min-width: 760px) {
+        .sheet { left: auto; top: 0; width: 460px; max-width: none; max-height: none; border-top: 0; border-left: 1px solid #2c2721; transform: translateX(100%); }
+      }
+      @media (max-width: 440px) {
+        .line { grid-template-columns: minmax(0, 1fr) auto; }
+        .line .qty { grid-row: 2; grid-column: 1; justify-self: start; }
+        .line .s { grid-row: 1; grid-column: 2; }
+      }
 
       /* Подвал */
       .foot { display: grid; grid-template-columns: 1fr 1fr; min-height: 100svh; background: var(--bg); }
@@ -326,6 +399,8 @@
         .hits-photo img, .pair img { transition: none; transform: none; }
         .hero-bg img { animation: none; }
         .js .hit.on .hit-desc, .js .menu-body.filtered .cat.show { animation: none; }
+        .choice { animation: none; }
+        .cartbar, .cartbar.show, .overlay, .open .overlay, .sheet, .open .sheet { transition: none; }
       }
 </style>
   </head>
@@ -419,7 +494,8 @@
       <section class="menu" id="menu" aria-labelledby="menu-h">
         <div class="menu-side">
           <h2 id="menu-h" data-r>Меню</h2>
-          <p data-r>210 блюд и&nbsp;напитков с&nbsp;ценами. Всё халяль, обслуживание 10%.</p>
+          <p data-r>215 блюд и&nbsp;напитков с&nbsp;ценами. Всё халяль, обслуживание 10%.</p>
+          <p class="order-hint" data-r>Нажмите&nbsp;+, чтобы заказать с&nbsp;собой или с&nbsp;доставкой. Заказ уйдёт в&nbsp;WhatsApp кафе.</p>
           <div class="chips" role="group" aria-label="Разделы меню" data-r>
             <button type="button" class="chip" data-cat="all" aria-pressed="false">Всё</button>
             <button type="button" class="chip" data-cat="national" aria-pressed="false">Национальная кухня</button>
@@ -458,10 +534,10 @@
           <section class="cat" id="m-lagman" data-cat="lagman" aria-labelledby="m-lagman-h">
             <h3 id="m-lagman-h">Лагманы</h3>
             <ul class="dishes">
-              <li class="has-pic"><img src="dishes/lagman.webp" alt="" width="72" height="54" loading="lazy" decoding="async" /><span class="dish-name">Гуйру лагман или ганфан</span><span class="dish-price">2 890&nbsp;₸</span></li>
-              <li><span class="dish-name">Суйру лагман или ганфан</span><span class="dish-price">2 890&nbsp;₸</span></li>
-              <li><span class="dish-name">Могуру лагман или ганфан</span><span class="dish-price">2 890&nbsp;₸</span></li>
-              <li><span class="dish-name">Мошуру лагман или ганфан</span><span class="dish-price">2 990&nbsp;₸</span></li>
+              <li class="has-pic" data-opts="лагман=2890;ганфан=2890"><img src="dishes/lagman.webp" alt="" width="72" height="54" loading="lazy" decoding="async" /><span class="dish-name">Гуйру лагман или ганфан</span><span class="dish-price">2 890&nbsp;₸</span></li>
+              <li data-opts="лагман=2890;ганфан=2890"><span class="dish-name">Суйру лагман или ганфан</span><span class="dish-price">2 890&nbsp;₸</span></li>
+              <li data-opts="лагман=2890;ганфан=2890"><span class="dish-name">Могуру лагман или ганфан</span><span class="dish-price">2 890&nbsp;₸</span></li>
+              <li data-opts="лагман=2990;ганфан=2990"><span class="dish-name">Мошуру лагман или ганфан</span><span class="dish-price">2 990&nbsp;₸</span></li>
               <li><span class="dish-name">Гуйру цомян</span><span class="dish-price">2 890&nbsp;₸</span></li>
               <li><span class="dish-name">Ганбян цомян</span><span class="dish-price">2 890&nbsp;₸</span></li>
               <li><span class="dish-name">Дин дин цомян</span><span class="dish-price">2 890&nbsp;₸</span></li>
@@ -472,7 +548,7 @@
             <h3 id="m-hot-h">Восточные горячие блюда</h3>
             <ul class="dishes">
               <li class="has-pic"><img src="dishes/kazan-kebab.webp" alt="" width="72" height="54" loading="lazy" decoding="async" /><span class="dish-name">Казан кебаб<span class="dish-desc">жареная говядина с луком</span></span><span class="dish-price">4 290&nbsp;₸</span></li>
-              <li class="has-pic"><img src="dishes/tebyan.webp" alt="" width="72" height="54" loading="lazy" decoding="async" /><span class="dish-name">Тебян ру / тебян джи<span class="dish-desc">говядина или курица на сковороде, полугорький перец, специи</span></span><span class="dish-price">4 090 / 3 790&nbsp;₸</span></li>
+              <li class="has-pic" data-item="Тебян" data-opts="ру, с говядиной=4090;джи, с курицей=3790"><img src="dishes/tebyan.webp" alt="" width="72" height="54" loading="lazy" decoding="async" /><span class="dish-name">Тебян ру / тебян джи<span class="dish-desc">говядина или курица на сковороде, полугорький перец, специи</span></span><span class="dish-price">4 090 / 3 790&nbsp;₸</span></li>
               <li><span class="dish-name">Тебян ян пай<span class="dish-desc">бараньи рёбрышки, полугорький перец, специи</span></span><span class="dish-price">4 290&nbsp;₸</span></li>
               <li class="has-pic"><img src="dishes/ganbyan-dzhi.webp" alt="" width="72" height="54" loading="lazy" decoding="async" /><span class="dish-name">Ганбян джи<span class="dish-desc">хрустящая курица с арахисом, перец, специи</span></span><span class="dish-price">4 590&nbsp;₸</span></li>
               <li class="has-pic"><img src="dishes/mogu-ru.webp" alt="" width="72" height="54" loading="lazy" decoding="async" /><span class="dish-name">Могу ру сяй<span class="dish-desc">говядина, вешенки, полугорький перец</span></span><span class="dish-price">3 790&nbsp;₸</span></li>
@@ -679,15 +755,15 @@
             <ul class="dishes">
               <li><span class="dish-name">Чайный сет «Нарын», 1 л</span><span class="dish-price">3 290&nbsp;₸</span></li>
               <li><span class="dish-name">Чайный сет «Восточный», 1 л</span><span class="dish-price">3 290&nbsp;₸</span></li>
-              <li><span class="dish-name">Чай по-казахски<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">990 / 1 990&nbsp;₸</span></li>
-              <li><span class="dish-name">Чай с тары<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">990 / 1 990&nbsp;₸</span></li>
-              <li><span class="dish-name">Облепиха и апельсин<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">1 390 / 2 490&nbsp;₸</span></li>
-              <li><span class="dish-name">Ташкентский<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">1 390 / 2 490&nbsp;₸</span></li>
-              <li><span class="dish-name">Марокканский<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">1 390 / 2 490&nbsp;₸</span></li>
-              <li><span class="dish-name">Ягодный<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">1 390 / 2 490&nbsp;₸</span></li>
-              <li><span class="dish-name">Малина и имбирь<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">1 390 / 2 490&nbsp;₸</span></li>
-              <li><span class="dish-name">Английский завтрак, сенча, ромашка, эрл грей, жасмин<span class="dish-desc">1 л</span></span><span class="dish-price">1 490&nbsp;₸</span></li>
-              <li><span class="dish-name">Японская липа, молочный улун<span class="dish-desc">1 л</span></span><span class="dish-price">1 990&nbsp;₸</span></li>
+              <li data-opts="400 мл=990;1 л=1990"><span class="dish-name">Чай по-казахски<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">990 / 1 990&nbsp;₸</span></li>
+              <li data-opts="400 мл=990;1 л=1990"><span class="dish-name">Чай с тары<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">990 / 1 990&nbsp;₸</span></li>
+              <li data-opts="400 мл=1390;1 л=2490"><span class="dish-name">Облепиха и апельсин<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">1 390 / 2 490&nbsp;₸</span></li>
+              <li data-opts="400 мл=1390;1 л=2490"><span class="dish-name">Ташкентский<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">1 390 / 2 490&nbsp;₸</span></li>
+              <li data-opts="400 мл=1390;1 л=2490"><span class="dish-name">Марокканский<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">1 390 / 2 490&nbsp;₸</span></li>
+              <li data-opts="400 мл=1390;1 л=2490"><span class="dish-name">Ягодный<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">1 390 / 2 490&nbsp;₸</span></li>
+              <li data-opts="400 мл=1390;1 л=2490"><span class="dish-name">Малина и имбирь<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">1 390 / 2 490&nbsp;₸</span></li>
+              <li data-item="Чай 1 л" data-opts="английский завтрак=1490;сенча=1490;ромашка=1490;эрл грей=1490;жасмин=1490"><span class="dish-name">Английский завтрак, сенча, ромашка, эрл грей, жасмин<span class="dish-desc">1 л</span></span><span class="dish-price">1 490&nbsp;₸</span></li>
+              <li data-item="Чай 1 л" data-opts="японская липа=1990;молочный улун=1990"><span class="dish-name">Японская липа, молочный улун<span class="dish-desc">1 л</span></span><span class="dish-price">1 990&nbsp;₸</span></li>
             </ul>
           </section>
           <section class="cat" id="m-coffee" data-cat="coffee" aria-labelledby="m-coffee-h">
@@ -699,11 +775,11 @@
               <li><span class="dish-name">Латте<span class="dish-desc">0,3 л</span></span><span class="dish-price">1 290&nbsp;₸</span></li>
               <li><span class="dish-name">Флэт уайт<span class="dish-desc">0,2 л</span></span><span class="dish-price">1 390&nbsp;₸</span></li>
               <li><span class="dish-name">Латте карамельный<span class="dish-desc">0,2 л</span></span><span class="dish-price">1 590&nbsp;₸</span></li>
-              <li><span class="dish-name">Раф лавандовый или ванильный<span class="dish-desc">0,2 л</span></span><span class="dish-price">1 890&nbsp;₸</span></li>
+              <li data-item="Раф 0,2 л" data-opts="лавандовый=1890;ванильный=1890"><span class="dish-name">Раф лавандовый или ванильный<span class="dish-desc">0,2 л</span></span><span class="dish-price">1 890&nbsp;₸</span></li>
               <li><span class="dish-name">Аффогато<span class="dish-desc">0,2 л</span></span><span class="dish-price">2 090&nbsp;₸</span></li>
-              <li><span class="dish-name">Фраппучино карамель или кокос<span class="dish-desc">0,3 л</span></span><span class="dish-price">2 290&nbsp;₸</span></li>
+              <li data-item="Фраппучино 0,3 л" data-opts="карамель=2290;кокос=2290"><span class="dish-name">Фраппучино карамель или кокос<span class="dish-desc">0,3 л</span></span><span class="dish-price">2 290&nbsp;₸</span></li>
               <li><span class="dish-name">Айс американо<span class="dish-desc">0,4 л</span></span><span class="dish-price">1 090&nbsp;₸</span></li>
-              <li><span class="dish-name">Айс капучино, айс латте<span class="dish-desc">0,4 л</span></span><span class="dish-price">1 290&nbsp;₸</span></li>
+              <li data-item="Айс кофе 0,4 л" data-opts="капучино=1290;латте=1290"><span class="dish-name">Айс капучино, айс латте<span class="dish-desc">0,4 л</span></span><span class="dish-price">1 290&nbsp;₸</span></li>
               <li><span class="dish-name">Бамбл кофе<span class="dish-desc">0,4 л</span></span><span class="dish-price">2 090&nbsp;₸</span></li>
               <li><span class="dish-name">Эспрессо-тоник<span class="dish-desc">0,4 л</span></span><span class="dish-price">2 190&nbsp;₸</span></li>
               <li><span class="dish-name">Малиновый эспрессо-тоник<span class="dish-desc">0,4 л</span></span><span class="dish-price">2 290&nbsp;₸</span></li>
@@ -712,13 +788,18 @@
           <section class="cat" id="m-drinks" data-cat="drinks" aria-labelledby="m-drinks-h">
             <h3 id="m-drinks-h">Лимонады и другие напитки</h3>
             <ul class="dishes">
-              <li><span class="dish-name">Лимонады<span class="dish-desc">манго-маракуйя, мохито, ягодный, киви-яблоко, щавель-маракуйя, яблоко-лайм; 400 мл / 1 л</span></span><span class="dish-price">1 390 / 2 490&nbsp;₸</span></li>
-              <li><span class="dish-name">Смузи<span class="dish-desc">манго-апельсин, ягодный, малина-яблоко; 0,3 л</span></span><span class="dish-price">2 090&nbsp;₸</span></li>
-              <li><span class="dish-name">Фреш<span class="dish-desc">апельсин, яблоко / морковь</span></span><span class="dish-price">1 790 / 1 390&nbsp;₸</span></li>
-              <li><span class="dish-name">Кымыз<span class="dish-desc">0,3 л / 1 л</span></span><span class="dish-price">890 / 2 290&nbsp;₸</span></li>
-              <li><span class="dish-name">Компот<span class="dish-desc">0,3 л / 1 л</span></span><span class="dish-price">790 / 1 790&nbsp;₸</span></li>
-              <li><span class="dish-name">Морс<span class="dish-desc">0,3 л / 1 л</span></span><span class="dish-price">990 / 2 090&nbsp;₸</span></li>
-              <li><span class="dish-name">Матча латте, айс матча латте</span><span class="dish-price">1 590&nbsp;₸</span></li>
+              <li data-opts="400 мл=1390;1 л=2490"><span class="dish-name">Лимонад манго-маракуйя<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">1 390 / 2 490&nbsp;₸</span></li>
+              <li data-opts="400 мл=1390;1 л=2490"><span class="dish-name">Лимонад мохито<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">1 390 / 2 490&nbsp;₸</span></li>
+              <li data-opts="400 мл=1390;1 л=2490"><span class="dish-name">Лимонад ягодный<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">1 390 / 2 490&nbsp;₸</span></li>
+              <li data-opts="400 мл=1390;1 л=2490"><span class="dish-name">Лимонад киви-яблоко<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">1 390 / 2 490&nbsp;₸</span></li>
+              <li data-opts="400 мл=1390;1 л=2490"><span class="dish-name">Лимонад щавель-маракуйя<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">1 390 / 2 490&nbsp;₸</span></li>
+              <li data-opts="400 мл=1390;1 л=2490"><span class="dish-name">Лимонад яблоко-лайм<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">1 390 / 2 490&nbsp;₸</span></li>
+              <li data-item="Смузи 0,3 л" data-opts="манго-апельсин=2090;ягодный=2090;малина-яблоко=2090"><span class="dish-name">Смузи<span class="dish-desc">манго-апельсин, ягодный, малина-яблоко; 0,3 л</span></span><span class="dish-price">2 090&nbsp;₸</span></li>
+              <li data-opts="апельсин=1790;яблоко=1790;морковь=1390"><span class="dish-name">Фреш<span class="dish-desc">апельсин, яблоко / морковь</span></span><span class="dish-price">1 790 / 1 390&nbsp;₸</span></li>
+              <li data-opts="0,3 л=890;1 л=2290"><span class="dish-name">Кымыз<span class="dish-desc">0,3 л / 1 л</span></span><span class="dish-price">890 / 2 290&nbsp;₸</span></li>
+              <li data-opts="0,3 л=790;1 л=1790"><span class="dish-name">Компот<span class="dish-desc">0,3 л / 1 л</span></span><span class="dish-price">790 / 1 790&nbsp;₸</span></li>
+              <li data-opts="0,3 л=990;1 л=2090"><span class="dish-name">Морс<span class="dish-desc">0,3 л / 1 л</span></span><span class="dish-price">990 / 2 090&nbsp;₸</span></li>
+              <li data-item="Матча латте" data-opts="горячий=1590;айс=1590"><span class="dish-name">Матча латте, айс матча латте</span><span class="dish-price">1 590&nbsp;₸</span></li>
               <li><span class="dish-name">Айс матча тоник</span><span class="dish-price">2 090&nbsp;₸</span></li>
               <li><span class="dish-name">Какао с маршмеллоу<span class="dish-desc">0,3 л</span></span><span class="dish-price">1 690&nbsp;₸</span></li>
               <li><span class="dish-name">Горячий шоколад<span class="dish-desc">0,3 л</span></span><span class="dish-price">1 490&nbsp;₸</span></li>
@@ -728,7 +809,6 @@
           <div class="menu-foot">
             <p>Цены в&nbsp;тенге, по&nbsp;меню кафе. Блюда без описания можно уточнить у&nbsp;официанта.</p>
             <a class="btn" href="#bron">Забронировать стол<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 7h11.2L8 2.8 9.4 1.4 16 8l-6.6 6.6L8 13.2 12.2 9H1z" fill="currentColor" /></svg></a>
-            <a class="link" href="zakaz/">Заказать с&nbsp;собой или доставку</a>
           </div>
         </div>
       </section>
@@ -843,9 +923,8 @@
               <div><dt>Сейчас</dt><dd data-state="tole">открыто</dd></div>
             </dl>
             <a class="tel" href="tel:+77084004014">+7 708 400 40 14</a>
-            <a class="link route" href="https://2gis.kz/almaty/firm/70000001099760957" target="_blank" rel="noopener">Маршрут в 2ГИС</a>
-            <a class="btn" href="zakaz/?b=tole">Заказать еду<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 7h11.2L8 2.8 9.4 1.4 16 8l-6.6 6.6L8 13.2 12.2 9H1z" fill="currentColor" /></svg></a>
-            <a class="btn ghost" href="https://wa.me/77084004014" target="_blank" rel="noopener">Написать в WhatsApp</a>
+            <p class="vlinks"><a class="link" href="https://2gis.kz/almaty/firm/70000001099760957" target="_blank" rel="noopener">Маршрут в 2ГИС</a><a class="link" href="https://wa.me/77084004014" target="_blank" rel="noopener">WhatsApp</a></p>
+            <a class="btn" href="#menu" data-order="tole">Заказать еду<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 7h11.2L8 2.8 9.4 1.4 16 8l-6.6 6.6L8 13.2 12.2 9H1z" fill="currentColor" /></svg></a>
           </article>
           <article class="vcard" data-r>
             <h3>Бухар жырау, 33</h3>
@@ -855,9 +934,8 @@
               <div><dt>Сейчас</dt><dd data-state="bukhar">открыто</dd></div>
             </dl>
             <a class="tel" href="tel:+77023641030">+7 702 364 10 30</a>
-            <a class="link route" href="https://2gis.kz/almaty/firm/70000001114687713" target="_blank" rel="noopener">Маршрут в 2ГИС</a>
-            <a class="btn" href="zakaz/?b=bukhar">Заказать еду<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 7h11.2L8 2.8 9.4 1.4 16 8l-6.6 6.6L8 13.2 12.2 9H1z" fill="currentColor" /></svg></a>
-            <a class="btn ghost" href="https://wa.me/77023641030" target="_blank" rel="noopener">Написать в WhatsApp</a>
+            <p class="vlinks"><a class="link" href="https://2gis.kz/almaty/firm/70000001114687713" target="_blank" rel="noopener">Маршрут в 2ГИС</a><a class="link" href="https://wa.me/77023641030" target="_blank" rel="noopener">WhatsApp</a></p>
+            <a class="btn" href="#menu" data-order="bukhar">Заказать еду<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 7h11.2L8 2.8 9.4 1.4 16 8l-6.6 6.6L8 13.2 12.2 9H1z" fill="currentColor" /></svg></a>
           </article>
         </div>
       </section>
@@ -874,7 +952,6 @@
           <a href="#family">Всей семьёй</a>
           <a href="#reviews">Отзывы</a>
           <a href="#bron">Бронь стола</a>
-          <a href="zakaz/">Заказ еды</a>
           <a href="#address">Адреса</a>
         </nav>
         <div class="foot-info">
@@ -892,6 +969,55 @@
         <p class="foot-legal">Демо-версия сайта для кафе Naryn. Цены и&nbsp;фото блюд взяты из&nbsp;меню кафе, фото зала из&nbsp;2ГИС. Сделал <a href="https://aknas04.github.io" target="_blank" rel="noopener">Бекарыс</a></p>
       </div>
     </footer>
+
+    <div class="cartbar" id="cartbar">
+      <button type="button" id="cart-open"><span><span class="badge" id="cart-n">0</span>Корзина</span><span class="sum" id="cart-sum">0 ₸</span></button>
+    </div>
+    <p class="sr" aria-live="polite" id="cart-live"></p>
+
+    <div id="cartwrap">
+      <div class="overlay" id="cart-overlay"></div>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="cart-h">
+        <div class="sh-head">
+          <h2 id="cart-h">Ваш заказ</h2>
+          <button class="x" type="button" id="cart-close" aria-label="Закрыть корзину"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
+        </div>
+        <div class="sh-body">
+          <div id="cart-lines"></div>
+          <div id="cart-form">
+            <div class="total"><span>Итого</span><span id="cart-total">0 ₸</span></div>
+            <p class="cnote" id="cart-note">Заберёте заказ сами в&nbsp;кафе.</p>
+            <div class="cform">
+              <fieldset>
+                <legend class="lbl">Кафе</legend>
+                <div class="seg">
+                  <label class="opt"><input type="radio" name="c-branch" value="tole" checked /><span class="opt-box"><span class="opt-name">Толе би</span><span class="opt-meta">09:00–23:00</span></span></label>
+                  <label class="opt"><input type="radio" name="c-branch" value="bukhar" /><span class="opt-box"><span class="opt-name">Бухар жырау</span><span class="opt-meta">08:00–23:00</span></span></label>
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend class="lbl">Получение</legend>
+                <div class="seg">
+                  <label class="opt"><input type="radio" name="c-mode" value="pickup" checked /><span class="opt-box"><span class="opt-name">Самовывоз</span></span></label>
+                  <label class="opt"><input type="radio" name="c-mode" value="delivery" /><span class="opt-box"><span class="opt-name">Доставка</span></span></label>
+                </div>
+              </fieldset>
+              <div class="pair-f">
+                <div class="field" id="c-name-f"><label class="lbl" for="c-name">Имя</label><input id="c-name" autocomplete="given-name" /><span class="err">Укажите имя</span></div>
+                <div class="field" id="c-phone-f"><label class="lbl" for="c-phone">Телефон</label><input id="c-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 7__ ___ __ __" /><span class="err">Нужен номер, чтобы перезвонить</span></div>
+              </div>
+              <div class="field" id="c-addr-f" hidden><label class="lbl" for="c-addr">Адрес доставки</label><input id="c-addr" autocomplete="street-address" placeholder="Улица, дом, квартира" /><span class="err">Укажите адрес</span></div>
+              <div class="field"><label class="lbl" for="c-comment">Комментарий</label><textarea id="c-comment" placeholder="К 19:30, без лука, приборы на 3"></textarea></div>
+            </div>
+          </div>
+        </div>
+        <div class="sh-foot" id="cart-foot">
+          <button class="btn" type="button" id="c-send">Отправить в&nbsp;WhatsApp</button>
+          <p class="sent" id="c-sent" role="status">WhatsApp открыт с&nbsp;готовым сообщением. Осталось нажать там «Отправить», и&nbsp;кафе перезвонит.</p>
+          <button class="clear" type="button" id="c-clear">Очистить корзину</button>
+        </div>
+      </div>
+    </div>
 
     <script>
       (function () {
@@ -1078,6 +1204,222 @@
           es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); rev.unobserve(e.target); } });
         }, { rootMargin: "0px 0px 10% 0px" });
         all.forEach(function (el) { rev.observe(el); });
+      })();
+    </script>
+    <script>
+      /* Заказ прямо из меню: корзина уходит сообщением в WhatsApp выбранного кафе */
+      (function () {
+        var BR = {
+          tole: { name: "Толе би, 273/4", num: "77084004014" },
+          bukhar: { name: "Бухар жырау, 33", num: "77023641030" }
+        };
+        var STORE = "naryn_cart_v2", STORE_BR = "naryn_branch";
+        var PLUS = '<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M6 0h2v6h6v2H8v6H6V8H0V6h6z" fill="currentColor"/></svg>';
+        var MINUS = '<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M0 6h14v2H0z" fill="currentColor"/></svg>';
+        function $(id) { return document.getElementById(id); }
+        function fmt(n) { return n.toLocaleString("ru-RU") + " ₸"; }
+        function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+        function store(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+        function load(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+
+        var items = {}, cart = {}, dishes = [], keyDish = {};
+
+        /* Позиции берём из меню на странице. Варианты (объём, вкус) лежат в data-opts="вариант=цена;..." */
+        var body = $("menu-body");
+        body.querySelectorAll(".dishes li").forEach(function (li) {
+          var nameEl = li.querySelector(".dish-name"), priceEl = li.querySelector(".dish-price");
+          if (!nameEl || !priceEl) return;
+          var name = nameEl.firstChild.textContent.trim();
+          var base = li.getAttribute("data-item") || name;
+          var opts;
+          if (li.dataset.opts) {
+            opts = li.dataset.opts.split(";").map(function (p) { var kv = p.split("="); return { label: kv[0].trim(), price: +kv[1] }; });
+          } else if (priceEl.textContent.indexOf("/") === -1) {
+            opts = [{ label: "", price: parseInt(priceEl.textContent.replace(/\D/g, ""), 10) }];
+          } else {
+            return; // несколько цен без разметки: не угадываем
+          }
+          var d = { li: li, name: name, opts: opts, i: dishes.length, ctl: document.createElement("span") };
+          opts.forEach(function (o) {
+            o.key = base + "|" + o.label;
+            items[o.key] = { name: base, opt: o.label, price: o.price };
+            keyDish[o.key] = d.i;
+          });
+          d.ctl.className = "ctl";
+          li.appendChild(d.ctl);
+          li.dataset.dish = d.i;
+          dishes.push(d);
+        });
+        body.classList.add("ordering");
+
+        function label(k) { var it = items[k]; return it.name + (it.opt ? ", " + it.opt : ""); }
+        function qtyHTML(k) {
+          var l = esc(label(k)), kk = esc(k);
+          return '<span class="qty"><button type="button" data-a="dec" data-k="' + kk + '" aria-label="Убрать одну: ' + l + '">' + MINUS + '</button><span class="q">' + cart[k] + '</span><button type="button" data-a="inc" data-k="' + kk + '" aria-label="Добавить ещё: ' + l + '">' + PLUS + "</button></span>";
+        }
+        function renderDish(d) {
+          if (d.opts.length === 1) {
+            var k = d.opts[0].key;
+            d.ctl.innerHTML = cart[k] ? qtyHTML(k) : '<button type="button" class="add" data-a="inc" data-k="' + esc(k) + '" aria-label="В корзину: ' + esc(label(k)) + '">' + PLUS + "</button>";
+            return;
+          }
+          var n = 0, open = d.li.classList.contains("choosing");
+          d.opts.forEach(function (o) { n += cart[o.key] || 0; });
+          d.ctl.innerHTML = '<button type="button" class="add' + (n ? " has" : "") + '" data-a="pick" aria-expanded="' + open + '" aria-label="Выбрать вариант: ' + esc(d.name) + (n ? ", в корзине " + n : "") + '">' + (n ? '<span class="n">' + n + "</span>" : PLUS) + "</button>";
+          var ch = d.li.querySelector(".choice");
+          if (!open) { if (ch) ch.remove(); return; }
+          if (!ch) {
+            ch = document.createElement("div");
+            ch.className = "choice";
+            ch.setAttribute("role", "group");
+            ch.setAttribute("aria-label", "Варианты: " + d.name);
+            d.li.appendChild(ch);
+          }
+          var same = d.opts.every(function (o) { return o.price === d.opts[0].price; });
+          ch.innerHTML = d.opts.map(function (o) {
+            var c = cart[o.key] || 0;
+            return '<button type="button" data-a="inc" data-k="' + esc(o.key) + '" aria-label="Добавить: ' + esc(label(o.key)) + ", " + fmt(o.price) + (c ? ", в корзине " + c : "") + '">' + esc(o.label) + (same ? "" : '<span class="pr">' + fmt(o.price) + "</span>") + (c ? '<span class="c">' + c + "</span>" : "") + "</button>";
+          }).join("");
+        }
+
+        function totals() {
+          var n = 0, s = 0;
+          for (var k in cart) { n += cart[k]; s += cart[k] * items[k].price; }
+          return { n: n, s: s };
+        }
+        function renderCart() {
+          var t = totals(), keys = Object.keys(cart);
+          $("cart-n").textContent = t.n;
+          $("cart-sum").textContent = fmt(t.s);
+          $("cart-total").textContent = fmt(t.s);
+          $("cartbar").classList.toggle("show", t.n > 0);
+          $("cart-form").hidden = !keys.length;
+          $("cart-foot").hidden = !keys.length;
+          $("cart-lines").innerHTML = keys.length ? keys.map(function (k) {
+            var it = items[k];
+            return '<div class="line"><div class="n">' + esc(it.name) + (it.opt ? "<small>" + esc(it.opt) + "</small>" : "") + "</div>" + qtyHTML(k) + '<div class="s">' + fmt(it.price * cart[k]) + "</div></div>";
+          }).join("") : '<p class="cart-empty">Корзина пуста. Добавьте блюда из&nbsp;меню.</p>';
+          store(STORE, JSON.stringify(cart));
+        }
+        function change(k, delta) {
+          cart[k] = (cart[k] || 0) + delta;
+          if (cart[k] <= 0) delete cart[k];
+          renderDish(dishes[keyDish[k]]);
+          renderCart();
+          $("cart-live").textContent = label(k) + ": " + (cart[k] || 0) + " шт. Итого " + fmt(totals().s);
+        }
+
+        // кнопки в меню и в корзине; после перерисовки возвращаем фокус на кнопку-замену
+        document.addEventListener("click", function (e) {
+          var b = e.target.closest("button[data-a]");
+          if (!b || !b.closest("#menu-body, #cartwrap")) return;
+          var a = b.dataset.a, k = b.dataset.k, scope = b.closest("li") || $("cart-lines");
+          if (a === "pick") {
+            var d = dishes[+scope.dataset.dish];
+            d.li.classList.toggle("choosing");
+            renderDish(d);
+          } else {
+            change(k, a === "inc" ? 1 : -1);
+          }
+          if (document.contains(b)) return;
+          var next = null;
+          scope.querySelectorAll("button[data-a]").forEach(function (x) { if (!next && x.dataset.a === a && x.dataset.k === k) next = x; });
+          (next || scope.querySelector("button") || $("cart-close")).focus();
+        });
+
+        // сохранённая корзина и кафе
+        try {
+          var saved = JSON.parse(load(STORE) || "{}");
+          for (var sk in saved) if (items[sk] && saved[sk] > 0) cart[sk] = saved[sk];
+        } catch (e) {}
+        dishes.forEach(renderDish);
+        renderCart();
+
+        function setBranch(b) {
+          if (!BR[b]) return;
+          document.querySelector('input[name="c-branch"][value="' + b + '"]').checked = true;
+          store(STORE_BR, b);
+        }
+        setBranch(new URLSearchParams(location.search).get("b") || load(STORE_BR) || "tole");
+        document.querySelectorAll("input[name=c-branch]").forEach(function (r) { r.addEventListener("change", function () { store(STORE_BR, r.value); }); });
+        document.querySelectorAll("[data-order]").forEach(function (a) { a.addEventListener("click", function () { setBranch(a.dataset.order); }); });
+
+        // открыть / закрыть
+        var wrap = $("cartwrap");
+        var behind = [document.querySelector("main"), document.querySelector(".foot"), $("cartbar")];
+        function openCart() {
+          wrap.classList.add("open");
+          document.documentElement.classList.add("lock");
+          behind.forEach(function (el) { el.inert = true; });
+          $("c-sent").classList.remove("on");
+          $("cart-close").focus();
+        }
+        function closeCart() {
+          if (!wrap.classList.contains("open")) return;
+          wrap.classList.remove("open");
+          document.documentElement.classList.remove("lock");
+          behind.forEach(function (el) { el.inert = false; });
+          if (totals().n) $("cart-open").focus({ preventScroll: true });
+        }
+        $("cart-open").addEventListener("click", openCart);
+        $("cart-close").addEventListener("click", closeCart);
+        $("cart-overlay").addEventListener("click", closeCart);
+        document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeCart(); });
+        $("c-clear").addEventListener("click", function () {
+          var touched = Object.keys(cart).map(function (k) { return dishes[keyDish[k]]; });
+          for (var k in cart) delete cart[k];
+          touched.forEach(renderDish);
+          renderCart();
+          $("cart-live").textContent = "Корзина очищена";
+          $("cart-close").focus();
+        });
+
+        // получение
+        function delivery() { return document.querySelector("input[name=c-mode]:checked").value === "delivery"; }
+        function syncMode() {
+          $("c-addr-f").hidden = !delivery();
+          $("cart-note").textContent = delivery() ? "Стоимость доставки кафе назовёт, когда перезвонит." : "Заберёте заказ сами в кафе.";
+        }
+        document.querySelectorAll("input[name=c-mode]").forEach(function (r) { r.addEventListener("change", syncMode); });
+        syncMode();
+
+        // проверка: ошибка после ухода из поля, исчезает при вводе
+        var checks = {
+          "c-name": function (v) { return v.trim().length > 0; },
+          "c-phone": function (v) { return v.replace(/\D/g, "").length >= 10; },
+          "c-addr": function (v) { return v.trim().length > 0; }
+        };
+        Object.keys(checks).forEach(function (id) {
+          var el = $(id), f = $(id + "-f");
+          el.addEventListener("input", function () { el.dataset.dirty = 1; f.classList.remove("bad"); });
+          el.addEventListener("blur", function () { if (el.dataset.dirty && !checks[id](el.value)) f.classList.add("bad"); });
+        });
+
+        $("c-send").addEventListener("click", function () {
+          var need = ["c-name", "c-phone"].concat(delivery() ? ["c-addr"] : []);
+          var bad = need.filter(function (id) { return !checks[id]($(id).value); });
+          need.forEach(function (id) { $(id + "-f").classList.toggle("bad", bad.indexOf(id) > -1); });
+          if (bad.length) { $(bad[0]).focus(); return; }
+
+          var b = BR[document.querySelector("input[name=c-branch]:checked").value];
+          var v = function (id) { return $(id).value.trim(); };
+          var msg = "*Заказ в Naryn, " + b.name + "*\n\n";
+          Object.keys(cart).forEach(function (k) {
+            var it = items[k];
+            msg += "• " + it.name + (it.opt ? " (" + it.opt + ")" : "") + " × " + cart[k] + " = " + fmt(it.price * cart[k]) + "\n";
+          });
+          msg += "\n*Итого: " + fmt(totals().s) + "*\n\n";
+          msg += delivery() ? "Доставка: " + v("c-addr") + "\n" : "Самовывоз\n";
+          msg += "Имя: " + v("c-name") + "\nТелефон: " + v("c-phone") + "\n";
+          if (v("c-comment")) msg += "Комментарий: " + v("c-comment") + "\n";
+
+          var a = document.createElement("a");
+          a.href = "https://wa.me/" + b.num + "?text=" + encodeURIComponent(msg);
+          a.target = "_blank";
+          a.rel = "noopener";
+          a.click();
+          $("c-sent").classList.add("on");
+        });
       })();
     </script>
   </body>
