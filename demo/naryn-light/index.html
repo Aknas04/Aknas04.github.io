@@ -1,0 +1,1461 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Naryn, семейное халал-кафе в Алматы (демо, светлая версия)</title>
+    <meta name="description" content="Naryn — семейное халал-кафе в Алматы на Толе би, 273/4 и Бухар жырау, 33. Нарын, манты, лагман и ещё 200 блюд с ценами. Детская комната, намазхана, кабинки. Бронь стола в WhatsApp." />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#fbf6ec" />
+    <link rel="icon" type="image/png" href="../naryn/logo/favicon.png?v=2" />
+    <link rel="apple-touch-icon" href="../naryn/logo/apple-touch-icon.png?v=2" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Naryn, семейное халал-кафе в Алматы" />
+    <meta property="og:description" content="Меню с ценами, заказ с собой и доставка через WhatsApp, бронь стола. Толе би, 273/4 и Бухар жырау, 33." />
+    <meta property="og:url" content="https://aknas04.github.io/demo/naryn-light/" />
+    <meta property="og:image" content="https://aknas04.github.io/demo/naryn/logo/og.jpg" />
+    <meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="../naryn/fonts/onest-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="../naryn/fonts/unbounded-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="../naryn/photos/hero.jpg" as="image" media="(min-width: 900px)" />
+    <link rel="preload" href="../naryn/photos/hero-m.jpg" as="image" media="(max-width: 899px)" />
+    <link href="../naryn/fonts/fonts.css" rel="stylesheet" />
+    <script>document.documentElement.classList.add("js");</script>
+    <style>
+      :root {
+        --bg: #fbf6ec;
+        --surface: #f4ebda;
+        --surface-2: #eadcc3;
+        --ink: #3a1c10;
+        --muted: #75574a;
+        --gold: #e78a23;
+        --gold-hi: #f09c42;
+        --gold-ink: #3a1c10;
+        --gold-text: #964a0a;
+        --green-text: #3e6b21;
+        --step-small: clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem);
+        --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+        --step-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+        --step-head: clamp(1.625rem, 1.1rem + 1.7vw, 2.5rem);
+        --step-display: clamp(1.75rem, 0.9rem + 2.6vw, 3.25rem);
+        --m: clamp(16px, 2.2vw, 32px);
+        --gap: clamp(112px, 11vw, 184px);
+        --ease: cubic-bezier(0.16, 1, 0.3, 1);
+        --display: "Unbounded", "Onest", system-ui, sans-serif;
+      }
+      * { box-sizing: border-box; margin: 0; }
+      html { scroll-behavior: smooth; scroll-padding-top: 16px; color-scheme: light; }
+      body { font-family: "Onest", system-ui, sans-serif; font-size: var(--step-body); line-height: 1.5; letter-spacing: -0.005em; color: var(--ink); background: var(--bg); overflow-x: clip; -webkit-font-smoothing: antialiased; }
+      a { color: inherit; }
+      img { display: block; max-width: 100%; height: auto; }
+      ul { list-style: none; padding: 0; }
+      button { font: inherit; color: inherit; }
+      fieldset { border: 0; padding: 0; min-width: 0; }
+      :focus-visible { outline: 2px solid var(--gold-text); outline-offset: 3px; }
+      ::selection { background: var(--gold); color: var(--gold-ink); }
+      h1, h2, h3 { font-family: var(--display); font-weight: 500; letter-spacing: -0.02em; text-wrap: balance; }
+      h2 { font-size: var(--step-head); line-height: 1.1; }
+      h3 { font-size: var(--step-lead); line-height: 1.2; }
+      p { text-wrap: pretty; }
+      .nw { white-space: nowrap; }
+      .muted { color: var(--muted); }
+      .gold { color: var(--gold-text); }
+
+      .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 54px; padding: 0 28px; border: 0; background: var(--gold); color: var(--gold-ink); font: 600 var(--step-body) / 1 "Onest", sans-serif; text-decoration: none; cursor: pointer; transition: background-color 180ms ease, transform 160ms var(--ease); }
+      .btn:hover { background: var(--gold-hi); }
+      .btn:active { transform: scale(0.97); }
+      .btn svg { width: 16px; height: 16px; transition: transform 220ms var(--ease); }
+      .btn:hover svg { transform: translateX(4px); }
+      .link { font-weight: 500; text-decoration: underline; text-decoration-color: var(--gold-text); text-decoration-thickness: 1.5px; text-underline-offset: 6px; transition: text-underline-offset 200ms var(--ease), color 200ms ease; }
+      .link:hover { color: var(--gold-text); text-underline-offset: 9px; }
+
+      /* Первый экран */
+      .hero { position: relative; min-height: max(100svh, 700px); overflow: hidden; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: auto 1fr auto; column-gap: 24px; padding: 0 var(--m); }
+      .bar { grid-column: 1 / -1; position: relative; z-index: 3; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: var(--m); }
+      .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
+      .brand-emblem { width: auto; height: 56px; }
+      .brand-word { width: auto; height: 20px; }
+      .bar-right { display: flex; align-items: center; gap: 28px; }
+      .bar-right .link { font-size: var(--step-body); }
+      .hero-copy { grid-column: 1 / 7; grid-row: 2; position: relative; z-index: 2; align-self: center; padding: 48px 0; }
+      .hero h1 { font-size: clamp(1.75rem, 0.8rem + 2.4vw, 3rem); line-height: 1.12; font-weight: 600; letter-spacing: -0.025em; max-width: 15em; }
+      .hero .lede { margin-top: 28px; max-width: 40ch; }
+      .now { margin-top: 16px; max-width: 44ch; color: var(--muted); font-size: var(--step-small); min-height: 2.9em; }
+      .now strong { color: var(--gold-text); font-weight: 500; }
+      .hero-actions { margin-top: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; }
+      .hero-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; background: var(--surface); }
+      .hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 55%; animation: drift 24s ease-out both; }
+      @keyframes drift { from { transform: scale(1.08); } to { transform: scale(1); } }
+      .hero-bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(14, 12, 10, 0.9) 0%, rgba(14, 12, 10, 0.72) 38%, rgba(14, 12, 10, 0.18) 72%, rgba(14, 12, 10, 0.1) 100%); } /* taste-skill-ignore: нейтральная подложка под текст на фото */
+      .hero-bg::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 180px; z-index: 1; background: linear-gradient(180deg, rgba(14, 12, 10, 0.55), rgba(14, 12, 10, 0)); } /* taste-skill-ignore: нейтральная подложка под текст на фото */
+      .hero-cap { position: absolute; z-index: 2; right: var(--m); bottom: calc(92px + var(--m)); font-size: var(--step-small); color: var(--ink); opacity: 0.85; }
+      .strip { grid-column: 1 / -1; grid-row: 3; position: relative; z-index: 2; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2px; margin: 0 calc(-1 * var(--m)); }
+      .strip > * { display: flex; flex-direction: column; justify-content: center; gap: 4px; min-height: 92px; padding: 16px var(--m); background: var(--surface); text-decoration: none; transition: background-color 200ms ease; }
+      .strip a:hover { background: var(--surface-2); }
+      .strip b { font-weight: 600; font-size: var(--step-body); }
+      .strip b .gold { font-family: var(--display); }
+      .strip span { font-size: var(--step-small); color: var(--muted); }
+
+      /* О кафе */
+      .about { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; padding: var(--gap) var(--m) 0; }
+      .about-text { grid-column: 2 / 7; }
+      .about-text h2 { margin-bottom: 32px; }
+      .about-text p { max-width: 40ch; }
+      .about-text p + p { margin-top: 1em; }
+      .about-text p:first-of-type { font-size: var(--step-lead); line-height: 1.35; }
+      .facts { grid-column: 8 / 13; align-self: end; display: grid; gap: 30px; }
+      .facts li { display: grid; grid-template-columns: 15rem minmax(0, 1fr); gap: 20px; align-items: baseline; }
+      .facts b { font-family: var(--display); font-size: var(--step-head); font-weight: 500; color: var(--gold-text); line-height: 1; white-space: nowrap; }
+      .facts span { color: var(--muted); line-height: 1.35; }
+
+      /* Атмосфера */
+      .atmo { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: auto auto auto; gap: 16px 24px; padding: var(--gap) var(--m) 0; }
+      .atmo figure { position: relative; overflow: hidden; background: var(--surface); }
+      .atmo img { width: 100%; height: 100%; object-fit: cover; transition: transform 1200ms var(--ease); }
+      .atmo figure:hover img { transform: scale(1.04); }
+      .atmo figcaption { position: absolute; left: 0; bottom: 0; padding: 10px 14px; background: var(--bg); font-size: var(--step-small); }
+      .atmo-head { grid-column: 1 / 6; grid-row: 1; align-self: end; padding-bottom: 24px; }
+      .atmo-head p { margin-top: 20px; max-width: 38ch; color: var(--muted); }
+      .a1 { grid-column: 1 / 6; grid-row: 2 / 4; aspect-ratio: 4 / 5; }
+      .a2 { grid-column: 6 / 13; grid-row: 1 / 3; aspect-ratio: 4 / 3; }
+      .a3 { grid-column: 6 / 9; grid-row: 3; aspect-ratio: 3 / 4; }
+      .a4 { grid-column: 9 / 13; grid-row: 3; aspect-ratio: 3 / 4; }
+
+      /* Что заказать */
+      .hits { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; padding: var(--gap) var(--m) 0; }
+      .hits-photo { grid-column: 1 / 7; position: sticky; top: 12vh; align-self: start; aspect-ratio: 5 / 4; }
+      .hits-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; transform: scale(0.96); transition: opacity 300ms ease, transform 600ms var(--ease); }
+      .hits-photo img.on { opacity: 1; transform: none; }
+      .hits-list { grid-column: 8 / 13; }
+      .hits-list h2 { margin-bottom: 40px; }
+      .hit-row { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; width: 100%; min-height: 60px; padding: 14px 0; border: 0; background: none; text-align: left; cursor: pointer; color: var(--muted); font-size: var(--step-lead); font-weight: 500; letter-spacing: -0.015em; transition: color 200ms ease; }
+      .hit-row span:last-child { font-size: var(--step-body); font-weight: 500; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+      .hit-row:hover, .hit.on .hit-row { color: var(--ink); }
+      .hit.on .hit-row span:last-child { color: var(--gold-text); }
+      .hit-desc { max-width: 36ch; padding-bottom: 14px; color: var(--muted); }
+      .js .hit-desc { display: none; }
+      .js .hit.on .hit-desc { display: block; animation: rise 360ms var(--ease) both; }
+      @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+      /* Меню */
+      .menu { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; margin-top: var(--gap); padding: var(--gap) var(--m); background: var(--surface); }
+      .menu-side { grid-column: 1 / 4; position: sticky; top: 24px; align-self: start; }
+      .menu-side p { margin-top: 16px; color: var(--muted); max-width: 26ch; }
+      .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 28px; }
+      .chip { min-height: 40px; padding: 0 14px; border: 0; background: var(--surface-2); cursor: pointer; font-size: var(--step-small); font-weight: 500; transition: background-color 180ms ease, color 180ms ease, transform 140ms var(--ease); }
+      .chip:hover { background: #e3d2b4; }
+      .chip:active { transform: scale(0.96); }
+      .chip[aria-pressed="true"] { background: var(--gold); color: var(--gold-ink); }
+      .menu-body { grid-column: 5 / 13; }
+      .cat + .cat { margin-top: 72px; }
+      .js .menu-body.filtered .cat { display: none; }
+      .js .menu-body.filtered .cat.show { display: block; animation: rise 420ms var(--ease) both; }
+      .js .menu-body.filtered .cat + .cat { margin-top: 0; }
+      .cat h3 { font-size: var(--step-head); margin-bottom: 20px; }
+      .dishes { display: grid; grid-template-columns: 1fr 1fr; column-gap: 40px; }
+      .dishes li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; align-items: baseline; padding: 12px 0; }
+      .dishes li.has-pic { grid-template-columns: 72px minmax(0, 1fr) auto; align-items: center; }
+      .dishes li img { width: 72px; height: 54px; object-fit: contain; }
+      .dish-name { font-weight: 500; line-height: 1.3; }
+      .dish-desc { display: block; margin-top: 3px; font-weight: 400; font-size: var(--step-small); color: var(--muted); line-height: 1.4; }
+      .dish-price { white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--gold-text); font-weight: 500; }
+      .menu-foot { margin-top: 56px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px; }
+      .menu-foot p { color: var(--muted); font-size: var(--step-small); max-width: 52ch; }
+
+      /* Всей семьёй */
+      .fam { position: relative; height: 330vh; }
+      .fam-stage { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+      .steps { position: relative; z-index: 2; width: min(38rem, calc(100% - 2 * var(--m))); margin: 0 auto; padding-top: 22vh; text-align: center; }
+      .steps li { font-size: var(--step-lead); font-weight: 500; line-height: 1.25; letter-spacing: -0.015em; color: var(--muted); transition: color 300ms ease; }
+      .steps li + li { margin-top: 12px; }
+      .steps li.on { color: var(--ink); }
+      .steps h2 { font-size: var(--step-head); margin-bottom: 20px; color: var(--gold-text); }
+      .pair img { position: absolute; z-index: 1; width: clamp(220px, 24vw, 400px); aspect-ratio: 3 / 4; object-fit: cover; opacity: 0; transform: translateY(24px) scale(0.96); transition: opacity 600ms ease, transform 900ms var(--ease); }
+      .pair img.on { opacity: 1; transform: none; }
+      .pair img.l { left: var(--m); }
+      .pair img.r { right: var(--m); }
+
+      /* Отзывы */
+      .reviews { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; padding: var(--gap) var(--m) 0; }
+      .portrait { grid-column: 2 / 6; aspect-ratio: 3 / 4; max-height: 70svh; background: var(--surface); display: grid; place-items: center; overflow: hidden; }
+      .portrait img { width: 100%; height: 100%; object-fit: cover; transition: transform 1200ms var(--ease); }
+      .portrait:hover img { transform: scale(1.04); }
+      .quote { grid-column: 7 / 13; padding-top: 120px; }
+      .quote h2 { margin-bottom: 32px; }
+      .quote blockquote { font-size: var(--step-lead); line-height: 1.3; letter-spacing: -0.015em; max-width: 28ch; }
+      .quote blockquote p + p { margin-top: 0.6em; }
+      .quote .who { margin-top: 32px; }
+      .quote .who p:first-child { font-weight: 500; color: var(--gold-text); }
+      .quote .who .link { display: inline-block; margin-top: 10px; }
+      .quote-pic { width: min(240px, 40%); margin: 96px 16% 0 auto; aspect-ratio: 1; background: var(--surface); overflow: hidden; }
+      .quote-pic img { width: 100%; height: 100%; object-fit: cover; }
+
+      /* Бронь */
+      .book { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; padding: var(--gap) var(--m) 0; }
+      .book-side { grid-column: 1 / 6; }
+      .book-side p { margin-top: 20px; max-width: 36ch; }
+      .book-side .lede { color: var(--muted); }
+      .book-form { grid-column: 7 / 13; display: grid; gap: 28px; }
+      .lbl { display: block; font-size: var(--step-small); color: var(--muted); margin-bottom: 8px; }
+      .branches { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+      .opt { position: relative; display: block; cursor: pointer; }
+      .opt input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+      .opt-box { display: block; height: 100%; padding: 16px 18px; background: var(--surface); transition: background-color 180ms ease, color 180ms ease, transform 140ms var(--ease); }
+      .opt:hover .opt-box { background: var(--surface-2); }
+      .opt:active .opt-box { transform: scale(0.99); }
+      .opt input:checked + .opt-box { background: var(--gold); color: var(--gold-ink); }
+      .opt input:focus-visible + .opt-box { outline: 2px solid var(--gold-text); outline-offset: 3px; }
+      .opt-name { display: block; font-weight: 600; }
+      .opt-meta { display: block; margin-top: 4px; font-size: var(--step-small); opacity: 0.85; }
+      .opt-state { display: block; margin-top: 10px; font-size: var(--step-small); font-weight: 500; }
+      .pair-f { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      .field input, .field select { width: 100%; min-height: 52px; padding: 0 14px; border: 0; border-radius: 0; background: var(--surface); color: var(--ink); font: 400 var(--step-body) "Onest", sans-serif; appearance: none; -webkit-appearance: none; }
+      .field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23964a0a' stroke-width='2'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+      .field input::placeholder { color: var(--muted); }
+      .field input:focus, .field select:focus { outline: 2px solid var(--gold-text); outline-offset: 2px; }
+      .stepper { display: flex; align-items: center; }
+      .stepper button { width: 52px; height: 52px; border: 0; background: var(--surface-2); color: var(--gold-text); font-size: 1.4rem; cursor: pointer; transition: transform 140ms var(--ease), background-color 180ms ease; }
+      .stepper button:hover { background: #e3d2b4; }
+      .stepper button:active { transform: scale(0.94); }
+      .stepper output { min-width: 72px; height: 52px; display: grid; place-items: center; background: var(--surface); font-weight: 600; font-variant-numeric: tabular-nums; }
+      .seats { display: flex; flex-wrap: wrap; gap: 8px; }
+      .seats .opt-box { padding: 12px 16px; }
+      .preview { background: var(--surface); padding: 20px; }
+      .preview p:last-child { white-space: pre-line; }
+      .book-form .btn { width: 100%; }
+      .alt { font-size: var(--step-small); color: var(--muted); }
+      .alt a { color: var(--ink); font-weight: 500; text-decoration-color: var(--gold-text); }
+
+      /* Адреса */
+      .visit { position: relative; margin-top: var(--gap); min-height: 100svh; background: var(--bg); overflow: hidden; padding: clamp(64px, 7vw, 110px) var(--m); display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-content: start; }
+      .visit h2 { grid-column: 1 / 6; position: relative; z-index: 2; font-size: var(--step-display); font-weight: 600; line-height: 1.1; }
+      .visit-bg { position: absolute; inset: 0; z-index: 0; }
+      .visit-bg img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; filter: brightness(0.42); }
+      .visit-cards { grid-column: 7 / 13; position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-self: start; }
+      .vcard { background: var(--bg); padding: 28px 28px 0; display: flex; flex-direction: column; }
+      .vcard p { margin-top: 10px; color: var(--muted); }
+      .vcard dl { margin: 22px 0 0; display: grid; gap: 8px; font-size: var(--step-small); }
+      .vcard dl div { display: flex; justify-content: space-between; gap: 12px; }
+      .vcard dt { color: var(--muted); }
+      .vcard dd { margin: 0; font-variant-numeric: tabular-nums; text-align: right; }
+      .vcard .tel { display: inline-block; margin-top: 20px; font-size: var(--step-lead); font-weight: 600; text-decoration: none; transition: color 200ms ease; }
+      .vcard .tel:hover { color: var(--gold-text); }
+      .vcard .vlinks { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: var(--step-small); }
+      .vcard .btn { margin: 24px -28px 0; }
+
+      /* Заказ прямо из меню */
+      .order-hint { font-size: var(--step-small); }
+      .ordering .dishes li, .ordering .dishes li.has-pic { grid-template-columns: minmax(0, 1fr) auto; gap: 2px 16px; align-items: center; align-content: start; }
+      .ordering .dishes li.has-pic { grid-template-columns: 72px minmax(0, 1fr) auto; }
+      .ordering .dishes li img { grid-column: 1; grid-row: 1 / 3; }
+      .ordering .dish-name { grid-column: -3 / -2; grid-row: 1; align-self: end; }
+      .ordering .dish-price { grid-column: -3 / -2; grid-row: 2; align-self: start; font-size: var(--step-small); }
+      .ctl { grid-column: -2 / -1; grid-row: 1 / 3; display: flex; justify-content: flex-end; }
+      .add { position: relative; width: 36px; height: 36px; padding: 0; border: 1px solid rgba(150, 74, 10, 0.4); background: transparent; color: var(--gold-text); display: inline-grid; place-items: center; cursor: pointer; transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 140ms var(--ease); }
+      .add::after, .qty button::after { content: ""; position: absolute; inset: -5px; }
+      .add:hover, .add.has, .add[aria-expanded="true"] { background: var(--gold); border-color: var(--gold-text); color: var(--gold-ink); }
+      .add:active { transform: scale(0.94); }
+      .add svg, .qty svg { width: 14px; height: 14px; }
+      .add .n { font-size: var(--step-small); font-weight: 600; font-variant-numeric: tabular-nums; }
+      .qty { display: inline-flex; align-items: center; border: 1px solid rgba(150, 74, 10, 0.4); }
+      .qty button { position: relative; width: 34px; height: 34px; padding: 0; border: 0; background: none; color: var(--gold-text); display: inline-grid; place-items: center; cursor: pointer; transition: background-color 180ms ease; }
+      .qty button:hover { background: var(--surface-2); }
+      .qty .q { min-width: 26px; text-align: center; font-size: var(--step-small); font-weight: 600; font-variant-numeric: tabular-nums; }
+      .choice { grid-column: -3 / -1; grid-row: 3; display: flex; flex-wrap: wrap; gap: 6px; padding-top: 10px; animation: rise 300ms var(--ease) both; }
+      .choice button { min-height: 40px; padding: 0 14px; border: 0; background: var(--surface-2); font-size: var(--step-small); font-weight: 500; font-variant-numeric: tabular-nums; cursor: pointer; transition: background-color 180ms ease, transform 140ms var(--ease); }
+      .choice button:hover { background: #e3d2b4; }
+      .choice button:active { transform: scale(0.96); }
+      .choice .pr { margin-left: 8px; color: var(--gold-text); }
+      .choice .c { margin-left: 8px; padding: 1px 7px; background: var(--gold); color: var(--gold-ink); }
+
+      .cartbar { position: fixed; z-index: 30; left: 50%; bottom: calc(14px + env(safe-area-inset-bottom)); width: min(420px, calc(100% - 2 * var(--m))); transform: translate(-50%, 160%); visibility: hidden; transition: transform 380ms var(--ease), visibility 0s 380ms; }
+      .cartbar.show { transform: translate(-50%, 0); visibility: visible; transition: transform 420ms var(--ease); }
+      .cartbar button { width: 100%; min-height: 54px; padding: 0 18px; border: 0; display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--gold); color: var(--gold-ink); font-weight: 600; box-shadow: 0 12px 32px rgba(58, 28, 16, 0.22); cursor: pointer; transition: background-color 180ms ease, transform 140ms var(--ease); }
+      .cartbar button:hover { background: var(--gold-hi); }
+      .cartbar button:active { transform: scale(0.98); }
+      .badge { display: inline-grid; place-items: center; min-width: 26px; height: 26px; padding: 0 7px; margin-right: 10px; background: var(--gold-ink); color: var(--gold-text); font-variant-numeric: tabular-nums; }
+      .cartbar .sum { font-variant-numeric: tabular-nums; }
+      html.lock { overflow: hidden; }
+      .overlay { position: fixed; inset: 0; z-index: 40; background: rgba(58, 28, 16, 0.42); opacity: 0; visibility: hidden; transition: opacity 260ms ease, visibility 0s 260ms; }
+      .sheet { position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; display: flex; flex-direction: column; max-height: 92svh; max-width: 640px; margin: 0 auto; background: var(--bg); border-top: 1px solid #e4d6bf; transform: translateY(100%); visibility: hidden; transition: transform 360ms var(--ease), visibility 0s 360ms; }
+      .open .overlay { opacity: 1; visibility: visible; transition: opacity 260ms ease; }
+      .open .sheet { transform: none; visibility: visible; transition: transform 420ms var(--ease); }
+      .sh-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 20px; border-bottom: 1px solid #e4d6bf; }
+      .sh-head h2 { font-size: var(--step-lead); }
+      .x { width: 44px; height: 44px; border: 0; background: var(--surface-2); color: var(--ink); display: grid; place-items: center; cursor: pointer; transition: background-color 180ms ease; }
+      .x:hover { background: #e3d2b4; }
+      .x svg { width: 18px; height: 18px; }
+      .sh-body { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 4px 20px 28px; }
+      .line { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 8px 14px; align-items: center; padding: 14px 0; border-bottom: 1px solid #e4d6bf; }
+      .line .n { font-weight: 500; line-height: 1.3; }
+      .line .n small { display: block; margin-top: 2px; font-size: var(--step-small); font-weight: 400; color: var(--muted); }
+      .line .s { min-width: 80px; text-align: right; color: var(--gold-text); font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
+      .cart-empty { padding: 32px 0; color: var(--muted); }
+      .total { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 20px 0 4px; font-size: var(--step-lead); font-weight: 600; }
+      .total span:last-child { color: var(--gold-text); font-variant-numeric: tabular-nums; }
+      .cnote { font-size: var(--step-small); color: var(--muted); }
+      .cform { margin-top: 24px; display: grid; gap: 22px; }
+      .seg { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+      .seg .opt-box { padding: 14px 16px; }
+      .field textarea { width: 100%; min-height: 84px; padding: 13px 14px; border: 0; border-radius: 0; background: var(--surface); color: var(--ink); font: 400 var(--step-body) "Onest", sans-serif; resize: vertical; }
+      .field textarea::placeholder { color: var(--muted); }
+      .field textarea:focus { outline: 2px solid var(--gold-text); outline-offset: 2px; }
+      .err { display: none; margin-top: 8px; font-size: var(--step-small); font-weight: 500; color: #b3361c; }
+      .field.bad .err { display: block; }
+      .field.bad input { outline: 2px solid #b3361c; outline-offset: 2px; }
+      .sh-foot { padding: 14px 20px calc(16px + env(safe-area-inset-bottom)); border-top: 1px solid #e4d6bf; }
+      .sh-foot .btn { width: 100%; }
+      .sent { display: none; margin-top: 10px; font-size: var(--step-small); color: var(--muted); }
+      .sent.on { display: block; }
+      .clear { display: block; margin: 6px auto 0; min-height: 44px; padding: 0 12px; border: 0; background: none; color: var(--muted); font-size: var(--step-small); text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+      .clear:hover { color: var(--ink); }
+      .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+      @media (min-width: 760px) {
+        .sheet { left: auto; top: 0; width: 460px; max-width: none; max-height: none; border-top: 0; border-left: 1px solid #e4d6bf; transform: translateX(100%); }
+      }
+      @media (max-width: 440px) {
+        .line { grid-template-columns: minmax(0, 1fr) auto; }
+        .line .qty { grid-row: 2; grid-column: 1; justify-self: start; }
+        .line .s { grid-row: 1; grid-column: 2; }
+      }
+
+      /* Подвал */
+      .foot { display: grid; grid-template-columns: 1fr 1fr; min-height: 100svh; background: var(--bg); }
+      .foot-pic { position: relative; overflow: hidden; background: var(--surface-2); }
+      .foot-pic img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 30% 50%; }
+      .foot-menu { padding: 80px var(--m) 32px clamp(24px, 6vw, 96px); display: flex; flex-direction: column; }
+      .foot-logo { width: clamp(150px, 15vw, 210px); height: auto; }
+      .foot-links { margin-top: 48px; display: grid; gap: 22px; }
+      .foot-links a { display: inline-block; font-family: var(--display); font-size: var(--step-head); font-weight: 500; line-height: 1.05; text-decoration: none; transition: transform 220ms var(--ease), color 200ms ease; }
+      .foot-links:hover a { color: var(--muted); }
+      .foot-links a:hover, .foot-links a:focus-visible { color: var(--gold-text); transform: translateX(12px); }
+      .foot-info { margin-top: 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; font-size: var(--step-small); line-height: 1.5; }
+      .foot-info a { text-decoration: none; }
+      .foot-info a:hover { color: var(--gold-text); }
+      .foot-info p:first-child { color: var(--muted); margin-bottom: 6px; }
+      .foot-legal { margin-top: auto; padding-top: 48px; font-size: var(--step-small); color: var(--muted); max-width: 60ch; }
+      .foot-legal a { color: var(--ink); text-decoration-color: var(--gold-text); }
+
+      /* Появление */
+      .js [data-r] { opacity: 0; transform: translateY(24px); transition: opacity 760ms var(--ease), transform 760ms var(--ease); transition-delay: calc(var(--i, 0) * 75ms); }
+      .js [data-r].in { opacity: 1; transform: none; }
+
+      @media (max-width: 1100px) {
+        .hero-copy { grid-column: 1 / 8; }
+        .about-text { grid-column: 1 / 7; }
+        .facts { grid-column: 8 / 13; }
+        .hits-list { grid-column: 7 / 13; }
+        .menu-side { grid-column: 1 / 5; }
+        .dishes { grid-template-columns: 1fr; }
+        .visit-cards { grid-column: 1 / -1; margin-top: 48px; }
+      }
+      @media (max-width: 899px) {
+        .bar-right .link { display: none; }
+        .brand { gap: 10px; }
+        .brand-emblem { height: 46px; }
+        .brand-word { height: 16px; }
+        .bar .btn { min-height: 44px; padding: 0 16px; font-size: var(--step-small); }
+        .hero { display: flex; flex-direction: column; min-height: 100svh; }
+        .bar { order: 0; }
+        .hero-copy { order: 1; margin-top: auto; padding: 48px 0 32px; }
+        .strip { order: 2; }
+        .hero-bg::after { background: linear-gradient(180deg, rgba(14, 12, 10, 0.2) 0%, rgba(14, 12, 10, 0.55) 40%, rgba(14, 12, 10, 0.92) 78%); } /* taste-skill-ignore: нейтральная подложка под текст на фото */
+        .hero-cap { display: none; }
+        .hero h1 { font-size: clamp(1.5rem, 6.6vw, 2.5rem); letter-spacing: -0.035em; }
+        .strip { grid-template-columns: 1fr; }
+        .strip > * { min-height: 76px; }
+        .about, .hits, .menu, .reviews, .book, .visit { display: block; }
+        .atmo { grid-template-columns: 1fr 1fr; gap: 12px; }
+        .atmo-head { grid-column: 1 / -1; grid-row: auto; padding-bottom: 12px; }
+        .a1, .a2, .a3, .a4 { grid-row: auto; }
+        .a2 { grid-column: 1 / -1; order: -1; }
+        .a1 { grid-column: 1 / -1; aspect-ratio: 4 / 3; }
+        .a3, .a4 { grid-column: auto; }
+        .atmo .a2 { order: 0; }
+        .facts { margin-top: 48px; }
+        .hits-photo { position: relative; top: auto; height: 42svh; aspect-ratio: auto; margin: 0 calc(-1 * var(--m)); }
+        .hits-photo img { padding: 12px var(--m); }
+        .hits-list h2 { margin: 32px 0 16px; }
+        .menu-side { position: static; }
+        .chip { min-height: 38px; padding: 0 12px; }
+        .menu-body { margin-top: 32px; }
+        .menu-foot { flex-direction: column; align-items: flex-start; }
+        .fam { height: 240vh; }
+        .steps { position: absolute; left: var(--m); right: var(--m); bottom: 8svh; width: auto; padding: 0; margin: 0; text-align: left; }
+        .steps li { font-size: 1.0625rem; }
+        .steps li + li { margin-top: 8px; }
+        .pair img { width: 44vw; }
+        .pair img.l { top: 7svh !important; left: var(--m); }
+        .pair img.r { top: 27svh !important; right: var(--m); }
+        .portrait { width: 72%; max-height: none; }
+        .quote { padding-top: 32px; }
+        .quote-pic { width: 44%; margin: 48px 0 0 auto; }
+        .book-form { margin-top: 32px; }
+        .branches { grid-template-columns: 1fr; }
+        .visit { min-height: 0; padding-bottom: 0; }
+        .visit-cards { grid-template-columns: 1fr; margin-top: 32px; }
+        .visit { padding-bottom: 32px; }
+        .foot { display: flex; flex-direction: column; min-height: 0; }
+        .foot-pic { height: 50svh; }
+        .foot-pic img { width: 190%; left: -50%; bottom: -40%; }
+        .foot-menu { padding: 48px var(--m) 28px; }
+        .foot-links { margin-top: 28px; gap: 20px; }
+        .foot-info { grid-template-columns: 1fr; margin-top: 48px; }
+      }
+      @media (max-width: 520px) {
+        .pair-f { grid-template-columns: 1fr; }
+        .facts li { grid-template-columns: 1fr; gap: 6px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        .hero-dish img { animation: none; }
+        .js [data-r] { opacity: 1; transform: none; transition: none; }
+        .hits-photo img, .pair img { transition: none; transform: none; }
+        .hero-bg img { animation: none; }
+        .js .hit.on .hit-desc, .js .menu-body.filtered .cat.show { animation: none; }
+        .choice { animation: none; }
+        .cartbar, .cartbar.show, .overlay, .open .overlay, .sheet, .open .sheet { transition: none; }
+      }
+
+      /* Светлая версия */
+      .now strong { color: var(--green-text); }
+      .badge { color: var(--gold); }
+      .hero-cap, .visit h2 { color: #fff8ee; }
+      .hero-cap { text-shadow: 0 1px 10px rgba(0, 0, 0, 0.7); }
+      .strip { background: var(--bg); }
+      .field input, .field select, .field textarea, .opt-box, .stepper output { box-shadow: inset 0 0 0 1px #dcc8a6; }
+      .opt input:checked + .opt-box { box-shadow: none; }
+      @media (min-width: 900px) {
+        .hero-bg { left: 50%; }
+        .hero-bg::after { display: none; }
+        .hero-copy { grid-column: 1 / 7; padding-right: 24px; }
+        .bar-right .link { color: #fff8ee; }
+      }
+      @media (max-width: 899px) {
+        .hero-bg { position: relative; inset: auto; order: 1; flex: none; height: 44svh; min-height: 260px; margin: 16px calc(-1 * var(--m)) 0; }
+        .hero-bg::before, .hero-bg::after { display: none; }
+        .hero-copy { order: 2; margin-top: 0; padding: 32px 0; }
+      }
+</style>
+  </head>
+  <body>
+    <main>
+      <header class="hero" id="top">
+        <div class="bar">
+          <a class="brand" href="#top"><img class="brand-emblem" src="../naryn/logo/emblem.webp" width="129" height="160" alt="" /><img class="brand-word" src="../naryn/logo/wordmark-brown.webp" width="275" height="60" alt="Naryn" /></a>
+          <div class="bar-right">
+            <a class="link" href="#menu">Меню</a>
+            <a class="btn" href="#bron">Забронировать стол</a>
+          </div>
+        </div>
+        <div class="hero-bg" aria-hidden="true">
+          <picture>
+            <source media="(max-width: 899px)" srcset="../naryn/photos/hero-m.jpg" />
+            <img src="../naryn/photos/hero.jpg" width="1440" height="806" alt="" fetchpriority="high" />
+          </picture>
+        </div>
+        <div class="hero-copy">
+          <h1 data-r>Семейное <span class="nw">халал-кафе</span> <span class="gold">в&nbsp;Алматы</span></h1>
+          <p class="lede" data-r>Нарын, манты, лагман и&nbsp;ещё 200 блюд. Детская комната, намазхана и&nbsp;кабинки на&nbsp;Толе&nbsp;би и&nbsp;Бухар жырау.</p>
+          <p class="now" id="now" aria-live="polite" data-r>Открыто до&nbsp;23:00. Завтраки с&nbsp;08:00 до&nbsp;12:00, бизнес-ланч с&nbsp;12:00 до&nbsp;16:00.</p>
+          <div class="hero-actions" data-r>
+            <a class="btn" href="#bron">Забронировать стол<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 7h11.2L8 2.8 9.4 1.4 16 8l-6.6 6.6L8 13.2 12.2 9H1z" fill="currentColor" /></svg></a>
+            <a class="link" href="#menu">Меню с ценами</a>
+          </div>
+        </div>
+        <p class="hero-cap">Главный зал на Бухар жырау, 33</p>
+        <div class="strip">
+          <a href="https://2gis.kz/almaty/firm/70000001099760957/tab/reviews" target="_blank" rel="noopener"><b><span class="gold">4,9</span> в 2ГИС</b><span>7&nbsp;867 оценок гостей</span></a>
+          <a href="#address"><b>Толе би, 273/4</b><span>ЖК Жайлы, 09:00–23:00</span></a>
+          <a href="#address"><b>Бухар жырау, 33</b><span>БЦ Jenis, 08:00–23:00</span></a>
+        </div>
+      </header>
+
+      <section class="about" id="about" aria-labelledby="about-h">
+        <div class="about-text">
+          <h2 id="about-h" data-r>Кафе, названное в&nbsp;честь нарына</h2>
+          <p data-r>Нарын — блюдо из&nbsp;тонко нарезанного теста, конины и&nbsp;казы. К&nbsp;нему подают горячую сорпу, а&nbsp;на&nbsp;большую компанию — целое блюдо на&nbsp;стол.</p>
+          <p data-r>В&nbsp;меню казахская, уйгурская и&nbsp;европейская кухня: от&nbsp;бешбармака и&nbsp;лагмана до&nbsp;сырников и&nbsp;стейка рибай. Всё халяль.</p>
+          <p data-r>Кафе задумано для семей. Пока взрослые обедают, дети играют в&nbsp;детской комнате. Есть молельная комната, кабинки и&nbsp;VIP-зал.</p>
+        </div>
+        <ul class="facts">
+          <li data-r><b>4,9</b><span>рейтинг в&nbsp;2ГИС, 7&nbsp;867 оценок</span></li>
+          <li data-r><b>215</b><span>блюд и&nbsp;напитков в&nbsp;меню</span></li>
+          <li data-r><b>до 23:00</b><span>работают оба кафе, завтраки с&nbsp;8:00</span></li>
+          <li data-r><b>6&nbsp;000&nbsp;₸</b><span>средний чек, обслуживание 10%</span></li>
+        </ul>
+      </section>
+
+      <section class="atmo" id="atmo" aria-labelledby="atmo-h">
+        <div class="atmo-head">
+          <h2 id="atmo-h" data-r>Зал, где хочется остаться</h2>
+          <p data-r>Деревянный потолок, оливковые деревья, тёплый свет и&nbsp;мягкие диваны. Отдельно — бар, лаунж-зона, кабинки и&nbsp;VIP-комнаты с&nbsp;караоке.</p>
+        </div>
+        <figure class="a1" data-r><img src="../naryn/photos/olive.jpg" width="1000" height="1174" alt="Зал с оливковым деревом и подвесными лампами" loading="lazy" decoding="async" /><figcaption>Зал с оливковыми деревьями</figcaption></figure>
+        <figure class="a2" data-r><img src="../naryn/photos/bar.jpg" width="1397" height="1026" alt="Зал с барной стойкой и зеленью над баром" loading="lazy" decoding="async" /><figcaption>Бар</figcaption></figure>
+        <figure class="a3" data-r><img src="../naryn/photos/lounge.jpg" width="900" height="1216" alt="Лаунж-зона с креслами и золотой аркой" loading="lazy" decoding="async" /><figcaption>Лаунж</figcaption></figure>
+        <figure class="a4" data-r><img src="../naryn/photos/drinks.jpg" width="900" height="1280" alt="Стена с подсветкой и напитками" loading="lazy" decoding="async" /><figcaption>Витрина с напитками</figcaption></figure>
+      </section>
+
+      <section class="hits" id="hits" aria-labelledby="hits-h">
+        <div class="hits-photo" aria-hidden="true">
+          <img class="on" src="../naryn/dishes/naryn.webp" width="1400" height="1007" alt="" />
+          <img src="../naryn/dishes/manty.webp" width="504" height="375" alt="" loading="lazy" />
+          <img src="../naryn/dishes/hoshan.webp" width="469" height="338" alt="" loading="lazy" />
+          <img src="../naryn/dishes/lagman.webp" width="417" height="414" alt="" loading="lazy" />
+          <img src="../naryn/dishes/samsa.webp" width="437" height="311" alt="" loading="lazy" />
+          <img src="../naryn/dishes/kazan-kebab.webp" width="416" height="294" alt="" loading="lazy" />
+          <img src="../naryn/dishes/tebyan.webp" width="459" height="244" alt="" loading="lazy" />
+          <img src="../naryn/dishes/ganbyan-dzhi.webp" width="580" height="383" alt="" loading="lazy" />
+          <img src="../naryn/dishes/ribeye.webp" width="414" height="450" alt="" loading="lazy" />
+        </div>
+        <div class="hits-list">
+          <h2 id="hits-h" data-r>Что заказать в&nbsp;первый раз</h2>
+          <ul>
+            <li class="hit on" data-r><button class="hit-row" type="button" aria-expanded="true"><span>Нарын</span><span>3 590 ₸</span></button><p class="hit-desc">Тонко нарезанное тесто с&nbsp;кониной и&nbsp;казы, к&nbsp;нему сорпа. Блюдо, в&nbsp;честь которого назвали кафе.</p></li>
+            <li class="hit" data-r><button class="hit-row" type="button" aria-expanded="false"><span>Манты, 5 шт</span><span>2 690 ₸</span></button><p class="hit-desc">Говядина с&nbsp;луком. Есть с&nbsp;тыквой и&nbsp;с&nbsp;джусаем, по&nbsp;2&nbsp;590&nbsp;₸.</p></li>
+            <li class="hit" data-r><button class="hit-row" type="button" aria-expanded="false"><span>Хошан, 5 шт</span><span>2 990 ₸</span></button><p class="hit-desc">Те&nbsp;же манты, только обжаренные.</p></li>
+            <li class="hit" data-r><button class="hit-row" type="button" aria-expanded="false"><span>Лагман</span><span>2 890 ₸</span></button><p class="hit-desc">Восемь видов лагмана и&nbsp;цомяна. Почти любой можно взять ганфаном, с&nbsp;рисом вместо лапши.</p></li>
+            <li class="hit" data-r><button class="hit-row" type="button" aria-expanded="false"><span>Самса с мясом</span><span>690 ₸</span></button><p class="hit-desc">К&nbsp;чаю или к&nbsp;супу. Бухарская самса стоит 3&nbsp;390&nbsp;₸.</p></li>
+            <li class="hit" data-r><button class="hit-row" type="button" aria-expanded="false"><span>Казан кебаб</span><span>4 290 ₸</span></button><p class="hit-desc">Жареная говядина с&nbsp;луком.</p></li>
+            <li class="hit" data-r><button class="hit-row" type="button" aria-expanded="false"><span>Тебян ру</span><span>4 090 ₸</span></button><p class="hit-desc">Говядина на&nbsp;горячей сковороде с&nbsp;полугорьким перцем и&nbsp;специями. С&nbsp;курицей стоит 3&nbsp;790&nbsp;₸.</p></li>
+            <li class="hit" data-r><button class="hit-row" type="button" aria-expanded="false"><span>Ганбян джи</span><span>4 590 ₸</span></button><p class="hit-desc">Хрустящая курица с&nbsp;арахисом, перцем и&nbsp;специями.</p></li>
+            <li class="hit" data-r><button class="hit-row" type="button" aria-expanded="false"><span>Рибай</span><span>6 490 ₸</span></button><p class="hit-desc">Стейк с&nbsp;прожаркой на&nbsp;выбор, от&nbsp;blue rare до&nbsp;well done.</p></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="menu" id="menu" aria-labelledby="menu-h">
+        <div class="menu-side">
+          <h2 id="menu-h" data-r>Меню</h2>
+          <p data-r>215 блюд и&nbsp;напитков с&nbsp;ценами. Всё халяль, обслуживание 10%.</p>
+          <p class="order-hint" data-r>Нажмите&nbsp;+, чтобы заказать с&nbsp;собой или с&nbsp;доставкой. Заказ уйдёт в&nbsp;WhatsApp кафе.</p>
+          <div class="chips" role="group" aria-label="Разделы меню" data-r>
+            <button type="button" class="chip" data-cat="all" aria-pressed="false">Всё</button>
+            <button type="button" class="chip" data-cat="national" aria-pressed="false">Национальная кухня</button>
+            <button type="button" class="chip" data-cat="lagman" aria-pressed="false">Лагманы</button>
+            <button type="button" class="chip" data-cat="hot" aria-pressed="false">Восточные горячие блюда</button>
+            <button type="button" class="chip" data-cat="soups" aria-pressed="false">Супы</button>
+            <button type="button" class="chip" data-cat="main" aria-pressed="false">Вторые блюда и гриль</button>
+            <button type="button" class="chip" data-cat="fish" aria-pressed="false">Жареная рыба</button>
+            <button type="button" class="chip" data-cat="breakfast" aria-pressed="false">Завтраки</button>
+            <button type="button" class="chip" data-cat="salads" aria-pressed="false">Салаты</button>
+            <button type="button" class="chip" data-cat="snacks" aria-pressed="false">Закуски</button>
+            <button type="button" class="chip" data-cat="bakery" aria-pressed="false">Выпечка и хлеб</button>
+            <button type="button" class="chip" data-cat="pizza" aria-pressed="false">Пицца, паста, бургеры</button>
+            <button type="button" class="chip" data-cat="company" aria-pressed="false">Блюда на компанию</button>
+            <button type="button" class="chip" data-cat="tea" aria-pressed="false">Чай</button>
+            <button type="button" class="chip" data-cat="coffee" aria-pressed="false">Кофе</button>
+            <button type="button" class="chip" data-cat="drinks" aria-pressed="false">Лимонады и другие напитки</button>
+          </div>
+        </div>
+        <div class="menu-body" id="menu-body">
+          <section class="cat" id="m-national" data-cat="national" aria-labelledby="m-national-h">
+            <h3 id="m-national-h">Национальная кухня</h3>
+            <ul class="dishes">
+              <li class="has-pic"><img src="../naryn/dishes/naryn.webp" alt="" width="72" height="54" loading="lazy" decoding="async" /><span class="dish-name">Нарын<span class="dish-desc">конина, казы, домашнее тесто</span></span><span class="dish-price">3 590&nbsp;₸</span></li>
+              <li><span class="dish-name">Бешбармак<span class="dish-desc">казы, жая, картофель, морковь, лук, тесто</span></span><span class="dish-price">4 390&nbsp;₸</span></li>
+              <li><span class="dish-name">Плов ташкентский<span class="dish-desc">говядина, рис лазер, морковь, зира, нут, кишмиш, перепелиное яйцо</span></span><span class="dish-price">2 790&nbsp;₸</span></li>
+              <li><span class="dish-name">Плов праздничный<span class="dish-desc">как ташкентский, плюс казы</span></span><span class="dish-price">3 090&nbsp;₸</span></li>
+              <li><span class="dish-name">Куырдак из баранины<span class="dish-desc">баранина, картофель, лук, зелень</span></span><span class="dish-price">4 290&nbsp;₸</span></li>
+              <li><span class="dish-name">Тай куырдак<span class="dish-desc">конина, картофель, зелёный лук</span></span><span class="dish-price">3 790&nbsp;₸</span></li>
+              <li class="has-pic"><img src="../naryn/dishes/manty.webp" alt="" width="72" height="54" loading="lazy" decoding="async" /><span class="dish-name">Манты из говядины, 5 шт<span class="dish-desc">говядина, лук</span></span><span class="dish-price">2 690&nbsp;₸</span></li>
+              <li><span class="dish-name">Манты с тыквой, 5 шт<span class="dish-desc">говядина, тыква, лук</span></span><span class="dish-price">2 590&nbsp;₸</span></li>
+              <li><span class="dish-name">Манты с джусаем, 5 шт<span class="dish-desc">говядина, джусай, лук</span></span><span class="dish-price">2 590&nbsp;₸</span></li>
+              <li class="has-pic"><img src="../naryn/dishes/hoshan.webp" alt="" width="72" height="54" loading="lazy" decoding="async" /><span class="dish-name">Хошан, 5 шт<span class="dish-desc">жареные манты</span></span><span class="dish-price">2 990&nbsp;₸</span></li>
+            </ul>
+          </section>
+          <section class="cat" id="m-lagman" data-cat="lagman" aria-labelledby="m-lagman-h">
+            <h3 id="m-lagman-h">Лагманы</h3>
+            <ul class="dishes">
+              <li class="has-pic" data-opts="лагман=2890;ганфан=2890"><img src="../naryn/dishes/lagman.webp" alt="" width="72" height="54" loading="lazy" decoding="async" /><span class="dish-name">Гуйру лагман или ганфан</span><span class="dish-price">2 890&nbsp;₸</span></li>
+              <li data-opts="лагман=2890;ганфан=2890"><span class="dish-name">Суйру лагман или ганфан</span><span class="dish-price">2 890&nbsp;₸</span></li>
+              <li data-opts="лагман=2890;ганфан=2890"><span class="dish-name">Могуру лагман или ганфан</span><span class="dish-price">2 890&nbsp;₸</span></li>
+              <li data-opts="лагман=2990;ганфан=2990"><span class="dish-name">Мошуру лагман или ганфан</span><span class="dish-price">2 990&nbsp;₸</span></li>
+              <li><span class="dish-name">Гуйру цомян</span><span class="dish-price">2 890&nbsp;₸</span></li>
+              <li><span class="dish-name">Ганбян цомян</span><span class="dish-price">2 890&nbsp;₸</span></li>
+              <li><span class="dish-name">Дин дин цомян</span><span class="dish-price">2 890&nbsp;₸</span></li>
+              <li><span class="dish-name">Лагман по-домашнему</span><span class="dish-price">2 890&nbsp;₸</span></li>
+            </ul>
+          </section>
+          <section class="cat" id="m-hot" data-cat="hot" aria-labelledby="m-hot-h">
+            <h3 id="m-hot-h">Восточные горячие блюда</h3>
+            <ul class="dishes">
+              <li class="has-pic"><img src="../naryn/dishes/kazan-kebab.webp" alt="" width="72" height="54" loading="lazy" decoding="async" /><span class="dish-name">Казан кебаб<span class="dish-desc">жареная говядина с луком</span></span><span class="dish-price">4 290&nbsp;₸</span></li>
+              <li class="has-pic" data-item="Тебян" data-opts="ру, с говядиной=4090;джи, с курицей=3790"><img src="../naryn/dishes/tebyan.webp" alt="" width="72" height="54" loading="lazy" decoding="async" /><span class="dish-name">Тебян ру / тебян джи<span class="dish-desc">говядина или курица на сковороде, полугорький перец, специи</span></span><span class="dish-price">4 090 / 3 790&nbsp;₸</span></li>
+              <li><span class="dish-name">Тебян ян пай<span class="dish-desc">бараньи рёбрышки, полугорький перец, специи</span></span><span class="dish-price">4 290&nbsp;₸</span></li>
+              <li class="has-pic"><img src="../naryn/dishes/ganbyan-dzhi.webp" alt="" width="72" height="54" loading="lazy" decoding="async" /><span class="dish-name">Ганбян джи<span class="dish-desc">хрустящая курица с арахисом, перец, специи</span></span><span class="dish-price">4 590&nbsp;₸</span></li>
+              <li class="has-pic"><img src="../naryn/dishes/mogu-ru.webp" alt="" width="72" height="54" loading="lazy" decoding="async" /><span class="dish-name">Могу ру сяй<span class="dish-desc">говядина, вешенки, полугорький перец</span></span><span class="dish-price">3 790&nbsp;₸</span></li>
+              <li class="has-pic"><img src="../naryn/dishes/kazan-gotovo.webp" alt="" width="72" height="54" loading="lazy" decoding="async" /><span class="dish-name">Ганго туту пияр<span class="dish-desc">говядина, картофель, полугорький перец, лук, специи</span></span><span class="dish-price">4 090&nbsp;₸</span></li>
+              <li class="has-pic"><img src="../naryn/dishes/fri-myaso.webp" alt="" width="72" height="54" loading="lazy" decoding="async" /><span class="dish-name">Фри с мясом<span class="dish-desc">картофель фри, говядина, полугорький перец, лук</span></span><span class="dish-price">3 290&nbsp;₸</span></li>
+              <li class="has-pic"><img src="../naryn/dishes/mala-dofu.webp" alt="" width="72" height="54" loading="lazy" decoding="async" /><span class="dish-name">Мала дофу<span class="dish-desc">тофу, острый соус, специи</span></span><span class="dish-price">2 790&nbsp;₸</span></li>
+              <li class="has-pic"><img src="../naryn/dishes/semga-zharovnya.webp" alt="" width="72" height="54" loading="lazy" decoding="async" /><span class="dish-name">Сёмга на жаровне<span class="dish-desc">сёмга, брокколи, цветная капуста, полугорький перец, специи</span></span><span class="dish-price">6 190&nbsp;₸</span></li>
+              <li><span class="dish-name">Ян Ю Сыр<span class="dish-desc">полусырой картофель с мясом, полугорький перец</span></span><span class="dish-price">3 190&nbsp;₸</span></li>
+              <li><span class="dish-name">Лазру сяй<span class="dish-desc">говядина, полугорький перец</span></span><span class="dish-price">3 890&nbsp;₸</span></li>
+              <li><span class="dish-name">Лаз жи<span class="dish-desc">курица на косточке, полугорький перец</span></span><span class="dish-price">3 490&nbsp;₸</span></li>
+              <li><span class="dish-name">Пачак сяй<span class="dish-desc">говяжьи лытки, обжаренные с перцем</span></span><span class="dish-price">3 990&nbsp;₸</span></li>
+              <li><span class="dish-name">Хомян хоу ру<span class="dish-desc">говядина, лапша, специи, лук, помидоры, огурцы</span></span><span class="dish-price">4 990&nbsp;₸</span></li>
+              <li><span class="dish-name">Бассяй фунтанру<span class="dish-desc">фунчоза, пекинская капуста, говядина</span></span><span class="dish-price">4 090&nbsp;₸</span></li>
+              <li><span class="dish-name">Ачык сяй<span class="dish-desc">говядина, древесные грибы, острый перец</span></span><span class="dish-price">3 790&nbsp;₸</span></li>
+              <li><span class="dish-name">Жачан дуфу<span class="dish-desc">тофу, говядина, полугорький перец, древесные грибы</span></span><span class="dish-price">3 490&nbsp;₸</span></li>
+              <li><span class="dish-name">Керин сяй<span class="dish-desc">требуха с полугорьким перцем</span></span><span class="dish-price">3 990&nbsp;₸</span></li>
+              <li><span class="dish-name">Ганбян чайзи<span class="dish-desc">остро-сладкие хрустящие баклажаны с полугорьким перцем</span></span><span class="dish-price">3 390&nbsp;₸</span></li>
+              <li><span class="dish-name">Чин сяй ру<span class="dish-desc">говядина, красный полугорький перец, сельдерей</span></span><span class="dish-price">3 790&nbsp;₸</span></li>
+              <li><span class="dish-name">Сунбауру<span class="dish-desc">говядина, лук-порей</span></span><span class="dish-price">3 690&nbsp;₸</span></li>
+              <li><span class="dish-name">Мошуру<span class="dish-desc">говядина, перец, древесные грибы, яйца</span></span><span class="dish-price">3 690&nbsp;₸</span></li>
+              <li><span class="dish-name">Брокколи с грибами<span class="dish-desc">брокколи, грибы, полугорький перец, специи</span></span><span class="dish-price">2 790&nbsp;₸</span></li>
+              <li><span class="dish-name">Жареные вешенки</span><span class="dish-price">3 690&nbsp;₸</span></li>
+            </ul>
+          </section>
+          <section class="cat" id="m-soups" data-cat="soups" aria-labelledby="m-soups-h">
+            <h3 id="m-soups-h">Супы</h3>
+            <ul class="dishes">
+              <li><span class="dish-name">Сорпа из говядины</span><span class="dish-price">2 490&nbsp;₸</span></li>
+              <li><span class="dish-name">Сорпа из баранины</span><span class="dish-price">2 390&nbsp;₸</span></li>
+              <li><span class="dish-name">Бозбаш<span class="dish-desc">бараньи голяшки, картофель, перец, нут, помидоры</span></span><span class="dish-price">1 790&nbsp;₸</span></li>
+              <li><span class="dish-name">Манпар<span class="dish-desc">говядина, тесто, кинза, полугорький перец, острый</span></span><span class="dish-price">2 490&nbsp;₸</span></li>
+              <li class="has-pic"><img src="../naryn/dishes/zahutan.webp" alt="" width="72" height="54" loading="lazy" decoding="async" /><span class="dish-name">Захутан<span class="dish-desc">говядина, древесные грибы, вешенки, фунчоза, острый</span></span><span class="dish-price">2 590&nbsp;₸</span></li>
+              <li><span class="dish-name">Сантан ру<span class="dish-desc">фунчоза, говядина, вешенки, полугорький перец</span></span><span class="dish-price">2 490&nbsp;₸</span></li>
+              <li><span class="dish-name">Борщ</span><span class="dish-price">1 790&nbsp;₸</span></li>
+              <li><span class="dish-name">Солянка</span><span class="dish-price">2 290&nbsp;₸</span></li>
+              <li><span class="dish-name">Пельмени</span><span class="dish-price">1 990&nbsp;₸</span></li>
+              <li><span class="dish-name">Том ям</span><span class="dish-price">3 890&nbsp;₸</span></li>
+              <li><span class="dish-name">Чечевичный крем-суп</span><span class="dish-price">1 690&nbsp;₸</span></li>
+              <li><span class="dish-name">Грибной крем-суп</span><span class="dish-price">1 690&nbsp;₸</span></li>
+              <li><span class="dish-name">Рамен с курицей</span><span class="dish-price">2 190&nbsp;₸</span></li>
+              <li><span class="dish-name">Рамен с говядиной</span><span class="dish-price">2 390&nbsp;₸</span></li>
+              <li><span class="dish-name">Суп-лапша по-домашнему</span><span class="dish-price">1 790&nbsp;₸</span></li>
+              <li><span class="dish-name">Суп с фрикадельками</span><span class="dish-price">1 790&nbsp;₸</span></li>
+              <li><span class="dish-name">Уха из сёмги</span><span class="dish-price">2 590&nbsp;₸</span></li>
+              <li><span class="dish-name">Окрошка<span class="dish-desc">сезонная</span></span><span class="dish-price">1 890&nbsp;₸</span></li>
+              <li><span class="dish-name">Кукси<span class="dish-desc">сезонный</span></span><span class="dish-price">2 090&nbsp;₸</span></li>
+            </ul>
+          </section>
+          <section class="cat" id="m-main" data-cat="main" aria-labelledby="m-main-h">
+            <h3 id="m-main-h">Вторые блюда и гриль</h3>
+            <ul class="dishes">
+              <li class="has-pic"><img src="../naryn/dishes/ribeye.webp" alt="" width="72" height="54" loading="lazy" decoding="async" /><span class="dish-name">Рибай<span class="dish-desc">степень прожарки на выбор</span></span><span class="dish-price">6 490&nbsp;₸</span></li>
+              <li><span class="dish-name">Тибон</span><span class="dish-price">6 290&nbsp;₸</span></li>
+              <li><span class="dish-name">Медальоны</span><span class="dish-price">5 490&nbsp;₸</span></li>
+              <li><span class="dish-name">Стейк из сёмги</span><span class="dish-price">6 290&nbsp;₸</span></li>
+              <li><span class="dish-name">Сибас на гриле</span><span class="dish-price">4 990&nbsp;₸</span></li>
+              <li><span class="dish-name">Форель на гриле</span><span class="dish-price">4 590&nbsp;₸</span></li>
+              <li><span class="dish-name">Дорадо на гриле</span><span class="dish-price">4 890&nbsp;₸</span></li>
+              <li><span class="dish-name">Бифштекс<span class="dish-desc">говяжья котлета, яйцо, гарнир на выбор</span></span><span class="dish-price">3 190&nbsp;₸</span></li>
+              <li><span class="dish-name">Бефстроганов<span class="dish-desc">говядина, грибы, лук, сливки, гарнир на выбор</span></span><span class="dish-price">3 790&nbsp;₸</span></li>
+              <li><span class="dish-name">Фрикасе<span class="dish-desc">куриное филе, грибы, лук, сливки, гарнир на выбор</span></span><span class="dish-price">3 490&nbsp;₸</span></li>
+              <li><span class="dish-name">Котлета по-киевски</span><span class="dish-price">2 990&nbsp;₸</span></li>
+              <li><span class="dish-name">Томлёные рёбра телёнка</span><span class="dish-price">4 290&nbsp;₸</span></li>
+              <li><span class="dish-name">Дорадо в соусе кимчи</span><span class="dish-price">4 890&nbsp;₸</span></li>
+              <li><span class="dish-name">Форель в пекинском стиле</span><span class="dish-price">4 590&nbsp;₸</span></li>
+              <li><span class="dish-name">Телячьи щёчки с пюре из сельдерея</span><span class="dish-price">4 790&nbsp;₸</span></li>
+              <li><span class="dish-name">Каре ягнёнка с хумусом</span><span class="dish-price">4 990&nbsp;₸</span></li>
+              <li><span class="dish-name">Сибас с овощами и пюре из цветной капусты</span><span class="dish-price">4 490&nbsp;₸</span></li>
+              <li><span class="dish-name">Судак с овощами в тайском стиле</span><span class="dish-price">4 790&nbsp;₸</span></li>
+              <li><span class="dish-name">Цыплёнок терияки с лимоном</span><span class="dish-price">4 790&nbsp;₸</span></li>
+              <li><span class="dish-name">Лосось под икорным соусом с молодой брокколи</span><span class="dish-price">7 190&nbsp;₸</span></li>
+            </ul>
+          </section>
+          <section class="cat" id="m-fish" data-cat="fish" aria-labelledby="m-fish-h">
+            <h3 id="m-fish-h">Жареная рыба</h3>
+            <ul class="dishes">
+              <li><span class="dish-name">Судак по-домашнему на двоих</span><span class="dish-price">9 790&nbsp;₸</span></li>
+              <li><span class="dish-name">Сазан по-домашнему на двоих</span><span class="dish-price">8 690&nbsp;₸</span></li>
+              <li><span class="dish-name">Сазан жареный</span><span class="dish-price">3 790&nbsp;₸</span></li>
+              <li><span class="dish-name">Судак жареный</span><span class="dish-price">4 290&nbsp;₸</span></li>
+              <li><span class="dish-name">Рыбное изобилие<span class="dish-desc">форель, креветки, сазан, луковые кольца</span></span><span class="dish-price">17 790&nbsp;₸</span></li>
+              <li><span class="dish-name">Удачный клёв<span class="dish-desc">сазан, судак, картофельные дольки, луковые кольца</span></span><span class="dish-price">11 890&nbsp;₸</span></li>
+              <li><span class="dish-name">Золотая рыбка<span class="dish-desc">сазан, судак, луковые кольца, картофельные шарики</span></span><span class="dish-price">9 990&nbsp;₸</span></li>
+              <li><span class="dish-name">Нежность Нептуна<span class="dish-desc">сёмга, овощи на гриле, сазан, судак</span></span><span class="dish-price">17 990&nbsp;₸</span></li>
+            </ul>
+          </section>
+          <section class="cat" id="m-breakfast" data-cat="breakfast" aria-labelledby="m-breakfast-h">
+            <h3 id="m-breakfast-h">Завтраки</h3>
+            <ul class="dishes">
+              <li class="has-pic"><img src="../naryn/dishes/champion.webp" alt="" width="72" height="54" loading="lazy" decoding="async" /><span class="dish-name">Завтрак чемпиона<span class="dish-desc">яйцо, черри, говяжьи колбаски, тосты, кукуруза, картофель, ветчина, огурцы, фасоль</span></span><span class="dish-price">3 690&nbsp;₸</span></li>
+              <li><span class="dish-name">Английский завтрак<span class="dish-desc">яйцо, фасоль, черри, колбаски, тосты</span></span><span class="dish-price">3 490&nbsp;₸</span></li>
+              <li><span class="dish-name">Деревенский завтрак<span class="dish-desc">яйца, салат, черри, говяжьи колбаски, чёрный хлеб, картофель, шампиньоны, брокколи, соус тартар</span></span><span class="dish-price">3 190&nbsp;₸</span></li>
+              <li><span class="dish-name">Французский завтрак с ветчиной индейки<span class="dish-desc">яйцо, копчёная индейка, черри, круассан, моцарелла</span></span><span class="dish-price">3 590&nbsp;₸</span></li>
+              <li class="has-pic"><img src="../naryn/dishes/shakshuka.webp" alt="" width="72" height="54" loading="lazy" decoding="async" /><span class="dish-name">Шакшука<span class="dish-desc">яйцо, перец, помидоры, лук, микрозелень, хлеб</span></span><span class="dish-price">3 190&nbsp;₸</span></li>
+              <li class="has-pic"><img src="../naryn/dishes/pancake.webp" alt="" width="72" height="54" loading="lazy" decoding="async" /><span class="dish-name">Панкейки</span><span class="dish-price">3 790&nbsp;₸</span></li>
+              <li><span class="dish-name">Венские вафли</span><span class="dish-price">3 790&nbsp;₸</span></li>
+              <li><span class="dish-name">Сырники в вишнёвом компоте</span><span class="dish-price">3 790&nbsp;₸</span></li>
+              <li><span class="dish-name">Сырники с солёной карамелью</span><span class="dish-price">3 790&nbsp;₸</span></li>
+              <li><span class="dish-name">Омлет с грибами<span class="dish-desc">яйца, тостерный хлеб, шампиньоны, черри</span></span><span class="dish-price">2 590&nbsp;₸</span></li>
+              <li><span class="dish-name">Омлет с сыром и ветчиной<span class="dish-desc">яйца, тосты, шампиньоны, черри, ветчина</span></span><span class="dish-price">3 290&nbsp;₸</span></li>
+              <li><span class="dish-name">Хашбраун<span class="dish-desc">картофель, яйца, сёмга, огурцы, горчица, черри, сметана</span></span><span class="dish-price">3 290&nbsp;₸</span></li>
+              <li><span class="dish-name">Круассан с сёмгой<span class="dish-desc">сёмга, огурцы, помидоры, микс салата</span></span><span class="dish-price">3 890&nbsp;₸</span></li>
+              <li><span class="dish-name">Круассан с курицей<span class="dish-desc">куриное филе, огурцы, помидоры, соус цезарь</span></span><span class="dish-price">3 190&nbsp;₸</span></li>
+              <li><span class="dish-name">Тост с авокадо и слабосолёной сёмгой<span class="dish-desc">авокадо, яйца, сёмга, сыр креметте, микс салата</span></span><span class="dish-price">3 690&nbsp;₸</span></li>
+              <li><span class="dish-name">Фитнес-боул с курицей<span class="dish-desc">яйца, авокадо, кукуруза, курица, брокколи, огурцы, черри, греческий йогурт</span></span><span class="dish-price">3 590&nbsp;₸</span></li>
+              <li><span class="dish-name">Фитнес-боул с сёмгой<span class="dish-desc">киноа, брокколи, сёмга, черри, кунжут, терияки, гуакамоле</span></span><span class="dish-price">4 390&nbsp;₸</span></li>
+              <li><span class="dish-name">Блины классические</span><span class="dish-price">2 390&nbsp;₸</span></li>
+              <li><span class="dish-name">Блины с творогом</span><span class="dish-price">2 590&nbsp;₸</span></li>
+              <li><span class="dish-name">Овсяная каша</span><span class="dish-price">1 690&nbsp;₸</span></li>
+              <li><span class="dish-name">Рисовая каша</span><span class="dish-price">1 590&nbsp;₸</span></li>
+            </ul>
+          </section>
+          <section class="cat" id="m-salads" data-cat="salads" aria-labelledby="m-salads-h">
+            <h3 id="m-salads-h">Салаты</h3>
+            <ul class="dishes">
+              <li class="has-pic"><img src="../naryn/dishes/burrata.webp" alt="" width="72" height="54" loading="lazy" decoding="async" /><span class="dish-name">Буррата с персиком<span class="dish-desc">буррата, персик, черри, шпинат, руккола, кедровые орехи, пармезан, авокадо, песто</span></span><span class="dish-price">4 390&nbsp;₸</span></li>
+              <li><span class="dish-name">Тёплый салат с медальонами<span class="dish-desc">говядина, микс салата, перепелиное яйцо, черри, песто с пармезаном</span></span><span class="dish-price">4 590&nbsp;₸</span></li>
+              <li><span class="dish-name">Руккола с креветками<span class="dish-desc">креветки, черри, пармезан, авокадо, цитрусовая заправка</span></span><span class="dish-price">3 590&nbsp;₸</span></li>
+              <li><span class="dish-name">Капрезе классический<span class="dish-desc">моцарелла, помидоры, песто, базилик, бальзамик, пармезан</span></span><span class="dish-price">3 490&nbsp;₸</span></li>
+              <li><span class="dish-name">Цезарь с курицей</span><span class="dish-price">2 390&nbsp;₸</span></li>
+              <li><span class="dish-name">Цезарь с сёмгой</span><span class="dish-price">3 490&nbsp;₸</span></li>
+              <li><span class="dish-name">Салат с сёмгой<span class="dish-desc">сёмга, микс салата, ананасовая сальса, кабачки, огурцы, миндаль</span></span><span class="dish-price">2 990&nbsp;₸</span></li>
+              <li><span class="dish-name">Салат «Алматинский»<span class="dish-desc">огурцы, помидоры, перец, салат, говядина, лимон, оливковое масло</span></span><span class="dish-price">2 990&nbsp;₸</span></li>
+              <li><span class="dish-name">Запечённая свёкла с апельсином</span><span class="dish-price">2 990&nbsp;₸</span></li>
+              <li><span class="dish-name">Оливье<span class="dish-desc">картофель, морковь, яйца, солёные огурцы, горошек, говядина, майонез</span></span><span class="dish-price">2 790&nbsp;₸</span></li>
+              <li><span class="dish-name">Хрустящие баклажаны</span><span class="dish-price">2 790&nbsp;₸</span></li>
+              <li><span class="dish-name">Греческий</span><span class="dish-price">2 790&nbsp;₸</span></li>
+              <li><span class="dish-name">Мулен руж<span class="dish-desc">брокколи, цветная капуста, черри, горошек, свит-чили, маслины, судак</span></span><span class="dish-price">2 590&nbsp;₸</span></li>
+              <li><span class="dish-name">Малибу<span class="dish-desc">огурцы, помидоры, гауда, индейка, сухарики, майонез</span></span><span class="dish-price">2 590&nbsp;₸</span></li>
+              <li><span class="dish-name">Свежий салат<span class="dish-desc">помидоры, огурцы, редис, зелень, перец, мятный соус</span></span><span class="dish-price">1 890&nbsp;₸</span></li>
+              <li><span class="dish-name">Чабан салат<span class="dish-desc">помидоры, курт, кинза, базилик</span></span><span class="dish-price">1 790&nbsp;₸</span></li>
+              <li><span class="dish-name">Ачичук<span class="dish-desc">помидоры, красный лук, полугорький перец</span></span><span class="dish-price">1 790&nbsp;₸</span></li>
+            </ul>
+          </section>
+          <section class="cat" id="m-snacks" data-cat="snacks" aria-labelledby="m-snacks-h">
+            <h3 id="m-snacks-h">Закуски</h3>
+            <ul class="dishes">
+              <li><span class="dish-name">Мясное ассорти<span class="dish-desc">казы, жая, говяжий язык</span></span><span class="dish-price">7 290&nbsp;₸</span></li>
+              <li><span class="dish-name">Рыбное ассорти<span class="dish-desc">сёмга, эсколар, скумбрия</span></span><span class="dish-price">7 590&nbsp;₸</span></li>
+              <li><span class="dish-name">Кавказская нарезка<span class="dish-desc">овощи, брынза, маслины, оливки, зелень</span></span><span class="dish-price">3 390&nbsp;₸</span></li>
+              <li><span class="dish-name">Фруктовая нарезка</span><span class="dish-price">3 990&nbsp;₸</span></li>
+              <li class="has-pic"><img src="../naryn/dishes/wings.webp" alt="" width="72" height="54" loading="lazy" decoding="async" /><span class="dish-name">Крылышки BBQ</span><span class="dish-price">3 590&nbsp;₸</span></li>
+              <li><span class="dish-name">Казы в кляре</span><span class="dish-price">3 590&nbsp;₸</span></li>
+              <li><span class="dish-name">Попкорн из креветок с соусом васаби</span><span class="dish-price">4 390&nbsp;₸</span></li>
+              <li><span class="dish-name">Сырные палочки</span><span class="dish-price">2 590&nbsp;₸</span></li>
+              <li><span class="dish-name">Наггетсы с картошкой фри</span><span class="dish-price">2 790&nbsp;₸</span></li>
+            </ul>
+          </section>
+          <section class="cat" id="m-bakery" data-cat="bakery" aria-labelledby="m-bakery-h">
+            <h3 id="m-bakery-h">Выпечка и хлеб</h3>
+            <ul class="dishes">
+              <li class="has-pic"><img src="../naryn/dishes/samsa.webp" alt="" width="72" height="54" loading="lazy" decoding="async" /><span class="dish-name">Самса с мясом</span><span class="dish-price">690&nbsp;₸</span></li>
+              <li><span class="dish-name">Самса бухарская</span><span class="dish-price">3 390&nbsp;₸</span></li>
+              <li class="has-pic"><img src="../naryn/dishes/chebureki.webp" alt="" width="72" height="54" loading="lazy" decoding="async" /><span class="dish-name">Мини-чебуреки с мясом</span><span class="dish-price">1 790&nbsp;₸</span></li>
+              <li class="has-pic"><img src="../naryn/dishes/hachapuri.webp" alt="" width="72" height="54" loading="lazy" decoding="async" /><span class="dish-name">Хачапури по-мегрельски</span><span class="dish-price">3 790&nbsp;₸</span></li>
+              <li><span class="dish-name">Хачапури по-аджарски</span><span class="dish-price">3 590&nbsp;₸</span></li>
+              <li><span class="dish-name">Хычины</span><span class="dish-price">2 390&nbsp;₸</span></li>
+              <li><span class="dish-name">Гош нан</span><span class="dish-price">3 190&nbsp;₸</span></li>
+              <li><span class="dish-name">Таба нан</span><span class="dish-price">990&nbsp;₸</span></li>
+              <li><span class="dish-name">Бауырсаки</span><span class="dish-price">1 290&nbsp;₸</span></li>
+              <li><span class="dish-name">Лепёшка</span><span class="dish-price">590&nbsp;₸</span></li>
+              <li><span class="dish-name">Хлебная корзина</span><span class="dish-price">1 490&nbsp;₸</span></li>
+              <li><span class="dish-name">Хлеб чесночный</span><span class="dish-price">1 290&nbsp;₸</span></li>
+              <li><span class="dish-name">Французский багет</span><span class="dish-price">1 290&nbsp;₸</span></li>
+            </ul>
+          </section>
+          <section class="cat" id="m-pizza" data-cat="pizza" aria-labelledby="m-pizza-h">
+            <h3 id="m-pizza-h">Пицца, паста, бургеры</h3>
+            <ul class="dishes">
+              <li class="has-pic"><img src="../naryn/dishes/pepperoni.webp" alt="" width="72" height="54" loading="lazy" decoding="async" /><span class="dish-name">Пепперони</span><span class="dish-price">3 690&nbsp;₸</span></li>
+              <li><span class="dish-name">Маргарита</span><span class="dish-price">3 090&nbsp;₸</span></li>
+              <li><span class="dish-name">Пицца «Цезарь»</span><span class="dish-price">3 590&nbsp;₸</span></li>
+              <li><span class="dish-name">Пицца с сёмгой</span><span class="dish-price">4 290&nbsp;₸</span></li>
+              <li><span class="dish-name">Пицца мексиканская</span><span class="dish-price">3 590&nbsp;₸</span></li>
+              <li><span class="dish-name">Пицца грибная</span><span class="dish-price">3 490&nbsp;₸</span></li>
+              <li class="has-pic"><img src="../naryn/dishes/fettuccine.webp" alt="" width="72" height="54" loading="lazy" decoding="async" /><span class="dish-name">Феттучини с сёмгой</span><span class="dish-price">3 590&nbsp;₸</span></li>
+              <li><span class="dish-name">Альфредо</span><span class="dish-price">3 190&nbsp;₸</span></li>
+              <li><span class="dish-name">Паста с морепродуктами</span><span class="dish-price">3 690&nbsp;₸</span></li>
+              <li><span class="dish-name">Бургер говяжий</span><span class="dish-price">2 990&nbsp;₸</span></li>
+              <li><span class="dish-name">Бургер куриный</span><span class="dish-price">2 690&nbsp;₸</span></li>
+              <li><span class="dish-name">Клаб-сэндвич</span><span class="dish-price">2 990&nbsp;₸</span></li>
+            </ul>
+          </section>
+          <section class="cat" id="m-company" data-cat="company" aria-labelledby="m-company-h">
+            <h3 id="m-company-h">Блюда на компанию</h3>
+            <ul class="dishes">
+              <li><span class="dish-name">Бешбармак на компанию</span><span class="dish-price">21 990&nbsp;₸</span></li>
+              <li><span class="dish-name">Нарын на компанию</span><span class="dish-price">20 990&nbsp;₸</span></li>
+              <li><span class="dish-name">Садж на компанию</span><span class="dish-price">20 990&nbsp;₸</span></li>
+              <li><span class="dish-name">Куырдак из баранины на компанию</span><span class="dish-price">19 990&nbsp;₸</span></li>
+              <li><span class="dish-name">Тай куырдак на компанию</span><span class="dish-price">18 990&nbsp;₸</span></li>
+              <li><span class="dish-name">Плов на компанию</span><span class="dish-price">17 990&nbsp;₸</span></li>
+              <li><span class="dish-name">Манты на компанию</span><span class="dish-price">17 990&nbsp;₸</span></li>
+              <li><span class="dish-name">Мясной микс</span><span class="dish-price">39 990&nbsp;₸</span></li>
+              <li><span class="dish-name">Рыбный микс</span><span class="dish-price">39 990&nbsp;₸</span></li>
+              <li><span class="dish-name">Куриный микс</span><span class="dish-price">28 990&nbsp;₸</span></li>
+              <li><span class="dish-name">Дапян джи</span><span class="dish-price">12 990&nbsp;₸</span></li>
+              <li><span class="dish-name">Хоншау юкур</span><span class="dish-price">8 490&nbsp;₸</span></li>
+              <li><span class="dish-name">Ганза ю</span><span class="dish-price">8 490&nbsp;₸</span></li>
+            </ul>
+          </section>
+          <section class="cat" id="m-tea" data-cat="tea" aria-labelledby="m-tea-h">
+            <h3 id="m-tea-h">Чай</h3>
+            <ul class="dishes">
+              <li><span class="dish-name">Чайный сет «Нарын», 1 л</span><span class="dish-price">3 290&nbsp;₸</span></li>
+              <li><span class="dish-name">Чайный сет «Восточный», 1 л</span><span class="dish-price">3 290&nbsp;₸</span></li>
+              <li data-opts="400 мл=990;1 л=1990"><span class="dish-name">Чай по-казахски<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">990 / 1 990&nbsp;₸</span></li>
+              <li data-opts="400 мл=990;1 л=1990"><span class="dish-name">Чай с тары<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">990 / 1 990&nbsp;₸</span></li>
+              <li data-opts="400 мл=1390;1 л=2490"><span class="dish-name">Облепиха и апельсин<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">1 390 / 2 490&nbsp;₸</span></li>
+              <li data-opts="400 мл=1390;1 л=2490"><span class="dish-name">Ташкентский<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">1 390 / 2 490&nbsp;₸</span></li>
+              <li data-opts="400 мл=1390;1 л=2490"><span class="dish-name">Марокканский<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">1 390 / 2 490&nbsp;₸</span></li>
+              <li data-opts="400 мл=1390;1 л=2490"><span class="dish-name">Ягодный<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">1 390 / 2 490&nbsp;₸</span></li>
+              <li data-opts="400 мл=1390;1 л=2490"><span class="dish-name">Малина и имбирь<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">1 390 / 2 490&nbsp;₸</span></li>
+              <li data-item="Чай 1 л" data-opts="английский завтрак=1490;сенча=1490;ромашка=1490;эрл грей=1490;жасмин=1490"><span class="dish-name">Английский завтрак, сенча, ромашка, эрл грей, жасмин<span class="dish-desc">1 л</span></span><span class="dish-price">1 490&nbsp;₸</span></li>
+              <li data-item="Чай 1 л" data-opts="японская липа=1990;молочный улун=1990"><span class="dish-name">Японская липа, молочный улун<span class="dish-desc">1 л</span></span><span class="dish-price">1 990&nbsp;₸</span></li>
+            </ul>
+          </section>
+          <section class="cat" id="m-coffee" data-cat="coffee" aria-labelledby="m-coffee-h">
+            <h3 id="m-coffee-h">Кофе</h3>
+            <ul class="dishes">
+              <li><span class="dish-name">Эспрессо<span class="dish-desc">50 мл</span></span><span class="dish-price">1 090&nbsp;₸</span></li>
+              <li><span class="dish-name">Американо<span class="dish-desc">0,3 л, можно с молоком</span></span><span class="dish-price">1 090&nbsp;₸</span></li>
+              <li><span class="dish-name">Капучино<span class="dish-desc">0,3 л</span></span><span class="dish-price">1 290&nbsp;₸</span></li>
+              <li><span class="dish-name">Латте<span class="dish-desc">0,3 л</span></span><span class="dish-price">1 290&nbsp;₸</span></li>
+              <li><span class="dish-name">Флэт уайт<span class="dish-desc">0,2 л</span></span><span class="dish-price">1 390&nbsp;₸</span></li>
+              <li><span class="dish-name">Латте карамельный<span class="dish-desc">0,2 л</span></span><span class="dish-price">1 590&nbsp;₸</span></li>
+              <li data-item="Раф 0,2 л" data-opts="лавандовый=1890;ванильный=1890"><span class="dish-name">Раф лавандовый или ванильный<span class="dish-desc">0,2 л</span></span><span class="dish-price">1 890&nbsp;₸</span></li>
+              <li><span class="dish-name">Аффогато<span class="dish-desc">0,2 л</span></span><span class="dish-price">2 090&nbsp;₸</span></li>
+              <li data-item="Фраппучино 0,3 л" data-opts="карамель=2290;кокос=2290"><span class="dish-name">Фраппучино карамель или кокос<span class="dish-desc">0,3 л</span></span><span class="dish-price">2 290&nbsp;₸</span></li>
+              <li><span class="dish-name">Айс американо<span class="dish-desc">0,4 л</span></span><span class="dish-price">1 090&nbsp;₸</span></li>
+              <li data-item="Айс кофе 0,4 л" data-opts="капучино=1290;латте=1290"><span class="dish-name">Айс капучино, айс латте<span class="dish-desc">0,4 л</span></span><span class="dish-price">1 290&nbsp;₸</span></li>
+              <li><span class="dish-name">Бамбл кофе<span class="dish-desc">0,4 л</span></span><span class="dish-price">2 090&nbsp;₸</span></li>
+              <li><span class="dish-name">Эспрессо-тоник<span class="dish-desc">0,4 л</span></span><span class="dish-price">2 190&nbsp;₸</span></li>
+              <li><span class="dish-name">Малиновый эспрессо-тоник<span class="dish-desc">0,4 л</span></span><span class="dish-price">2 290&nbsp;₸</span></li>
+            </ul>
+          </section>
+          <section class="cat" id="m-drinks" data-cat="drinks" aria-labelledby="m-drinks-h">
+            <h3 id="m-drinks-h">Лимонады и другие напитки</h3>
+            <ul class="dishes">
+              <li data-opts="400 мл=1390;1 л=2490"><span class="dish-name">Лимонад манго-маракуйя<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">1 390 / 2 490&nbsp;₸</span></li>
+              <li data-opts="400 мл=1390;1 л=2490"><span class="dish-name">Лимонад мохито<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">1 390 / 2 490&nbsp;₸</span></li>
+              <li data-opts="400 мл=1390;1 л=2490"><span class="dish-name">Лимонад ягодный<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">1 390 / 2 490&nbsp;₸</span></li>
+              <li data-opts="400 мл=1390;1 л=2490"><span class="dish-name">Лимонад киви-яблоко<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">1 390 / 2 490&nbsp;₸</span></li>
+              <li data-opts="400 мл=1390;1 л=2490"><span class="dish-name">Лимонад щавель-маракуйя<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">1 390 / 2 490&nbsp;₸</span></li>
+              <li data-opts="400 мл=1390;1 л=2490"><span class="dish-name">Лимонад яблоко-лайм<span class="dish-desc">400 мл / 1 л</span></span><span class="dish-price">1 390 / 2 490&nbsp;₸</span></li>
+              <li data-item="Смузи 0,3 л" data-opts="манго-апельсин=2090;ягодный=2090;малина-яблоко=2090"><span class="dish-name">Смузи<span class="dish-desc">манго-апельсин, ягодный, малина-яблоко; 0,3 л</span></span><span class="dish-price">2 090&nbsp;₸</span></li>
+              <li data-opts="апельсин=1790;яблоко=1790;морковь=1390"><span class="dish-name">Фреш<span class="dish-desc">апельсин, яблоко / морковь</span></span><span class="dish-price">1 790 / 1 390&nbsp;₸</span></li>
+              <li data-opts="0,3 л=890;1 л=2290"><span class="dish-name">Кымыз<span class="dish-desc">0,3 л / 1 л</span></span><span class="dish-price">890 / 2 290&nbsp;₸</span></li>
+              <li data-opts="0,3 л=790;1 л=1790"><span class="dish-name">Компот<span class="dish-desc">0,3 л / 1 л</span></span><span class="dish-price">790 / 1 790&nbsp;₸</span></li>
+              <li data-opts="0,3 л=990;1 л=2090"><span class="dish-name">Морс<span class="dish-desc">0,3 л / 1 л</span></span><span class="dish-price">990 / 2 090&nbsp;₸</span></li>
+              <li data-item="Матча латте" data-opts="горячий=1590;айс=1590"><span class="dish-name">Матча латте, айс матча латте</span><span class="dish-price">1 590&nbsp;₸</span></li>
+              <li><span class="dish-name">Айс матча тоник</span><span class="dish-price">2 090&nbsp;₸</span></li>
+              <li><span class="dish-name">Какао с маршмеллоу<span class="dish-desc">0,3 л</span></span><span class="dish-price">1 690&nbsp;₸</span></li>
+              <li><span class="dish-name">Горячий шоколад<span class="dish-desc">0,3 л</span></span><span class="dish-price">1 490&nbsp;₸</span></li>
+              <li><span class="dish-name">Айс ти классик</span><span class="dish-price">990&nbsp;₸</span></li>
+            </ul>
+          </section>
+          <div class="menu-foot">
+            <p>Цены в&nbsp;тенге, по&nbsp;меню кафе. Блюда без описания можно уточнить у&nbsp;официанта.</p>
+            <a class="btn" href="#bron">Забронировать стол<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 7h11.2L8 2.8 9.4 1.4 16 8l-6.6 6.6L8 13.2 12.2 9H1z" fill="currentColor" /></svg></a>
+          </div>
+        </div>
+      </section>
+
+      <section class="fam" id="family" aria-labelledby="family-h">
+        <div class="fam-stage">
+          <ul class="steps">
+            <li class="on"><h2 id="family-h">Всей семьёй</h2></li>
+            <li>Детская комната с&nbsp;игровой зоной</li>
+            <li>Молельная комната для намаза</li>
+            <li>Кабинки с&nbsp;караоке и&nbsp;VIP-зал</li>
+            <li>Банкеты и&nbsp;блюда на&nbsp;компанию</li>
+            <li>Летняя веранда и&nbsp;топчан</li>
+            <li>Доставка, навынос и&nbsp;парковка</li>
+          </ul>
+          <div class="pair" aria-hidden="true">
+            <img class="l on" data-step="0" src="../naryn/photos/lamps.jpg" width="900" height="1200" alt="" style="top: 46svh" />
+            <img class="r on" data-step="0" src="../naryn/photos/hall.jpg" width="1397" height="1026" alt="" style="top: 30svh" />
+            <img class="l" data-step="1" src="../naryn/photos/kids.jpg" width="1000" height="1200" alt="" style="top: 58svh" />
+            <img class="r" data-step="1" src="../naryn/photos/kids3.jpg" width="900" height="1128" alt="" style="top: 30svh" />
+            <img class="l" data-step="2" src="../naryn/photos/arch.jpg" width="900" height="1248" alt="" style="top: 30svh" />
+            <img class="r" data-step="2" src="../naryn/photos/lounge.jpg" width="900" height="1216" alt="" style="top: 52svh" />
+            <img class="l" data-step="3" src="../naryn/photos/vip.jpg" width="1200" height="881" alt="" style="top: 50svh" />
+            <img class="r" data-step="3" src="../naryn/photos/vip2.jpg" width="1200" height="881" alt="" style="top: 32svh" />
+            <img class="l" data-step="4" src="../naryn/photos/table.jpg" width="900" height="1467" alt="" style="top: 34svh" />
+            <img class="r" data-step="4" src="../naryn/photos/bar.jpg" width="1397" height="1026" alt="" style="top: 56svh" />
+            <img class="l" data-step="5" src="../naryn/photos/terrace.jpg" width="900" height="1068" alt="" style="top: 56svh" />
+            <img class="r" data-step="5" src="../naryn/photos/terrace2.jpg" width="900" height="1068" alt="" style="top: 34svh" />
+            <img class="l" data-step="6" src="../naryn/photos/facade.jpg" width="900" height="1040" alt="" style="top: 34svh" />
+            <img class="r" data-step="6" src="../naryn/photos/entrance.jpg" width="1200" height="1520" alt="" style="top: 54svh" />
+          </div>
+        </div>
+      </section>
+
+      <section class="reviews" id="reviews" aria-labelledby="reviews-h">
+        <figure class="portrait" data-r><img src="../naryn/photos/lagman.jpg" width="1000" height="1174" alt="Лагман с говядиной и перцем на столе в Naryn" loading="lazy" decoding="async" /></figure>
+        <div class="quote">
+          <h2 id="reviews-h" data-r>Что пишут гости</h2>
+          <blockquote data-r>
+            <p>Еда вкусная и&nbsp;свежая, подача красивая, зал приятный, а&nbsp;официанты отзывчивые.</p>
+            <p>Отдельно хвалят бухарскую самсу, борщ, бефстроганов, чай с&nbsp;компотом и&nbsp;детскую комнату.</p>
+          </blockquote>
+          <div class="who" data-r>
+            <p>Пересказ отзывов в&nbsp;2ГИС</p>
+            <p class="muted">4&nbsp;509 отзывов на&nbsp;Толе би и&nbsp;126 на&nbsp;Бухар жырау</p>
+            <a class="link" href="https://2gis.kz/almaty/firm/70000001099760957/tab/reviews" target="_blank" rel="noopener">Читать в&nbsp;2ГИС</a>
+          </div>
+          <figure class="quote-pic" data-r><img src="../naryn/photos/khachapuri.jpg" width="900" height="1056" alt="Хачапури по-мегрельски" loading="lazy" decoding="async" /></figure>
+        </div>
+      </section>
+
+      <section class="book" id="bron" aria-labelledby="bron-h">
+        <div class="book-side">
+          <h2 id="bron-h" data-r>Забронировать стол</h2>
+          <p class="lede" data-r>Выберите кафе, время и&nbsp;место в&nbsp;зале. Сайт соберёт сообщение, а&nbsp;отправите его вы, в&nbsp;WhatsApp этого кафе.</p>
+          <p data-r>Банкет или день рождения можно обсудить там&nbsp;же: напишите повод и&nbsp;сколько будет гостей.</p>
+        </div>
+        <form class="book-form" id="book" action="https://wa.me/77084004014" method="get" target="_blank" data-r>
+          <fieldset>
+            <legend class="lbl">Кафе</legend>
+            <div class="branches">
+              <label class="opt"><input type="radio" name="branch" value="tole" checked /><span class="opt-box"><span class="opt-name">Толе би, 273/4</span><span class="opt-meta">ЖК Жайлы, 09:00–23:00</span><span class="opt-state" data-state="tole"></span></span></label>
+              <label class="opt"><input type="radio" name="branch" value="bukhar" /><span class="opt-box"><span class="opt-name">Бухар жырау, 33</span><span class="opt-meta">БЦ Jenis, 08:00–23:00</span><span class="opt-state" data-state="bukhar"></span></span></label>
+            </div>
+          </fieldset>
+          <div class="pair-f">
+            <label class="field"><span class="lbl">Дата</span><input type="date" name="date" id="f-date" required /></label>
+            <label class="field"><span class="lbl">Время</span>
+              <select name="time" id="f-time"><option>19:00</option></select>
+            </label>
+          </div>
+          <div>
+            <span class="lbl" id="guests-l">Гостей</span>
+            <div class="stepper" role="group" aria-labelledby="guests-l">
+              <button type="button" data-step="-1" aria-label="Меньше гостей">−</button>
+              <output id="guests" aria-live="polite">4</output>
+              <button type="button" data-step="1" aria-label="Больше гостей">+</button>
+            </div>
+          </div>
+          <fieldset>
+            <legend class="lbl">Где сесть</legend>
+            <div class="seats">
+              <label class="opt"><input type="radio" name="seat" value="в зале" checked /><span class="opt-box">В зале</span></label>
+              <label class="opt"><input type="radio" name="seat" value="в кабинке" /><span class="opt-box">Кабинка</span></label>
+              <label class="opt"><input type="radio" name="seat" value="в VIP-зале" /><span class="opt-box">VIP-зал</span></label>
+              <label class="opt"><input type="radio" name="seat" value="рядом с детской" /><span class="opt-box">Рядом с детской</span></label>
+              <label class="opt"><input type="radio" name="seat" value="на веранде" /><span class="opt-box">Веранда</span></label>
+            </div>
+          </fieldset>
+          <div class="pair-f">
+            <label class="field"><span class="lbl">Повод, если есть</span><input type="text" name="occasion" id="f-occ" placeholder="день рождения" autocomplete="off" /></label>
+            <label class="field"><span class="lbl">Как вас зовут</span><input type="text" name="name" id="f-name" autocomplete="given-name" /></label>
+          </div>
+          <div class="preview" aria-live="polite">
+            <span class="lbl">Сообщение в&nbsp;WhatsApp</span>
+            <p id="pv">Здравствуйте! Хочу забронировать стол в&nbsp;Naryn.</p>
+          </div>
+          <a class="btn" id="send" href="https://wa.me/77084004014" target="_blank" rel="noopener">Отправить в&nbsp;WhatsApp</a>
+          <p class="alt">Или позвоните: <a href="tel:+77084004014">Толе би</a>, <a href="tel:+77023641030">Бухар жырау</a></p>
+        </form>
+      </section>
+
+      <section class="visit" id="address" aria-labelledby="address-h">
+        <h2 id="address-h" data-r>Два адреса в&nbsp;Алматы</h2>
+        <div class="visit-bg" aria-hidden="true"><img src="../naryn/photos/entrance.jpg" width="1200" height="1520" alt="" loading="lazy" decoding="async" /></div>
+        <div class="visit-cards">
+          <article class="vcard" data-r>
+            <h3>Толе би, 273/4</h3>
+            <p>ЖК Жайлы, Алмалинский район</p>
+            <dl>
+              <div><dt>Часы</dt><dd>09:00–23:00</dd></div>
+              <div><dt>Сейчас</dt><dd data-state="tole">открыто</dd></div>
+            </dl>
+            <a class="tel" href="tel:+77084004014">+7 708 400 40 14</a>
+            <p class="vlinks"><a class="link" href="https://2gis.kz/almaty/firm/70000001099760957" target="_blank" rel="noopener">Маршрут в 2ГИС</a><a class="link" href="https://wa.me/77084004014" target="_blank" rel="noopener">WhatsApp</a></p>
+            <a class="btn" href="#menu" data-order="tole">Заказать еду<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 7h11.2L8 2.8 9.4 1.4 16 8l-6.6 6.6L8 13.2 12.2 9H1z" fill="currentColor" /></svg></a>
+          </article>
+          <article class="vcard" data-r>
+            <h3>Бухар жырау, 33</h3>
+            <p>БЦ Jenis, 1&nbsp;этаж, Бостандыкский район</p>
+            <dl>
+              <div><dt>Часы</dt><dd>08:00–23:00</dd></div>
+              <div><dt>Сейчас</dt><dd data-state="bukhar">открыто</dd></div>
+            </dl>
+            <a class="tel" href="tel:+77023641030">+7 702 364 10 30</a>
+            <p class="vlinks"><a class="link" href="https://2gis.kz/almaty/firm/70000001114687713" target="_blank" rel="noopener">Маршрут в 2ГИС</a><a class="link" href="https://wa.me/77023641030" target="_blank" rel="noopener">WhatsApp</a></p>
+            <a class="btn" href="#menu" data-order="bukhar">Заказать еду<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 7h11.2L8 2.8 9.4 1.4 16 8l-6.6 6.6L8 13.2 12.2 9H1z" fill="currentColor" /></svg></a>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <div class="foot-pic"><img src="../naryn/photos/neon.jpg" width="1290" height="573" alt="Неоновая вывеска NARYN над входом" loading="lazy" decoding="async" /></div>
+      <div class="foot-menu">
+        <img class="foot-logo" src="../naryn/logo/naryn-color.webp" width="560" height="727" alt="Naryn, otbasylyq dämhana. Jyly köñildiñ mekeni!" loading="lazy" decoding="async" />
+        <nav class="foot-links" aria-label="Разделы">
+          <a href="#atmo">Атмосфера</a>
+          <a href="#hits">Что заказать</a>
+          <a href="#menu">Меню</a>
+          <a href="#family">Всей семьёй</a>
+          <a href="#reviews">Отзывы</a>
+          <a href="#bron">Бронь стола</a>
+          <a href="#address">Адреса</a>
+        </nav>
+        <div class="foot-info">
+          <div>
+            <p>Связаться</p>
+            <a href="https://wa.me/77084004014" target="_blank" rel="noopener">WhatsApp Толе би</a><br />
+            <a href="https://wa.me/77023641030" target="_blank" rel="noopener">WhatsApp Бухар жырау</a>
+          </div>
+          <div>
+            <p>Instagram</p>
+            <a href="https://instagram.com/naryn.damhana" target="_blank" rel="noopener">@naryn.damhana</a><br />
+            <a href="https://instagram.com/naryn_damhanasy" target="_blank" rel="noopener">@naryn_damhanasy</a>
+          </div>
+        </div>
+        <p class="foot-legal">Демо-версия сайта для кафе Naryn. Цены и&nbsp;фото блюд взяты из&nbsp;меню кафе, фото зала из&nbsp;2ГИС. Сделал <a href="https://aknas04.github.io" target="_blank" rel="noopener">Бекарыс</a>. Есть <a href="../naryn/">тёмная версия</a>.</p>
+      </div>
+    </footer>
+
+    <div class="cartbar" id="cartbar">
+      <button type="button" id="cart-open"><span><span class="badge" id="cart-n">0</span>Корзина</span><span class="sum" id="cart-sum">0 ₸</span></button>
+    </div>
+    <p class="sr" aria-live="polite" id="cart-live"></p>
+
+    <div id="cartwrap">
+      <div class="overlay" id="cart-overlay"></div>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="cart-h">
+        <div class="sh-head">
+          <h2 id="cart-h">Ваш заказ</h2>
+          <button class="x" type="button" id="cart-close" aria-label="Закрыть корзину"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
+        </div>
+        <div class="sh-body">
+          <div id="cart-lines"></div>
+          <div id="cart-form">
+            <div class="total"><span>Итого</span><span id="cart-total">0 ₸</span></div>
+            <p class="cnote" id="cart-note">Заберёте заказ сами в&nbsp;кафе.</p>
+            <div class="cform">
+              <fieldset>
+                <legend class="lbl">Кафе</legend>
+                <div class="seg">
+                  <label class="opt"><input type="radio" name="c-branch" value="tole" checked /><span class="opt-box"><span class="opt-name">Толе би</span><span class="opt-meta">09:00–23:00</span></span></label>
+                  <label class="opt"><input type="radio" name="c-branch" value="bukhar" /><span class="opt-box"><span class="opt-name">Бухар жырау</span><span class="opt-meta">08:00–23:00</span></span></label>
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend class="lbl">Получение</legend>
+                <div class="seg">
+                  <label class="opt"><input type="radio" name="c-mode" value="pickup" checked /><span class="opt-box"><span class="opt-name">Самовывоз</span></span></label>
+                  <label class="opt"><input type="radio" name="c-mode" value="delivery" /><span class="opt-box"><span class="opt-name">Доставка</span></span></label>
+                </div>
+              </fieldset>
+              <div class="pair-f">
+                <div class="field" id="c-name-f"><label class="lbl" for="c-name">Имя</label><input id="c-name" autocomplete="given-name" /><span class="err">Укажите имя</span></div>
+                <div class="field" id="c-phone-f"><label class="lbl" for="c-phone">Телефон</label><input id="c-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 7__ ___ __ __" /><span class="err">Нужен номер, чтобы перезвонить</span></div>
+              </div>
+              <div class="field" id="c-addr-f" hidden><label class="lbl" for="c-addr">Адрес доставки</label><input id="c-addr" autocomplete="street-address" placeholder="Улица, дом, квартира" /><span class="err">Укажите адрес</span></div>
+              <div class="field"><label class="lbl" for="c-comment">Комментарий</label><textarea id="c-comment" placeholder="К 19:30, без лука, приборы на 3"></textarea></div>
+            </div>
+          </div>
+        </div>
+        <div class="sh-foot" id="cart-foot">
+          <button class="btn" type="button" id="c-send">Отправить в&nbsp;WhatsApp</button>
+          <p class="sent" id="c-sent" role="status">WhatsApp открыт с&nbsp;готовым сообщением. Осталось нажать там «Отправить», и&nbsp;кафе перезвонит.</p>
+          <button class="clear" type="button" id="c-clear">Очистить корзину</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        var BR = {
+          tole: { name: "Толе би, 273/4", open: 9 * 60, close: 23 * 60, num: "77084004014" },
+          bukhar: { name: "Бухар жырау, 33", open: 8 * 60, close: 23 * 60, num: "77023641030" }
+        };
+        var MONTHS = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"];
+        var DAYS = ["воскресенье", "понедельник", "вторник", "среда", "четверг", "пятница", "суббота"];
+        var LAST = 22 * 60;
+        var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        // Алматы живёт по UTC+5
+        function almaty() {
+          var d = new Date(Date.now() + 5 * 3600e3);
+          return { iso: d.toISOString().slice(0, 10), min: d.getUTCHours() * 60 + d.getUTCMinutes(), d: d };
+        }
+        function hhmm(m) { return (m / 60 | 0) + ":" + (m % 60 < 10 ? "0" : "") + (m % 60); }
+        function dur(m) { var h = m / 60 | 0, r = m % 60; return (h ? h + " ч" : "") + (h && r ? " " : "") + (r ? r + " мин" : ""); }
+
+        function nowLine() {
+          var n = almaty(), t = hhmm(n.min), m = n.min;
+          if (m < 8 * 60) return "В Алматы " + t + ". Откроемся в <strong>8:00</strong> на Бухар жырау и в <strong>9:00</strong> на Толе би.";
+          if (m >= 23 * 60) return "В Алматы " + t + ", оба кафе закрыты до утра. Стол на завтра можно забронировать уже сейчас.";
+          if (m < 9 * 60) return "В Алматы " + t + ". На Бухар жырау уже завтракают, Толе би откроется в 9:00.";
+          if (m < 12 * 60) return "В Алматы " + t + ", идут завтраки, <strong>осталось " + dur(12 * 60 - m) + "</strong>.";
+          if (m < 16 * 60) return "В Алматы " + t + ", идёт бизнес-ланч, <strong>осталось " + dur(16 * 60 - m) + "</strong>.";
+          return "В Алматы " + t + ", кухня работает до 23:00, <strong>осталось " + dur(23 * 60 - m) + "</strong>.";
+        }
+        function state(b) {
+          var m = almaty().min, o = BR[b];
+          if (m >= o.open && m < o.close) return "Открыто до " + hhmm(o.close);
+          if (m < o.open) return "Откроется в " + hhmm(o.open);
+          return "Закрыто, завтра с " + hhmm(o.open);
+        }
+        function tick() {
+          document.getElementById("now").innerHTML = nowLine();
+          document.querySelectorAll("[data-state]").forEach(function (el) { el.textContent = state(el.dataset.state); });
+        }
+
+        /* Бронь: сообщение в WhatsApp нужного кафе */
+        var form = document.getElementById("book");
+        var dateEl = document.getElementById("f-date");
+        var timeEl = document.getElementById("f-time");
+        var guestsEl = document.getElementById("guests");
+        var pv = document.getElementById("pv");
+        var send = document.getElementById("send");
+        var guests = 4;
+        function branch() { return form.querySelector("input[name=branch]:checked").value; }
+        function fillTimes() {
+          var b = BR[branch()], n = almaty(), keep = timeEl.value || "19:00", html = "";
+          var today = dateEl.value === n.iso;
+          for (var m = b.open; m <= LAST; m += 30) {
+            var t = (m / 60 < 10 ? "0" : "") + hhmm(m);
+            html += "<option" + (today && m < n.min + 30 ? " disabled" : "") + ">" + t + "</option>";
+          }
+          timeEl.innerHTML = html;
+          var opts = Array.prototype.filter.call(timeEl.options, function (o) { return !o.disabled; });
+          var pick = opts.filter(function (o) { return o.value === keep; })[0] || opts.filter(function (o) { return o.value === "19:00"; })[0] || opts[0];
+          if (pick) timeEl.value = pick.value;
+        }
+        function niceDate(iso) {
+          if (!iso) return "";
+          var p = iso.split("-"), d = new Date(Date.UTC(+p[0], +p[1] - 1, +p[2]));
+          var label = d.getUTCDate() + " " + MONTHS[d.getUTCMonth()] + ", " + DAYS[d.getUTCDay()];
+          return iso === almaty().iso ? "сегодня, " + label : label;
+        }
+        function compose() {
+          var b = BR[branch()];
+          var seat = form.querySelector("input[name=seat]:checked").value;
+          var occ = document.getElementById("f-occ").value.trim();
+          var name = document.getElementById("f-name").value.trim();
+          var lines = ["Здравствуйте! Хочу забронировать стол в Naryn на " + b.name + "."];
+          lines.push("Дата: " + niceDate(dateEl.value));
+          if (timeEl.value) lines.push("Время: " + timeEl.value);
+          lines.push("Гостей: " + guests);
+          lines.push("Где сесть: " + seat);
+          if (occ) lines.push("Повод: " + occ);
+          if (name) lines.push("Меня зовут " + name + ".");
+          var msg = lines.join("\n");
+          pv.textContent = msg;
+          send.href = "https://wa.me/" + b.num + "?text=" + encodeURIComponent(msg);
+          form.action = "https://wa.me/" + b.num;
+        }
+        var n0 = almaty();
+        dateEl.min = n0.iso;
+        dateEl.value = n0.min >= 21 * 60 + 30 ? new Date(n0.d.getTime() + 864e5).toISOString().slice(0, 10) : n0.iso;
+        fillTimes(); tick(); compose();
+        setInterval(tick, 30000);
+        form.addEventListener("change", function (e) {
+          if (e.target.name === "branch" || e.target === dateEl) fillTimes();
+          compose();
+        });
+        form.addEventListener("input", compose);
+        form.addEventListener("submit", function (e) { e.preventDefault(); window.open(send.href, "_blank", "noopener"); });
+        form.querySelectorAll("[data-step]").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            guests = Math.min(40, Math.max(1, guests + Number(btn.dataset.step)));
+            guestsEl.textContent = guests;
+            compose();
+          });
+        });
+
+        /* Что заказать: активная строка меняет фото */
+        var hits = Array.prototype.slice.call(document.querySelectorAll(".hit"));
+        var hitPics = document.querySelectorAll(".hits-photo img");
+        var hitLock = 0;
+        function setHit(i) {
+          hits.forEach(function (h, j) {
+            h.classList.toggle("on", j === i);
+            h.querySelector(".hit-row").setAttribute("aria-expanded", j === i ? "true" : "false");
+          });
+          hitPics.forEach(function (p, j) { p.classList.toggle("on", j === i); });
+        }
+        hits.forEach(function (h, i) {
+          var b = h.querySelector(".hit-row");
+          b.addEventListener("click", function () { hitLock = Date.now(); setHit(i); });
+          b.addEventListener("focus", function () { hitLock = Date.now(); setHit(i); });
+          b.addEventListener("mouseenter", function () { hitLock = Date.now(); setHit(i); });
+        });
+
+        /* Меню: разделы */
+        var body = document.getElementById("menu-body");
+        var chips = document.querySelectorAll(".chip");
+        var cats = body.querySelectorAll(".cat");
+        function showCat(key) {
+          chips.forEach(function (c) { c.setAttribute("aria-pressed", c.dataset.cat === key ? "true" : "false"); });
+          if (key === "all") { body.classList.remove("filtered"); return; }
+          body.classList.add("filtered");
+          cats.forEach(function (c) { c.classList.toggle("show", c.dataset.cat === key); });
+        }
+        chips.forEach(function (c) {
+          c.addEventListener("click", function () {
+            showCat(c.dataset.cat);
+            if (window.innerWidth < 900) body.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+          });
+        });
+        var hm = almaty().min;
+        showCat(hm >= 7 * 60 && hm < 12 * 60 ? "breakfast" : "national");
+        document.querySelectorAll('a[href^="#m-"]').forEach(function (a) {
+          a.addEventListener("click", function () { showCat(a.getAttribute("href").slice(3)); });
+        });
+
+        /* Всей семьёй: строки сменяются при прокрутке */
+        var scene = document.querySelector(".fam");
+        var steps = scene.querySelectorAll(".steps li");
+        var pics = scene.querySelectorAll(".pair img");
+        var curStep = 0;
+        function setStep(i) {
+          if (i === curStep) return;
+          curStep = i;
+          steps.forEach(function (s, j) { s.classList.toggle("on", j === i); });
+          pics.forEach(function (p) { p.classList.toggle("on", Number(p.dataset.step) === i); });
+        }
+
+        var queued = false;
+        function onScroll() {
+          queued = false;
+          var vh = window.innerHeight;
+          var r = scene.getBoundingClientRect();
+          var p = Math.min(0.999, Math.max(0, -r.top / Math.max(1, r.height - vh)));
+          setStep(Math.floor(p * steps.length));
+          if (Date.now() - hitLock > 1200) {
+            var mid = vh * 0.5, best = -1, bd = 1e9;
+            hits.forEach(function (h, i) {
+              var b = h.getBoundingClientRect();
+              var d = Math.abs(b.top + 29 - mid);
+              if (b.bottom > 0 && b.top < vh && d < bd) { bd = d; best = i; }
+            });
+            var list = document.querySelector(".hits").getBoundingClientRect();
+            if (best >= 0 && list.top < mid && list.bottom > mid) setHit(best);
+          }
+        }
+        window.addEventListener("scroll", function () { if (!queued) { queued = true; requestAnimationFrame(onScroll); } }, { passive: true });
+        onScroll();
+
+        /* Появление */
+        document.querySelectorAll("header, section, footer").forEach(function (g) {
+          g.querySelectorAll("[data-r]").forEach(function (el, i) { el.style.setProperty("--i", Math.min(i, 6)); });
+        });
+        var all = document.querySelectorAll("[data-r]");
+        if (!("IntersectionObserver" in window)) { all.forEach(function (el) { el.classList.add("in"); }); return; }
+        var rev = new IntersectionObserver(function (es) {
+          es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); rev.unobserve(e.target); } });
+        }, { rootMargin: "0px 0px 10% 0px" });
+        all.forEach(function (el) { rev.observe(el); });
+      })();
+    </script>
+    <script>
+      /* Заказ прямо из меню: корзина уходит сообщением в WhatsApp выбранного кафе */
+      (function () {
+        var BR = {
+          tole: { name: "Толе би, 273/4", num: "77084004014" },
+          bukhar: { name: "Бухар жырау, 33", num: "77023641030" }
+        };
+        var STORE = "naryn_cart_v2", STORE_BR = "naryn_branch";
+        var PLUS = '<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M6 0h2v6h6v2H8v6H6V8H0V6h6z" fill="currentColor"/></svg>';
+        var MINUS = '<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M0 6h14v2H0z" fill="currentColor"/></svg>';
+        function $(id) { return document.getElementById(id); }
+        function fmt(n) { return n.toLocaleString("ru-RU") + " ₸"; }
+        function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+        function store(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+        function load(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+
+        var items = {}, cart = {}, dishes = [], keyDish = {};
+
+        /* Позиции берём из меню на странице. Варианты (объём, вкус) лежат в data-opts="вариант=цена;..." */
+        var body = $("menu-body");
+        body.querySelectorAll(".dishes li").forEach(function (li) {
+          var nameEl = li.querySelector(".dish-name"), priceEl = li.querySelector(".dish-price");
+          if (!nameEl || !priceEl) return;
+          var name = nameEl.firstChild.textContent.trim();
+          var base = li.getAttribute("data-item") || name;
+          var opts;
+          if (li.dataset.opts) {
+            opts = li.dataset.opts.split(";").map(function (p) { var kv = p.split("="); return { label: kv[0].trim(), price: +kv[1] }; });
+          } else if (priceEl.textContent.indexOf("/") === -1) {
+            opts = [{ label: "", price: parseInt(priceEl.textContent.replace(/\D/g, ""), 10) }];
+          } else {
+            return; // несколько цен без разметки: не угадываем
+          }
+          var d = { li: li, name: name, opts: opts, i: dishes.length, ctl: document.createElement("span") };
+          opts.forEach(function (o) {
+            o.key = base + "|" + o.label;
+            items[o.key] = { name: base, opt: o.label, price: o.price };
+            keyDish[o.key] = d.i;
+          });
+          d.ctl.className = "ctl";
+          li.appendChild(d.ctl);
+          li.dataset.dish = d.i;
+          dishes.push(d);
+        });
+        body.classList.add("ordering");
+
+        function label(k) { var it = items[k]; return it.name + (it.opt ? ", " + it.opt : ""); }
+        function qtyHTML(k) {
+          var l = esc(label(k)), kk = esc(k);
+          return '<span class="qty"><button type="button" data-a="dec" data-k="' + kk + '" aria-label="Убрать одну: ' + l + '">' + MINUS + '</button><span class="q">' + cart[k] + '</span><button type="button" data-a="inc" data-k="' + kk + '" aria-label="Добавить ещё: ' + l + '">' + PLUS + "</button></span>";
+        }
+        function renderDish(d) {
+          if (d.opts.length === 1) {
+            var k = d.opts[0].key;
+            d.ctl.innerHTML = cart[k] ? qtyHTML(k) : '<button type="button" class="add" data-a="inc" data-k="' + esc(k) + '" aria-label="В корзину: ' + esc(label(k)) + '">' + PLUS + "</button>";
+            return;
+          }
+          var n = 0, open = d.li.classList.contains("choosing");
+          d.opts.forEach(function (o) { n += cart[o.key] || 0; });
+          d.ctl.innerHTML = '<button type="button" class="add' + (n ? " has" : "") + '" data-a="pick" aria-expanded="' + open + '" aria-label="Выбрать вариант: ' + esc(d.name) + (n ? ", в корзине " + n : "") + '">' + (n ? '<span class="n">' + n + "</span>" : PLUS) + "</button>";
+          var ch = d.li.querySelector(".choice");
+          if (!open) { if (ch) ch.remove(); return; }
+          if (!ch) {
+            ch = document.createElement("div");
+            ch.className = "choice";
+            ch.setAttribute("role", "group");
+            ch.setAttribute("aria-label", "Варианты: " + d.name);
+            d.li.appendChild(ch);
+          }
+          var same = d.opts.every(function (o) { return o.price === d.opts[0].price; });
+          ch.innerHTML = d.opts.map(function (o) {
+            var c = cart[o.key] || 0;
+            return '<button type="button" data-a="inc" data-k="' + esc(o.key) + '" aria-label="Добавить: ' + esc(label(o.key)) + ", " + fmt(o.price) + (c ? ", в корзине " + c : "") + '">' + esc(o.label) + (same ? "" : '<span class="pr">' + fmt(o.price) + "</span>") + (c ? '<span class="c">' + c + "</span>" : "") + "</button>";
+          }).join("");
+        }
+
+        function totals() {
+          var n = 0, s = 0;
+          for (var k in cart) { n += cart[k]; s += cart[k] * items[k].price; }
+          return { n: n, s: s };
+        }
+        function renderCart() {
+          var t = totals(), keys = Object.keys(cart);
+          $("cart-n").textContent = t.n;
+          $("cart-sum").textContent = fmt(t.s);
+          $("cart-total").textContent = fmt(t.s);
+          $("cartbar").classList.toggle("show", t.n > 0);
+          $("cart-form").hidden = !keys.length;
+          $("cart-foot").hidden = !keys.length;
+          $("cart-lines").innerHTML = keys.length ? keys.map(function (k) {
+            var it = items[k];
+            return '<div class="line"><div class="n">' + esc(it.name) + (it.opt ? "<small>" + esc(it.opt) + "</small>" : "") + "</div>" + qtyHTML(k) + '<div class="s">' + fmt(it.price * cart[k]) + "</div></div>";
+          }).join("") : '<p class="cart-empty">Корзина пуста. Добавьте блюда из&nbsp;меню.</p>';
+          store(STORE, JSON.stringify(cart));
+        }
+        function change(k, delta) {
+          cart[k] = (cart[k] || 0) + delta;
+          if (cart[k] <= 0) delete cart[k];
+          renderDish(dishes[keyDish[k]]);
+          renderCart();
+          $("cart-live").textContent = label(k) + ": " + (cart[k] || 0) + " шт. Итого " + fmt(totals().s);
+        }
+
+        // кнопки в меню и в корзине; после перерисовки возвращаем фокус на кнопку-замену
+        document.addEventListener("click", function (e) {
+          var b = e.target.closest("button[data-a]");
+          if (!b || !b.closest("#menu-body, #cartwrap")) return;
+          var a = b.dataset.a, k = b.dataset.k, scope = b.closest("li") || $("cart-lines");
+          if (a === "pick") {
+            var d = dishes[+scope.dataset.dish];
+            d.li.classList.toggle("choosing");
+            renderDish(d);
+          } else {
+            change(k, a === "inc" ? 1 : -1);
+          }
+          if (document.contains(b)) return;
+          var next = null;
+          scope.querySelectorAll("button[data-a]").forEach(function (x) { if (!next && x.dataset.a === a && x.dataset.k === k) next = x; });
+          (next || scope.querySelector("button") || $("cart-close")).focus();
+        });
+
+        // сохранённая корзина и кафе
+        try {
+          var saved = JSON.parse(load(STORE) || "{}");
+          for (var sk in saved) if (items[sk] && saved[sk] > 0) cart[sk] = saved[sk];
+        } catch (e) {}
+        dishes.forEach(renderDish);
+        renderCart();
+
+        function setBranch(b) {
+          if (!BR[b]) return;
+          document.querySelector('input[name="c-branch"][value="' + b + '"]').checked = true;
+          store(STORE_BR, b);
+        }
+        setBranch(new URLSearchParams(location.search).get("b") || load(STORE_BR) || "tole");
+        document.querySelectorAll("input[name=c-branch]").forEach(function (r) { r.addEventListener("change", function () { store(STORE_BR, r.value); }); });
+        document.querySelectorAll("[data-order]").forEach(function (a) { a.addEventListener("click", function () { setBranch(a.dataset.order); }); });
+
+        // открыть / закрыть
+        var wrap = $("cartwrap");
+        var behind = [document.querySelector("main"), document.querySelector(".foot"), $("cartbar")];
+        function openCart() {
+          wrap.classList.add("open");
+          document.documentElement.classList.add("lock");
+          behind.forEach(function (el) { el.inert = true; });
+          $("c-sent").classList.remove("on");
+          $("cart-close").focus();
+        }
+        function closeCart() {
+          if (!wrap.classList.contains("open")) return;
+          wrap.classList.remove("open");
+          document.documentElement.classList.remove("lock");
+          behind.forEach(function (el) { el.inert = false; });
+          if (totals().n) $("cart-open").focus({ preventScroll: true });
+        }
+        $("cart-open").addEventListener("click", openCart);
+        $("cart-close").addEventListener("click", closeCart);
+        $("cart-overlay").addEventListener("click", closeCart);
+        document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeCart(); });
+        $("c-clear").addEventListener("click", function () {
+          var touched = Object.keys(cart).map(function (k) { return dishes[keyDish[k]]; });
+          for (var k in cart) delete cart[k];
+          touched.forEach(renderDish);
+          renderCart();
+          $("cart-live").textContent = "Корзина очищена";
+          $("cart-close").focus();
+        });
+
+        // получение
+        function delivery() { return document.querySelector("input[name=c-mode]:checked").value === "delivery"; }
+        function syncMode() {
+          $("c-addr-f").hidden = !delivery();
+          $("cart-note").textContent = delivery() ? "Стоимость доставки кафе назовёт, когда перезвонит." : "Заберёте заказ сами в кафе.";
+        }
+        document.querySelectorAll("input[name=c-mode]").forEach(function (r) { r.addEventListener("change", syncMode); });
+        syncMode();
+
+        // проверка: ошибка после ухода из поля, исчезает при вводе
+        var checks = {
+          "c-name": function (v) { return v.trim().length > 0; },
+          "c-phone": function (v) { return v.replace(/\D/g, "").length >= 10; },
+          "c-addr": function (v) { return v.trim().length > 0; }
+        };
+        Object.keys(checks).forEach(function (id) {
+          var el = $(id), f = $(id + "-f");
+          el.addEventListener("input", function () { el.dataset.dirty = 1; f.classList.remove("bad"); });
+          el.addEventListener("blur", function () { if (el.dataset.dirty && !checks[id](el.value)) f.classList.add("bad"); });
+        });
+
+        $("c-send").addEventListener("click", function () {
+          var need = ["c-name", "c-phone"].concat(delivery() ? ["c-addr"] : []);
+          var bad = need.filter(function (id) { return !checks[id]($(id).value); });
+          need.forEach(function (id) { $(id + "-f").classList.toggle("bad", bad.indexOf(id) > -1); });
+          if (bad.length) { $(bad[0]).focus(); return; }
+
+          var b = BR[document.querySelector("input[name=c-branch]:checked").value];
+          var v = function (id) { return $(id).value.trim(); };
+          var msg = "*Заказ в Naryn, " + b.name + "*\n\n";
+          Object.keys(cart).forEach(function (k) {
+            var it = items[k];
+            msg += "• " + it.name + (it.opt ? " (" + it.opt + ")" : "") + " × " + cart[k] + " = " + fmt(it.price * cart[k]) + "\n";
+          });
+          msg += "\n*Итого: " + fmt(totals().s) + "*\n\n";
+          msg += delivery() ? "Доставка: " + v("c-addr") + "\n" : "Самовывоз\n";
+          msg += "Имя: " + v("c-name") + "\nТелефон: " + v("c-phone") + "\n";
+          if (v("c-comment")) msg += "Комментарий: " + v("c-comment") + "\n";
+
+          var a = document.createElement("a");
+          a.href = "https://wa.me/" + b.num + "?text=" + encodeURIComponent(msg);
+          a.target = "_blank";
+          a.rel = "noopener";
+          a.click();
+          $("c-sent").classList.add("on");
+        });
+      })();
+    </script>
+  </body>
+</html>
