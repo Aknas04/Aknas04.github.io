@@ -175,18 +175,19 @@
       .pair img.r { right: var(--m); }
 
       /* Отзывы */
-      .reviews { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; padding: var(--gap) var(--m) 0; }
-      .portrait { grid-column: 2 / 6; aspect-ratio: 3 / 4; max-height: 70svh; background: var(--surface); display: grid; place-items: center; overflow: hidden; }
+      .reviews { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: center; padding: var(--gap) var(--m) 0; }
+      .rev-pics { grid-column: 1 / 7; position: relative; padding: 0 20% 14% 0; }
+      .portrait { aspect-ratio: 4 / 5; max-height: 72svh; background: var(--surface); display: grid; place-items: center; overflow: hidden; }
       .portrait img { width: 100%; height: 100%; object-fit: cover; transition: transform 1200ms var(--ease); }
       .portrait:hover img { transform: scale(1.04); }
-      .quote { grid-column: 7 / 13; padding-top: 120px; }
+      .quote { grid-column: 8 / 13; }
       .quote h2 { margin-bottom: 32px; }
       .quote blockquote { font-size: var(--step-lead); line-height: 1.3; letter-spacing: -0.015em; max-width: 28ch; }
       .quote blockquote p + p { margin-top: 0.6em; }
       .quote .who { margin-top: 32px; }
       .quote .who p:first-child { font-weight: 500; color: var(--gold-text); }
       .quote .who .link { display: inline-block; margin-top: 10px; }
-      .quote-pic { width: min(240px, 40%); margin: 96px 16% 0 auto; aspect-ratio: 1; background: var(--surface); overflow: hidden; }
+      .quote-pic { position: absolute; right: 0; bottom: 0; width: 40%; margin: 0; aspect-ratio: 1; background: var(--surface); overflow: hidden; box-shadow: 0 0 0 10px var(--bg); }
       .quote-pic img { width: 100%; height: 100%; object-fit: cover; }
 
       /* Бронь */
@@ -384,9 +385,10 @@
         .pair img { width: 44vw; }
         .pair img.l { top: 7svh !important; left: var(--m); }
         .pair img.r { top: 27svh !important; right: var(--m); }
-        .portrait { width: 72%; max-height: none; }
-        .quote { padding-top: 32px; }
-        .quote-pic { width: 44%; margin: 48px 0 0 auto; }
+        .rev-pics { padding: 0 22% 16% 0; }
+        .portrait { max-height: none; }
+        .quote { padding-top: 40px; }
+        .quote-pic { width: 46%; box-shadow: 0 0 0 6px var(--bg); }
         .book-form { margin-top: 32px; }
         .branches { grid-template-columns: 1fr; }
         .visit { min-height: 0; padding-bottom: 0; }
@@ -919,7 +921,10 @@
       </section>
 
       <section class="reviews" id="reviews" aria-labelledby="reviews-h">
-        <figure class="portrait" data-r><img src="../naryn/photos/lagman.jpg" width="1000" height="1174" alt="Лагман с говядиной и перцем на столе в Naryn" data-ia="alt:altLagman" loading="lazy" decoding="async" /></figure>
+        <div class="rev-pics">
+          <figure class="portrait" data-r><img src="../naryn/photos/lagman.jpg" width="1000" height="1174" alt="Лагман с говядиной и перцем на столе в Naryn" data-ia="alt:altLagman" loading="lazy" decoding="async" /></figure>
+          <figure class="quote-pic" data-r><img src="../naryn/photos/khachapuri.jpg" width="900" height="1056" alt="Хачапури по-мегрельски" data-ia="alt:altKhach" loading="lazy" decoding="async" /></figure>
+        </div>
         <div class="quote">
           <h2 id="reviews-h" data-r data-i="revH">Что пишут гости</h2>
           <blockquote data-r>
@@ -930,7 +935,6 @@
             <p data-i="revWho">Пересказ отзывов в&nbsp;2ГИС</p>
             <a class="link" href="https://2gis.kz/almaty/firm/70000001114687713/tab/reviews" target="_blank" rel="noopener" data-i="revLink">Читать в&nbsp;2ГИС</a>
           </div>
-          <figure class="quote-pic" data-r><img src="../naryn/photos/khachapuri.jpg" width="900" height="1056" alt="Хачапури по-мегрельски" data-ia="alt:altKhach" loading="lazy" decoding="async" /></figure>
         </div>
       </section>
 
